@@ -1,4 +1,4 @@
-use Test::More tests => 8;
+use Test::More tests => 9;
 
 package Foo;
 use Mo;
@@ -54,6 +54,8 @@ is $bar->this, 'thang', 'Write works';
 my $baz = Baz->new;
 is $baz->foo, 5, 'BUILD works';
 
+$_ = 5;
 my $maz = Maz->new;
+is $_, 5, '$_ is untouched';
 is $maz->foo, 5, 'BUILD works again';
 is $maz->bar, 7, 'BUILD works in parent class';

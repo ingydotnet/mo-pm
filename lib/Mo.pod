@@ -10,15 +10,24 @@ Mo - Micro Objects
     use Mo 'Cow Bell';
     extends 'SNL';
 
-    has noise => (is =>'ro');
+    has noise;
+
+    sub BUILD {
+        my $self = shift;
+        $self->SUPER::BUILD();
+        # ... 
+   }
 
 =head1 DESCRIPTION
 
 Moose led to Mouse led to Moo led to Mo. M, anyone?
 
+This is a minimalistic object oriented sugar.
+
 =head1 AUTHOR
 
 Ingy döt Net <ingy@cpan.org>
+Damien 'dams' Krotkine <dams@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
