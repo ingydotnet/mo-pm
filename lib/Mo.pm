@@ -26,10 +26,7 @@ sub new {
 sub has {
     my $name = shift;
     no strict 'refs';
-    *{caller."::$name"} = sub {
-        my $self = shift;
-        @_ ? $self->{$name} = $_[0] : $self->{$name}
-    };
+    *{caller."::$name"} = sub { @_-1 ? $_[0]->{$name} = $_[1] : $_[0]->{$name} };
 }
 
 sub extends {
