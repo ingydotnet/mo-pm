@@ -4,6 +4,7 @@ our $VERSION = '0.11';
 
 sub import {
     my $p = caller;
+    *{$p.'::new'} = sub { bless { @_[1..$#_] }, $p };
     *{$p.'::extends'} = sub { @{caller.'::ISA'} = $_[0] };
     *{$p.'::has'} = sub {
         my $n = $_[0];
@@ -11,7 +12,5 @@ sub import {
     };
     push @{$p.'::ISA'}, $_[0];
 }
-
-sub new { bless { @_[1..$#_] }, $_[0] }
 
 1;
