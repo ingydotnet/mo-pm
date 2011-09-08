@@ -1,0 +1,32 @@
+=encoding utf8
+
+=head1 NAME
+
+Mo - Micro Objects
+
+=head1 SYNOPSIS
+
+    package Reaper;
+    use Mo 'Cow Bell';
+    extends 'SNL';
+
+    has noise => (is =>'ro');
+
+=head1 DESCRIPTION
+
+Moose led to Mouse led to Moo led to Mo. M, anyone?
+
+=head1 AUTHOR
+
+Ingy döt Net <ingy@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (c) 2011. Ingy döt Net.
+
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
+See http://www.perl.com/perl/misc/Artistic.html
+
+=cut

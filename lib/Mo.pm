@@ -1,16 +1,9 @@
-##
-# name:      Mo
-# abstract:  Micro Objects
-# author:    Ingy döt Net <ingy@cpan.org>
-# license:   perl
-# copyright: 2011
-
 use 5.010;
 package Mo;
 use strict;
 use warnings;
 
-our $VERSION = '0.10';
+our $VERSION = '0.11';
 
 use base 'Exporter';
 
@@ -51,15 +44,3 @@ sub extends {
 }
 
 1;
-
-=head1 SYNOPSIS
-
-    package Reaper;
-    use Mo 'Cow Bell';
-    extends 'SNL';
-
-    has noise => (is =>'ro');
-
-=head1 DESCRIPTION
-
-Moose led to Mouse led to Moo led to Mo. M, anyone?

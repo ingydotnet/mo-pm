@@ -1,4 +1,9 @@
 ---
+version: 0.11
+date:    Thu Sep  8 15:36:35 CEST 2011
+changes:
+- Move doc from pm to pod
+---
 version: 0.10
 date:    Thu Sep  8 15:24:03 CEST 2011
 changes:
