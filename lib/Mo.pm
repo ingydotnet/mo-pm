@@ -12,6 +12,6 @@ sub import {
     push @{$p.'::ISA'}, $_[0];
 }
 
-sub new { bless { @_[1..$#_] }, $_[0] }
+sub new { $_ = bless { @_[1..$#_] }, $_[0]; $_->can('BUILD') && $_->BUILD; $_ }
 
 1;
