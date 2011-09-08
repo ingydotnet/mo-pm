@@ -1,0 +1,28 @@
+NAME
+    Mo - Micro Objects
+
+SYNOPSIS
+        package Reaper;
+        use Mo 'Cow Bell';
+        extends 'SNL';
+
+        has 'will' => (is => 'ro');
+
+DESCRIPTION
+    Mo is gives you a "new" constructor, "has" accessors and "extends" in
+    one file called Mo.pm. That's all.
+
+    Moose led to Mouse led to Moo led to Mo. I'm sure when Mo is too much
+    Moose, someone will make M.
+
+AUTHOR
+    Ingy döt Net <ingy@ingy.pm>
+
+COPYRIGHT AND LICENSE
+    Copyright (c) 2011. Ingy döt Net.
+
+    This program is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+
+    See http://www.perl.com/perl/misc/Artistic.html
+
