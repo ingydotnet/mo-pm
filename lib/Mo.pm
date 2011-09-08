@@ -1,35 +1,17 @@
-use 5.010;
 package Mo;
-use strict;
-use warnings;
 
 our $VERSION = '0.11';
 
-use base 'Exporter';
-
-our @EXPORT = qw(extends has);
-
 sub import {
-    my $class = $_[0];
-    strict->import;
-    warnings->import;
-    no strict 'refs';
-    push @{caller.'::ISA'}, $class;
-    goto &Exporter::import;
+    my $p = caller;
+    *{$p.'::extends'} = sub { @{caller.'::ISA'} = $_[0] };
+    *{$p.'::has'} = sub {
+        my $n = $_[0];
+        *{caller."::$n"} = sub { @_-1 ? $_[0]->{$n} = $_[1] : $_[0]->{$n} };
+    };
+    push @{$p.'::ISA'}, $_[0];
 }
 
-sub new {
-    my $class = shift;
-    bless {@_}, $class;
-}
-
-no strict 'refs';
-
-sub has {
-    my $name = shift;
-    *{caller."::$name"} = sub { @_-1 ? $_[0]->{$name} = $_[1] : $_[0]->{$name} };
-}
-
-sub extends { @{caller.'::ISA'} = $_[0] }
+sub new { bless { @_[1..$#_] }, $_[0] }
 
 1;
