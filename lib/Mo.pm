@@ -11,29 +11,27 @@ our @EXPORT = qw(extends has);
 
 sub import {
     my $class = $_[0];
-    my $pkg = caller;
     strict->import;
     warnings->import;
     no strict 'refs';
-    push @{"${pkg}::ISA"}, $class;
+    push @{caller.'::ISA'}, $class;
     goto &Exporter::import;
 }
 
 sub new {
     my $class = shift;
-    my $self = bless {@_}, $class;
+    bless {@_}, $class;
 }
 
 sub has {
     my $name = shift;
-    my $pkg = caller;
     my $has = sub {
         my $self = shift;
         return $self->{$name} unless @_;
         return $self->{$name} = $_[0];
     };
     no strict 'refs';
-    *{"${pkg}::$name"} = $has;
+    *{caller."::$name"} = $has;
 }
 
 sub extends {
