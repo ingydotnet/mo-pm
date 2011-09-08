@@ -14,8 +14,8 @@ sub import {
             };
         },
     );
-    *{$p."::$_"} = $m{$_} for keys %m;
-    push @{ $p . '::ISA' }, $_[0];
+    *{ "$p\::$_" } = $m{$_} for keys %m;
+    push @{ "$p\::ISA" }, $_[0];
 }
 
 1;
