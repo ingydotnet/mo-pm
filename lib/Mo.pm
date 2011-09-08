@@ -23,17 +23,13 @@ sub new {
     bless {@_}, $class;
 }
 
+no strict 'refs';
+
 sub has {
     my $name = shift;
-    no strict 'refs';
     *{caller."::$name"} = sub { @_-1 ? $_[0]->{$name} = $_[1] : $_[0]->{$name} };
 }
 
-sub extends {
-    my $parent = shift;
-    my $pkg = caller;
-    no strict 'refs';
-    @{"${pkg}::ISA"} = ($parent);
-}
+sub extends { @{caller.'::ISA'} = $_[0] }
 
 1;
