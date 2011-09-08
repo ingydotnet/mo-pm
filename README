@@ -6,17 +6,13 @@ SYNOPSIS
         use Mo 'Cow Bell';
         extends 'SNL';
 
-        has 'will' => (is => 'ro');
+        has noise => (is =>'ro');
 
 DESCRIPTION
-    Mo is gives you a "new" constructor, "has" accessors and "extends" in
-    one file called Mo.pm. That's all.
-
-    Moose led to Mouse led to Moo led to Mo. I'm sure when Mo is too much
-    Moose, someone will make M.
+    Moose led to Mouse led to Moo led to Mo. M, anyone?
 
 AUTHOR
-    Ingy döt Net <ingy@ingy.pm>
+    Ingy döt Net <ingy@cpan.org>
 
 COPYRIGHT AND LICENSE
     Copyright (c) 2011. Ingy döt Net.
