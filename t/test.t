@@ -1,4 +1,4 @@
-use Test::More tests => 5;
+use Test::More tests => 8;
 
 package Foo;
 use Mo;
@@ -10,6 +10,10 @@ use Mo;
 extends 'Foo';
 
 has 'that';
+
+package Baz;
+
+@ISA = qw( Bar );
 
 package main;
 
@@ -28,3 +32,13 @@ is $bar->that, 'thong', 'Read works in parent class';
 $bar->this('thang');
 
 is $bar->this, 'thang', 'Write works';
+
+my $baz = Baz->new(
+    this => 'thong',
+    that => 'thing',
+);
+
+is ref( $baz ), 'Baz', 'Object created';
+
+is $baz->this, 'thong', 'Read works';
+is $baz->that, 'thing', 'Read works in parent class';
