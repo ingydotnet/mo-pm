@@ -57,7 +57,8 @@ has takes arguments after the name. Here is what it currently supports :
 =item default
 
 Should be a code reference, takes in argument the object instance only, and
-should return the default value for this attribute.
+should return the default value for this attribute. The attribute is lazy,
+meaning it gets created only when needed
 
 =back
 
