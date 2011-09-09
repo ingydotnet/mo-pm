@@ -47,13 +47,22 @@ Mo exports a C<has> keyword, to generate accessors.
 
 These accessors support C<get> and C<set> operations. That's it.
 
-Any extra arguments after the name, are silently ignored.
-
     has 'name';
-    has 'same' => ( is => 'ro' );
+    has 'name' => ( default => sub { 'joe' } );
 
-This lets you switch from Moo to Mo and back, without having to change all
-your accessors.
+has takes arguments after the name. Here is what it currently supports :
+
+=over
+
+=item default
+
+Should be a code reference, takes in argument the object instance only, and
+should return the default value for this attribute.
+
+=back
+
+Any other arguments are ignored. This lets you switch from Moo to Mo and back,
+without having to change all your accessors.
 
 =item C<strict> and C<warnings>
 
