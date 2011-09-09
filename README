@@ -44,7 +44,8 @@ FEATURES
             has 'same' => ( is => 'ro' );
 
         This lets you switch from Moo to Mo and back, without having to
-        change all your accessors.
+        change all your accessors.. The attribute is lazy, meaning
+        it gets created only when needed.
 
     "strict" and "warnings"
         Mo turns on "use strict" and "use warnings".
