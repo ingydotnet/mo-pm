@@ -8,9 +8,8 @@ sub import {
     *{$p.'::extends'} = sub { @{(caller).'::ISA'} = $_[0] };
     *{$p.'::has'} = sub {
         my ($n, %a) = @_;
-        *{(caller)."::$n"} = sub {
-            @_-1 ? $_[0]->{$n} = $_[1] : $_[0]->{$n} //= ($a{default}//sub{})->($_[0])
-        };
+        *{caller."::$n"} =
+          sub {@_-1?$_[0]{$n}=$_[1]:$_[0]{$n}//=($a{default}//sub{})->($_[0])}
     };
 }
 sub new {
