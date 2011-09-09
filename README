@@ -1,18 +1,60 @@
 NAME
-    Mo - Micro Objects
+    Mo - Micro Objects. Mo is less.
 
 SYNOPSIS
-        package Reaper;
-        use Mo 'Cow Bell';
-        extends 'SNL';
+        package Less;
+        use Mo;
+        extends 'Nothing';
 
-        has noise => (is =>'ro');
+        has 'something' => ( is => 'rw' );
+
+        sub BUILD {
+            my $self = shift;
+            $self->SUPER::BUILD();
+            # ... 
+        }
 
 DESCRIPTION
-    Moose led to Mouse led to Moo led to Mo. M, anyone?
+    use Mo. Mo is less.
 
-AUTHOR
+    Moose led to Mouse led to Moo led to Mo. M is nothing. Mo is more. Not
+    much.
+
+    When Moo is more than you need, drop an 'o' and get some Mo.
+
+FEATURES
+    This is what you get. Nothing Mo.
+
+    "new" method
+        Mo provides a "new" object constructor. It will call the "BUILD"
+        method after creation if it "can".
+
+    "extends"
+        Mo exports the "extends" keyword, to name your parent class. "Mo"
+        itself is your default parent class, of course.
+
+    "has"
+        Mo exports a "has" keyword, to generate accessors.
+
+        These accessors support "get" and "set" operations. That's it.
+
+        Any extra arguments after the name, are silently ignored.
+
+            has 'name';
+            has 'same' => ( is => 'ro' );
+
+        This lets you switch from Moo to Mo and back, without having to
+        change all your accessors.
+
+    "strict" and "warnings"
+        Mo turns on "use strict" and "use warnings".
+
+    Embeddable
+        Mo is tiny. You can easily inline it in your code, if you want to.
+
+AUTHORS
     Ingy döt Net <ingy@cpan.org>
+
     Damien 'dams' Krotkine <dams@cpan.org>
 
 COPYRIGHT AND LICENSE

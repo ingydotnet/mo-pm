@@ -1,4 +1,10 @@
 ---
+version: 0.12
+date:    Fri Sep  9 07:52:13 CEST 2011
+changes:
+- dams++ golfing
+- Upgrade docs
+---
 version: 0.11
 date:    Thu Sep  8 15:36:35 CEST 2011
 changes:

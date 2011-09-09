@@ -2,31 +2,73 @@
 
 =head1 NAME
 
-Mo - Micro Objects
+Mo - Micro Objects. Mo is less.
 
 =head1 SYNOPSIS
 
-    package Reaper;
-    use Mo 'Cow Bell';
-    extends 'SNL';
+    package Less;
+    use Mo;
+    extends 'Nothing';
 
-    has noise;
+    has 'something' => ( is => 'rw' );
 
     sub BUILD {
         my $self = shift;
         $self->SUPER::BUILD();
         # ... 
-   }
+    }
 
 =head1 DESCRIPTION
 
-Moose led to Mouse led to Moo led to Mo. M, anyone?
+use Mo. Mo is less.
 
-This is a minimalistic object oriented sugar.
+Moose led to Mouse led to Moo led to Mo. M is nothing. Mo is more. Not much.
 
-=head1 AUTHOR
+When Moo is more than you need, drop an 'o' and get some Mo.
+
+=head1 FEATURES
+
+This is what you get. Nothing Mo.
+
+=over
+
+=item C<new> method
+
+Mo provides a C<new> object constructor. It will call the C<BUILD> method after creation if it C<can>.
+
+=item C<extends>
+
+Mo exports the C<extends> keyword, to name your parent class. C<Mo> itself is
+your default parent class, of course.
+
+=item C<has>
+
+Mo exports a C<has> keyword, to generate accessors.
+
+These accessors support C<get> and C<set> operations. That's it.
+
+Any extra arguments after the name, are silently ignored.
+
+    has 'name';
+    has 'same' => ( is => 'ro' );
+
+This lets you switch from Moo to Mo and back, without having to change all
+your accessors.
+
+=item C<strict> and C<warnings>
+
+Mo turns on C<use strict> and C<use warnings>.
+
+=item Embeddable
+
+Mo is tiny. You can easily inline it in your code, if you want to.
+
+=back
+
+=head1 AUTHORS
 
 Ingy döt Net <ingy@cpan.org>
+
 Damien 'dams' Krotkine <dams@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
