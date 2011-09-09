@@ -1,4 +1,4 @@
-use Test::More tests => 9;
+use Test::More tests => 11;
 
 package Foo;
 use Mo;
@@ -10,6 +10,8 @@ use Mo;
 extends 'Foo';
 
 has 'that';
+has plop => ( default => sub { 42 } );;
+has 'plip';
 
 package Baz;
 use Mo;
@@ -46,6 +48,8 @@ ok $bar->isa('Foo'), 'Inheritance works';
 
 is $bar->this, 'thing', 'Read works';
 is $bar->that, 'thong', 'Read works in parent class';
+is $bar->plop, 42, 'default works';
+is $bar->plip, undef, 'default works';
 
 $bar->this('thang');
 
@@ -59,3 +63,4 @@ my $maz = Maz->new;
 is $_, 5, '$_ is untouched';
 is $maz->foo, 5, 'BUILD works again';
 is $maz->bar, 7, 'BUILD works in parent class';
+
