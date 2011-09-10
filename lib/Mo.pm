@@ -13,5 +13,5 @@ sub import {
     };
 }
 sub new {
-    my $s = bless { @_[1..$#_] }, $_[0]; $s->can('BUILD') && $s->BUILD; $s
+    my $s = bless { @_[1..$#_] }, $_[0]; $_->can('BUILD') && &{$_.'::BUILD'}($s) for (@{$_[0].'::ISA'},$_[0]); $s
 }
