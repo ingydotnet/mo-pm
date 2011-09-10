@@ -1,4 +1,9 @@
 ---
+version: 0.15
+date:    Sat Sep 10 23:40:23 CEST 2011
+changes:
+- extends did load parent module. fixed.
+---
 version: 0.14
 date:    Sat Sep 10 22:25:40 CEST 2011
 changes:
