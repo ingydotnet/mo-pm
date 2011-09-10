@@ -1,4 +1,9 @@
 ---
+version: 0.16
+date:    Sun Sep 11 01:31:30 CEST 2011
+changes:
+- extends can handle multiple parents
+---
 version: 0.15
 date:    Sat Sep 10 23:40:23 CEST 2011
 changes:

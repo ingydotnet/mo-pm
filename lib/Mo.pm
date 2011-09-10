@@ -1,6 +1,6 @@
-package Mo; require strict; require warnings; $Mo::VERSION = '0.15';
+package Mo; require strict; require warnings; $Mo::VERSION = '0.16';
 sub import {strict->import;warnings->import;my $p=caller;@{$p.'::ISA'}=$_[0];
-  *{$p.'::extends'} = sub {@{(caller).'::ISA'} = $_[0];  eval "require $_[0]"};
+  *{$p.'::extends'} = sub {@{(caller).'::ISA'}=@_;eval "require $_" for @_};
   *{$p.'::has'} = sub { my ($n, %a) = @_; my($d,$b)=@a{qw(default builder)};
   *{(caller)."::$n"} = $d ? sub { $#_ ? ($_[0]{$n} = $_[1]) : (exists $_[0]{$n})
       ? $_[0]{$n} : ($_[0]{$n} = $d->($_[0])) } :
