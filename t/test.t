@@ -1,6 +1,6 @@
 use Test::More;
 
-plan tests => 37;
+plan tests => 39;
 
 #============
 package Foo;
@@ -51,6 +51,12 @@ has plop => (
     default => sub { my $self = shift; "plop: " . $self->that },
 );
 has 'plip';
+has bridge => builder => 'bridge_builder';
+use constant bridge_builder => 'A Bridge';
+has guess => (
+    default => sub {'me me me'},
+    builder => 'bridge_builder',
+);
 
 #============
 package main;
@@ -83,6 +89,8 @@ is $b->plop, 'plop: thung', 'default works again';
 $b->that("thyng");
 is $b->plop, 'plop: thung', 'default works again';
 is $b->plip, undef, 'no default is undef';
+is $b->bridge, 'A Bridge', 'builder works';
+is $b->guess, 'me me me', 'default trumps builder';
 
 #============
 package Baz;

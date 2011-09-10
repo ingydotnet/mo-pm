@@ -1,8 +1,9 @@
 ---
 version: 0.14
-date:    
+date:    Sat Sep 10 22:25:40 CEST 2011
 changes:
 - Make default called on exists rather than undef
+- Add builder. Very cheap to do so.
 ---
 version: 0.13
 date:    Fri Sep  9 19:15:05 CEST 2011

@@ -26,7 +26,7 @@ Mo - Micro Objects. Mo is less.
 
 =head1 DESCRIPTION
 
-use Mo. Mo is less.
+use Mo. Mo is less. Much less.
 
 Moose led to Mouse led to Moo led to Mo. M is nothing. Mo is more. Not much.
 
@@ -42,6 +42,9 @@ This is what you get. Nothing Mo.
 
 Mo provides a C<new> object constructor. It will call the C<BUILD> method
 after creation if it C<can>.
+
+NOTE: Unlike other Moose modules, BUILD is not called in a chained fashion.
+You would need to call C<SUPER::BUILD> yourself, if you needed that.
 
 =item C<extends>
 
@@ -64,8 +67,15 @@ C<has> takes arguments after the name. Here is what it currently supports:
 
 =item default
 
-Should be a code reference. The object instance is passed in, and it should
-return the default value for this attribute. Default is always called lazily.
+Must be a code reference. The object instance is passed in, and it should
+return the default value for this attribute. C<default> is always called
+lazily. ie It is called when you try to get the value and it does
+not(exists()).
+
+=item builder
+
+Must be a method name. This method should return the default value for this
+attribute. C<builder> is always called lazily.
 
 =back
 
@@ -74,11 +84,13 @@ without having to change all your accessors.
 
 =item C<strict> and C<warnings>
 
-Mo turns on C<use strict> and C<use warnings>.
+Mo turns on C<use strict> and C<use warnings> for you.
 
 =item Embeddable
 
-Mo is tiny. You can easily inline it in your code, if you want to.
+Mo is tiny. It is currently 10 lines, <= 80 chars.
+
+You could easily inline it in your code, if you wanted to.
 
 =back
 
