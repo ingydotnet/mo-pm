@@ -10,7 +10,13 @@ Mo - Micro Objects. Mo is less.
     use Mo;
     extends 'Nothing';
 
-    has 'something' => ( is => 'rw' );
+    has 'something' => (
+        is => 'rw',
+        default => sub {
+            my $self = shift;
+            $self->build_something;
+        },
+    );
 
     sub BUILD {
         my $self = shift;
@@ -34,7 +40,8 @@ This is what you get. Nothing Mo.
 
 =item C<new> method
 
-Mo provides a C<new> object constructor. It will call the C<BUILD> method after creation if it C<can>.
+Mo provides a C<new> object constructor. It will call the C<BUILD> method
+after creation if it C<can>.
 
 =item C<extends>
 
@@ -45,19 +52,20 @@ your default parent class, of course.
 
 Mo exports a C<has> keyword, to generate accessors.
 
-These accessors support C<get> and C<set> operations. That's it.
+These accessors support C<get> and C<set> operations and allows a C<default>.
+That's it.
 
     has 'name';
-    has 'name' => ( default => sub { 'joe' } );
+    has 'name' => ( default => sub { 'Joe' } );
 
-has takes arguments after the name. Here is what it currently supports :
+C<has> takes arguments after the name. Here is what it currently supports:
 
 =over
 
 =item default
 
-Should be a code reference, takes in argument the object instance only, and
-should return the default value for this attribute.
+Should be a code reference. The object instance is passed in, and it should
+return the default value for this attribute. Default is always called lazily.
 
 =back
 

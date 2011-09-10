@@ -1,4 +1,14 @@
 ---
+version: 0.14
+date:    
+changes:
+- Make default called on exists rather than undef
+---
+version: 0.13
+date:    Fri Sep  9 19:15:05 CEST 2011
+changes:
+- dams++ adds 'default' for 'has'
+---
 version: 0.12
 date:    Fri Sep  9 07:52:13 CEST 2011
 changes:

@@ -6,7 +6,13 @@ SYNOPSIS
         use Mo;
         extends 'Nothing';
 
-        has 'something' => ( is => 'rw' );
+        has 'something' => (
+            is => 'rw',
+            default => sub {
+                my $self = shift;
+                $self->build_something;
+            },
+        );
 
         sub BUILD {
             my $self = shift;
@@ -36,15 +42,22 @@ FEATURES
     "has"
         Mo exports a "has" keyword, to generate accessors.
 
-        These accessors support "get" and "set" operations. That's it.
-
-        Any extra arguments after the name, are silently ignored.
+        These accessors support "get" and "set" operations and allows a
+        "default". That's it.
 
             has 'name';
-            has 'same' => ( is => 'ro' );
+            has 'name' => ( default => sub { 'Joe' } );
 
-        This lets you switch from Moo to Mo and back, without having to
-        change all your accessors.
+        "has" takes arguments after the name. Here is what it currently
+        supports:
+
+        default
+            Should be a code reference. The object instance is passed in,
+            and it should return the default value for this attribute.
+            Default is always called lazily.
+
+        Any other arguments are ignored. This lets you switch from Moo to Mo
+        and back, without having to change all your accessors.
 
     "strict" and "warnings"
         Mo turns on "use strict" and "use warnings".
