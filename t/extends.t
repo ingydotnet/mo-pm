@@ -7,7 +7,7 @@ my $b = Bar->new;
 
 ok $b->isa('Foo'), 'Bar is a subclass of Foo';
 
-is "@Bar::ISA", "Foo Boo", 'Extends adds multiple classes';
+is "@Bar::ISA", "Foo", 'Extends with multiple classes not supported';
 
 ok 'Foo'->can('stuff'), 'Foo is loaded';
-ok 'Bar'->can('buff'), 'Boo is loaded';
+ok not('Bar'->can('buff')), 'Boo is not loaded';

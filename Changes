@@ -1,4 +1,10 @@
 ---
+version: 0.21
+date:    
+changes:
+- Add Design doc
+- Remove multiple inheritance
+---
 version: 0.20
 date:    Sun Sep 11 11:58:51 CEST 2011
 changes:

@@ -1,6 +1,6 @@
 use Test::More;
 
-plan tests => 3;
+plan tests => 2;
 
 $main::count = 1;
 
@@ -12,17 +12,9 @@ sub BUILD {
     $self->foo($main::count++);
 }
 
-package Boo;
-use Mo;
-has 'boo' => (is => 'rw');
-sub BUILD {
-    my $self = shift;
-    $self->boo($main::count++);
-}
-
 package Bar;
 use Mo;
-extends 'Foo', 'Boo';
+extends 'Foo';
 has 'bar' => (is => 'rw');
 
 package Baz;
@@ -42,6 +34,5 @@ has 'gorch' => (is => 'rw');
 package main;
 
 my $g = Gorch->new;
-is $g->boo, 1, 'boo builds first';
-is $g->foo, 2, 'foo builds second';
-is $g->baz, 3, 'baz builds third';
+is $g->foo, 1, 'foo builds first';
+is $g->baz, 2, 'baz builds second';
