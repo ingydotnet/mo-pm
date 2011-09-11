@@ -89,9 +89,7 @@ Mo turns on C<use strict> and C<use warnings> for you.
 
 =item Embeddable
 
-Mo is tiny. It is currently < 15 lines, < 80 chars each.
-
-You could easily inline it in your code, if you wanted to.
+Mo is tiny. You could easily inline it in your code, if you wanted to.
 
 =back
 
