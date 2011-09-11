@@ -2,7 +2,7 @@
 version: 0.21
 date:    
 changes:
-- Add Design doc
+- Add Mo::Design pod
 - Remove multiple inheritance
 ---
 version: 0.20
