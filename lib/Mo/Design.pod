@@ -4,14 +4,14 @@ This is the design document for the L<Mo> module.
 
 It is intended to help people understand the thinking behind Mo.
 
-Like Mo, it is a work in progress. Nothing here is in stone. Everything is up
-for discussion. This document just explains the current understanding, so
-you'll know where to start.
+Like Mo, this document is a work in progress. Nothing here is in stone.
+Everything is up for discussion. This document just explains the current
+understanding, so you'll know where to start.
 
 =head1 Design Goals
 
-Mo has the following design goals. These goals have to be balanced against
-each other.
+Mo has the following design goals. These goals are all important and have to
+be balanced against each other.
 
 =over
 
@@ -41,13 +41,13 @@ be able to set and get values.
 
 =item Be minimal
 
-Only add features if they are considered very desirable B<and> can be
+Mo only adds features if they are considered very desirable B<and> can be
 implemented in a very small amount of code.
 
 =item Be useful
 
 Mo wants to be the first module that Perl programmers reach for when they need
-simple OO. To that end, it needs to support extremely useful and common
+simple OO. To that end, it needs to be extremely useful and support common
 idioms, even if they are not strictly minimal.
 
 =item Be fast
@@ -59,7 +59,7 @@ have fast accessors. Speed optimizations should be simple and minimal.
 =item Be embeddable
 
 There may be situations where you want to inline Mo into your code, For this
-reason, Mo will try to be in one minimal, pure Perl file, with no comments or
+reason, Mo will try to be in one minimal pure Perl file, with no comments or
 documentation.
 
 =item Easy upgrade/downgrade path with Moo
@@ -68,7 +68,7 @@ L<Moose> has become the accepted style of OO in perl. Mo will attempt to not
 do the things it does in an incompatible style to the C<Moose> family.
     
 This is not to say that all Mo code can be switched to Moo, or vice versa.
-This is to say that you should be able to find a style of coding using the
+This I<is> to say that you should be able to find a style of coding using the
 full capabilities of Mo, that you can switch to Moo (or L<Mouse> or L<Moose>),
 if you want to.
 
@@ -86,13 +86,16 @@ decisions were made and any known concerns being thought about.
 
 =item Inheritance
 
-Mo uses C<extends> to name its parents.
+Mo uses C<extends> to name its (single inheritance) parent.
 
-This means that it supports multiple inheritance. This is probably a bad idea,
-for a few reasons. MI is generally frowned upon in Perl. It has problems that
-are better solved by roles. It also makes the BUILD call sequence much more
-difficult, which makes Moose compatibility hard. For this reason, we should
-remove MI as a Mo feature. Moo can be used for that.
+In the past, Mo supported multiple inheritance. This was consider suboptimal
+for a couple reasons. MI is generally frowned upon in Perl. It has problems
+that are better solved by roles. It also makes the BUILD call sequence much
+more difficult, which makes Moose compatibility hard. For this reason, we
+removee MI as a Mo feature. As a result, the code became much simpler.
+
+It is highly doubtful that roles will be supported either. One should upgrade
+to Moo or higher when MI or roles become needed.
 
 =item Construction
 
@@ -117,7 +120,7 @@ likely be rare in a precompile environment like in mod_perl, this is
 considered a speed gain. It also happens to be the more minimal way to code
 this.
 
-If neither C<default> nor C<build> is requested, has will return a
+If neither C<default> nor C<build> is requested, C<has> will return a
 getter/setter that is optimized for speed.
 
 All accessors are 'rw'. That means they are getter+setter methods. Since
@@ -155,4 +158,40 @@ using it for this.
 We turn on strict and warnings for the user of Mo because it is really easy
 and offers great value. Also, all the other Moose family does it.
 
+=back
 
+=head1 Topics, Concerns and Issues
+
+This is a list of eveything else.
+
+=over
+
+=item Why not Moose?
+
+The sad fact of Perl 5 is that OO isn't built in.
+
+Moose not only added OO, it took OO to a new level. It is indeed a postmodern
+system. Unfortunately this comes at a (often hefty) performance price.
+
+Attempts to make something similar but less hefty came in the forms of Mouse,
+Mousse and Moo. Mo is just the next attempt. It is a bare minimum OO
+framework, that still looks like a Moose.
+
+I've heard people argue that Mo doesn't belong in the Moose family, but those
+same people often feel the same way about Mouse and Moo. It won't stop me from
+trying to make something wonderful, that can be fairly easily upgraded to
+something possibly more wonderful.
+
+With each of these attempts, less of the original Moose power is implemented.
+This annoys the hardcore Moose developers. But hopefully it pushes them
+towards making Moose better and batter. I can imagine the day when Moose is a
+compiled in part of the C<perl> interpreter and thus faster then Mo. At that
+point, all the others will become remnants of the past.
+
+In the meantime, I hope that Mo et al, helps people to get past their Moose
+inhibitions, and start using the Mo* that makes sense. I(ngy) have authored
+other OO base modules like Spiffy and Gloom. There are things about those that
+I sorely miss in the Moose family, but I have decided to stopping fighting the
+Moose. I for one, welcome our new giant antlered overlord.
+
+=back
