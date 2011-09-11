@@ -40,16 +40,16 @@ This is what you get. Nothing Mo.
 
 =item C<new> method
 
-Mo provides a C<new> object constructor. It will call the C<BUILD> method
-after creation if it C<can>.
+Mo provides a C<new> object constructor. You pass it a list of name/value
+pairs and it returns a new object.
 
-NOTE: Unlike other Moose modules, BUILD is not called in a chained fashion.
-You would need to call C<SUPER::BUILD> yourself, if you needed that.
+After creation, it will call the C<BUILD> method for all its parents and
+itself, if any of the classes have a C<BUILD> method.
 
 =item C<extends>
 
 Mo exports the C<extends> keyword, to name your parent class. C<Mo> itself is
-your default parent class, of course.
+your default parent class, of course. You can have multiple parent classes.
 
 =item C<has>
 
@@ -58,8 +58,9 @@ Mo exports a C<has> keyword, to generate accessors.
 These accessors support C<get> and C<set> operations and allows a C<default>.
 That's it.
 
-    has 'name';
-    has 'name' => ( default => sub { 'Joe' } );
+    has 'name1';
+    has 'name2' => ( default => sub { 'Joe' } );
+    has 'name3' => ( builder => 'name_builder' );
 
 C<has> takes arguments after the name. Here is what it currently supports:
 
@@ -88,7 +89,7 @@ Mo turns on C<use strict> and C<use warnings> for you.
 
 =item Embeddable
 
-Mo is tiny. It is currently 10 lines, <= 80 chars.
+Mo is tiny. It is currently < 15 lines, < 80 chars each.
 
 You could easily inline it in your code, if you wanted to.
 

@@ -1,4 +1,9 @@
 ---
+version: 0.17
+date:    Sun Sep 11 03:24:17 CEST 2011
+changes:
+- Call BUILD sequence properly
+---
 version: 0.16
 date:    Sun Sep 11 01:31:30 CEST 2011
 changes:

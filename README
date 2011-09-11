@@ -32,16 +32,16 @@ FEATURES
     This is what you get. Nothing Mo.
 
     "new" method
-        Mo provides a "new" object constructor. It will call the "BUILD"
-        method after creation if it "can".
+        Mo provides a "new" object constructor. You pass it a list of
+        name/value pairs and it returns a new object.
 
-        NOTE: Unlike other Moose modules, BUILD is not called in a chained
-        fashion. You would need to call "SUPER::BUILD" yourself, if you
-        needed that.
+        After creation, it will call the "BUILD" method for all its parents
+        and itself, if any of the classes have a "BUILD" method.
 
     "extends"
         Mo exports the "extends" keyword, to name your parent class. "Mo"
-        itself is your default parent class, of course.
+        itself is your default parent class, of course. You can have
+        multiple parent classes.
 
     "has"
         Mo exports a "has" keyword, to generate accessors.
@@ -49,8 +49,9 @@ FEATURES
         These accessors support "get" and "set" operations and allows a
         "default". That's it.
 
-            has 'name';
-            has 'name' => ( default => sub { 'Joe' } );
+            has 'name1';
+            has 'name2' => ( default => sub { 'Joe' } );
+            has 'name3' => ( builder => 'name_builder' );
 
         "has" takes arguments after the name. Here is what it currently
         supports:
@@ -72,7 +73,7 @@ FEATURES
         Mo turns on "use strict" and "use warnings" for you.
 
     Embeddable
-        Mo is tiny. It is currently 10 lines, <= 80 chars.
+        Mo is tiny. It is currently < 15 lines, < 80 chars each.
 
         You could easily inline it in your code, if you wanted to.
 
