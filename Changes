@@ -1,4 +1,9 @@
 ---
+version: 0.20
+date:    Sun Sep 11 11:58:51 CEST 2011
+changes:
+- mv bin/compress to script/compress.pl
+---
 version: 0.19
 date:    Sun Sep 11 11:27:14 CEST 2011
 changes:
