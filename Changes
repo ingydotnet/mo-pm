@@ -1,6 +1,6 @@
 ---
 version: 0.21
-date:    
+date:    Mon Sep 12 11:16:31 CEST 2011
 changes:
 - Add Mo::Design pod
 - Remove multiple inheritance
