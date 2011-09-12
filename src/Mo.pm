@@ -8,7 +8,7 @@ sub import {
       sub { @{ $p . 'ISA' } = $_[0]; eval "require($_[0])" };
     *{ $p . 'has' } = sub {
         my ( $n, %a ) = @_;
-        my $d = $a{default}//$a{builder};
+        my $d = $a{default}||$a{builder};
         *{ $p . $n } = $d
           ? sub {
             $#_ ? ( $_[0]{$n} = $_[1] )
