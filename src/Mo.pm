@@ -1,8 +1,7 @@
-package Mo;
-$VERSION = '0.22';
+$Mo'VERSION = '0.22';
 no warnings;
 
-sub import {
+sub Mo'import {
     import warnings; $^H |= 0x602;
     my $p = caller."'";
     @{ $p . ISA } = Mo'_;
