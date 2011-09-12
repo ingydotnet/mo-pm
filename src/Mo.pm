@@ -21,7 +21,7 @@ sub Mo'import {
 }
 
 sub Mo'_'new {
-    my $c = shift;
+    $c = shift;
     my $s = bless {@_}, $c;
     my @c;
     do { unshift @c, $c . "'BUILD" } while $c = ${ $c . "'ISA" }[0];
