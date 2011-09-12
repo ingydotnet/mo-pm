@@ -4,7 +4,7 @@ $VERSION = '0.22';
 no warnings;
 sub import {
     $_->import for strict, warnings;
-    my $p = caller()."'";
+    my $p = caller."'";
     @{ $p . ISA } = 'Mo::O';
     *{ $p . extends } =
       sub { @{ $p . ISA } = $_[0]; eval "require($_[0])" };
