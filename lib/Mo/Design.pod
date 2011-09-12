@@ -171,10 +171,11 @@ This is a list of eveything else.
 
 =item Why not Moose?
 
-The sad fact of Perl 5 is that OO isn't built in.
+The sad fact of Perl 5 is that there's no object model built in.
 
-Moose not only added OO, it took OO to a new level. It is indeed a postmodern
-system. Unfortunately this comes at a (often hefty) performance price.
+Moose not only added an elegant, usable object model, it took OO to a new
+level. It is indeed a postmodern system. Unfortunately this comes at a (often
+hefty) performance price.
 
 Attempts to make something similar but less hefty came in the forms of Mouse,
 Mousse and Moo. Mo is just the next attempt. It is a bare minimum OO
