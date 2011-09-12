@@ -2,12 +2,12 @@ package Mo;
 $VERSION = '0.21';
 
 sub import {
-    require "$_.pm", $_->import for 'strict', 'warnings';
+    require "$_.pm", $_->import for strict, warnings;
     my $p = caller().'::';
-    @{ $p . 'ISA' } = 'Mo::O';
-    *{ $p . 'extends' } =
-      sub { @{ $p . 'ISA' } = $_[0]; eval "require($_[0])" };
-    *{ $p . 'has' } = sub {
+    @{ $p . ISA } = 'Mo::O';
+    *{ $p . extends } =
+      sub { @{ $p . ISA } = $_[0]; eval "require($_[0])" };
+    *{ $p . has } = sub {
         my ( $n, %a ) = @_;
         my $d = $a{default}||$a{builder};
         *{ $p . $n } = $d
