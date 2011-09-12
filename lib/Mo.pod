@@ -97,11 +97,17 @@ your code, should you want to do that.
 
 =back
 
+=head1 SEE
+
+L<Mo::Design>
+
 =head1 AUTHORS
 
 Ingy döt Net <ingy@cpan.org>
 
 Damien 'dams' Krotkine <dams@cpan.org>
+
+Matt S. Trout (mst) <mst@shadowcat.co.uk>
 
 =head1 COPYRIGHT AND LICENSE
 
