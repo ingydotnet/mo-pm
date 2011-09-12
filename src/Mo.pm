@@ -3,7 +3,7 @@ $VERSION = '0.22';
 no warnings;
 
 sub import {
-    $_->import for strict, warnings;
+    warnings->import; $^H |= 0x602;
     my $p = caller."'";
     @{ $p . ISA } = Mo::_;
     *{ $p . extends } =
@@ -29,5 +29,3 @@ sub Mo'_'new {
     defined &$_ && &$_($s) for @c;
     $s
 }
-
-no strict
