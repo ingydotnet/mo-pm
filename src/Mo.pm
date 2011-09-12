@@ -12,9 +12,9 @@ sub Mo'import {
         my $d = $a{default}||$a{builder};
         *{ $p . $n } = $d
           ? sub {
-            $#_ ? $_[0]{$n} = $_[1]
-              : exists $_[0]{$n} ? $_[0]{$n}
-              : ( $_[0]{$n} = $_[0]->$d )
+            return $#_ ? $$_{$n} = pop
+              : exists $$_{$n} ? $$_{$n}
+              : ( $$_{$n} = $_->$d ) for @_
           }
           : sub { $#_ ? $_[0]{$n} = $_[1] : $_[0]{$n} }
       }
