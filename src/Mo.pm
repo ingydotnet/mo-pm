@@ -5,7 +5,7 @@ no warnings;
 sub import {
     import warnings; $^H |= 0x602;
     my $p = caller."'";
-    @{ $p . ISA } = Mo::_;
+    @{ $p . ISA } = Mo'_;
     *{ $p . extends } =
       sub { @{ $p . ISA } = $_[0]; eval "no $_[0] ()" };
     *{ $p . has } = sub {
