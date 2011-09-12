@@ -13,8 +13,8 @@ sub Mo'import {
         *{ $p . $n } = $d
           ? sub {
             return $#_ ? $$_{$n} = pop
-              : exists $$_{$n} ? $$_{$n}
-              : ( $$_{$n} = $_->$d ) for @_
+              : ! exists $$_{$n} ? $$_{$n} = $_->$d
+              : $$_{$n} for @_
           }
           : sub { $#_ ? $_[0]{$n} = $_[1] : $_[0]{$n} }
       }
