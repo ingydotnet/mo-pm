@@ -1,5 +1,5 @@
 package Mo;
-$VERSION = '0.21';
+$VERSION = '0.22';
 
 sub import {
     require "$_.pm", $_->import for strict, warnings;
