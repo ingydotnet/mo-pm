@@ -9,7 +9,7 @@ sub import {
     *{ $p . 'has' } = sub {
         my ( $n, %a ) = @_;
         my $d = $a{default}||$a{builder};
-        *{ $p . "$n" } = $d
+        *{ $p . $n } = $d
           ? sub {
             $#_ ? ( $_[0]{$n} = $_[1] )
               : ( exists $_[0]{$n} ) ? $_[0]{$n}
