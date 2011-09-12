@@ -2,7 +2,7 @@ $Mo'VERSION = '0.22';
 no warnings;
 
 sub Mo'import {
-    import warnings; $^H |= 0x602;
+    import warnings; $^H |= 1538;
     my $p = caller."'";
     @{ $p . ISA } = Mo'_;
     *{ $p . extends } =
