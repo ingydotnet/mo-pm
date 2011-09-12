@@ -8,17 +8,12 @@ sub import {
       sub { @{ (caller) . '::ISA' } = $_[0]; eval "require($_[0])" };
     *{ $p . '::has' } = sub {
         my ( $n, %a ) = @_;
-        my ( $d, $b ) = @a{qw(default builder)};
+        my $d = $a{default}||$a{builder};
         *{ (caller) . "::$n" } = $d
           ? sub {
             $#_ ? ( $_[0]{$n} = $_[1] )
               : ( exists $_[0]{$n} ) ? $_[0]{$n}
-              :                        ( $_[0]{$n} = $d->( $_[0] ) );
-          }
-          : $b ? sub {
-            $#_ ? ( $_[0]{$n} = $_[1] )
-              : ( exists $_[0]{$n} ) ? $_[0]{$n}
-              :                        ( $_[0]{$n} = $_[0]->$b );
+              :                        ( $_[0]{$n} = $_[0]->$d );
           }
           : sub { $#_ ? $_[0]{$n} = $_[1] : $_[0]{$n} }
       }
