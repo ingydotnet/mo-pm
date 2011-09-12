@@ -77,10 +77,15 @@ FEATURES
         Mo is tiny. It is compressed into a single line. You can easily
         inline it in your code, should you want to do that.
 
+SEE
+    Mo::Design
+
 AUTHORS
     Ingy döt Net <ingy@cpan.org>
 
     Damien 'dams' Krotkine <dams@cpan.org>
+
+    Matt S. Trout (mst) <mst@shadowcat.co.uk>
 
 COPYRIGHT AND LICENSE
     Copyright (c) 2011. Ingy döt Net.
