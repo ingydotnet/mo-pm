@@ -1,8 +1,9 @@
 package Mo;
 $VERSION = '0.22';
 
+no warnings;
 sub import {
-    require "$_.pm", $_->import for strict, warnings;
+    $_->import for strict, warnings;
     my $p = caller()."'";
     @{ $p . ISA } = 'Mo::O';
     *{ $p . extends } =
@@ -28,3 +29,5 @@ sub Mo'O'new {
     defined &$_ && &$_($s) for @c;
     $s
 }
+
+no strict
