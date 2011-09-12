@@ -88,11 +88,11 @@ decisions were made and any known concerns being thought about.
 
 Mo uses C<extends> to name its (single inheritance) parent.
 
-In the past, Mo supported multiple inheritance. This was consider suboptimal
-for a couple reasons. MI is generally frowned upon in Perl. It has problems
+In the past, Mo supported multiple inheritance. This was considered suboptimal
+for a few reasons. MI is generally frowned upon in Perl. It has problems
 that are better solved by roles. It also makes the BUILD call sequence much
-more difficult, which makes Moose compatibility hard. For this reason, we
-removee MI as a Mo feature. As a result, the code became much simpler.
+more difficult, which makes Moose compatibility hard. For these reasons, we
+removed MI as a Mo feature. As a result, the code became much simpler.
 
 It is highly doubtful that roles will be supported either. One should upgrade
 to Moo or higher when MI or roles become needed.
