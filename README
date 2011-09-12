@@ -16,15 +16,14 @@ SYNOPSIS
 
         sub BUILD {
             my $self = shift;
-            $self->SUPER::BUILD();
-            # ... 
+            # enhance your object before it is returned by new()
         }
 
 DESCRIPTION
     use Mo. Mo is less. Much less.
 
-    Moose led to Mouse led to Moo led to Mo. M is nothing. Mo is more. Not
-    much.
+    Moose is huge. Moose led to Mouse led to Moo led to Mo. M is nothing. Mo
+    is more. Not much.
 
     When Moo is more than you need, drop an 'o' and get some Mo.
 
@@ -35,19 +34,21 @@ FEATURES
         Mo provides a "new" object constructor. You pass it a list of
         name/value pairs and it returns a new object.
 
-        After creation, it will call the "BUILD" method for all its parents
-        and itself, if any of the classes have a "BUILD" method.
+        After object creation, it will call the "BUILD" method (if present)
+        for all of its parents and itself.
 
     "extends"
-        Mo exports the "extends" keyword, to name your parent class. "Mo"
-        itself is your default parent class, of course. You can have
-        multiple parent classes.
+        Mo exports the "extends" keyword, to declare your parent class. "Mo"
+        itself is your default parent class, of course.
+
+        Mo only supports single inheritance. If you need multiple
+        inheritance or roles, you should upgrade to Moo.
 
     "has"
         Mo exports a "has" keyword, to generate accessors.
 
-        These accessors support "get" and "set" operations and allows a
-        "default". That's it.
+        These accessors always support both "get" and "set" operations. They
+        allow the "default" and "builder" options. That's it.
 
             has 'name1';
             has 'name2' => ( default => sub { 'Joe' } );
@@ -73,8 +74,8 @@ FEATURES
         Mo turns on "use strict" and "use warnings" for you.
 
     Embeddable
-        Mo is tiny. You could easily inline it in your code, if you wanted
-        to.
+        Mo is tiny. It is compressed into a single line. You can easily
+        inline it in your code, should you want to do that.
 
 AUTHORS
     Ingy döt Net <ingy@cpan.org>

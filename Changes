@@ -4,6 +4,7 @@ date:
 changes:
 - Add Mo::Design pod
 - Remove multiple inheritance
+- Released from Liz++ and Wendy++ kitchen
 ---
 version: 0.20
 date:    Sun Sep 11 11:58:51 CEST 2011
