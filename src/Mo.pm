@@ -5,7 +5,7 @@ no warnings;
 sub import {
     $_->import for strict, warnings;
     my $p = caller."'";
-    @{ $p . ISA } = 'Mo::O';
+    @{ $p . ISA } = Mo::O;
     *{ $p . extends } =
       sub { @{ $p . ISA } = $_[0]; eval "require($_[0])" };
     *{ $p . has } = sub {
