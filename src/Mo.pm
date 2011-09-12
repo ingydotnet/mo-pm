@@ -3,7 +3,7 @@ $VERSION = '0.22';
 no warnings;
 
 sub import {
-    warnings->import; $^H |= 0x602;
+    import warnings; $^H |= 0x602;
     my $p = caller."'";
     @{ $p . ISA } = Mo::_;
     *{ $p . extends } =
