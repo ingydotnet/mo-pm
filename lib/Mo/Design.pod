@@ -154,7 +154,7 @@ someone inlines Mo, they can make their own package line more easily, and just
 grab line 2, the code.
 
 This also helps because Module::Install barfs on parsing out the VERSION
-otherwise. We should fix Module::Install or coonsider stop using it for this.
+otherwise. We should fix Module::Install or consider stop using it for this.
 
 =item strict and warnings
 
