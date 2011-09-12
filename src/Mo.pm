@@ -25,7 +25,7 @@ sub Mo'O'new {
     my $c = shift;
     my $s = bless {@_}, $c;
     my @c;
-    do { unshift @c, $c . "::BUILD" } while $c = ${ $c . "::ISA" }[0];
+    do { unshift @c, $c . "'BUILD" } while $c = ${ $c . "'ISA" }[0];
     defined &$_ && &$_($s) for @c;
     $s
 }
