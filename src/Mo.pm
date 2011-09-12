@@ -7,7 +7,7 @@ sub import {
     my $p = caller."'";
     @{ $p . ISA } = Mo::_;
     *{ $p . extends } =
-      sub { @{ $p . ISA } = $_[0]; eval "require $_[0]" };
+      sub { @{ $p . ISA } = $_[0]; eval "no $_[0] ()" };
     *{ $p . has } = sub {
         my ( $n, %a ) = @_;
         my $d = $a{default}||$a{builder};
