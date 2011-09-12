@@ -113,14 +113,14 @@ considered.
 Mo uses C<has> for generating accessors. Like Moose, it takes a name and a
 list of option/value pairs.
 
-All options are silently ignored, except C<default> and C<build>. These were
+All options are silently ignored, except C<default> and C<builder>. These were
 implemented because they are almost always needed, and the implementation is
 minimal. They are always lazy (like 'lazy => 1' in Moose). Since Mo will
 likely be rare in a precompile environment like in mod_perl, this is
 considered a speed gain. It also happens to be the more minimal way to code
 this.
 
-If neither C<default> nor C<build> is requested, C<has> will return a
+If neither C<default> nor C<builder> is requested, C<has> will return a
 getter/setter that is optimized for speed.
 
 All accessors are 'rw'. That means they are getter+setter methods. Since
