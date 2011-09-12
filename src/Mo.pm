@@ -1,13 +1,13 @@
 package Mo;
 $VERSION = '0.22';
-
 no warnings;
+
 sub import {
     $_->import for strict, warnings;
     my $p = caller."'";
-    @{ $p . ISA } = Mo::O;
+    @{ $p . ISA } = Mo::_;
     *{ $p . extends } =
-      sub { @{ $p . ISA } = $_[0]; eval "require($_[0])" };
+      sub { @{ $p . ISA } = $_[0]; eval "require $_[0]" };
     *{ $p . has } = sub {
         my ( $n, %a ) = @_;
         my $d = $a{default}||$a{builder};
@@ -21,7 +21,7 @@ sub import {
       }
 }
 
-sub Mo'O'new {
+sub Mo'_'new {
     my $c = shift;
     my $s = bless {@_}, $c;
     my @c;

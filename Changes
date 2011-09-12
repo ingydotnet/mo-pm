@@ -1,5 +1,5 @@
 version: 0.22
-date:    
+date:    Mon Sep 12 17:18:29 CEST 2011
 changes:
 - mst++ changed default base class to Mo::O to avoid inheriting import() method
 ---
