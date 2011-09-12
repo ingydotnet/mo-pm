@@ -3,7 +3,7 @@ package Mo; $Mo::VERSION = '0.21';
 sub import {
     require "$_.pm", $_->import for 'strict', 'warnings';
     my $p = caller;
-    @{ $p . '::ISA' } = $_[0];
+    @{ $p . '::ISA' } = 'Mo::O';
     *{ $p . '::extends' } =
       sub { @{ (caller) . '::ISA' } = $_[0]; eval "require($_[0])" };
     *{ $p . '::has' } = sub {
@@ -24,7 +24,7 @@ sub import {
       }
 }
 
-sub new {
+sub Mo::O::new {
     my $c = shift;
     my $s = bless {@_}, $c;
     my @c;

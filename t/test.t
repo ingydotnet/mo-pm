@@ -14,8 +14,8 @@ package main;
 ok defined(&Foo::has), 'Mo exports has';
 ok defined(&Foo::extends), 'Mo exports extends';
 ok not(defined(&Foo::new)), 'Mo does not export new';
-ok 'Foo'->isa('Mo'), 'Foo isa Mo';
-is "@Foo::ISA", "Mo", '@Foo::ISA is Mo';
+ok 'Foo'->isa('Mo::O'), 'Foo isa Mo::O';
+is "@Foo::ISA", "Mo::O", '@Foo::ISA is Mo::O';
 ok 'Foo'->can('new'), 'Foo can new';
 ok 'Foo'->can('this'), 'Foo can this';
 
@@ -61,7 +61,7 @@ has guess => (
 #============
 package main;
 
-ok 'Bar'->isa('Mo'), 'Bar isa Mo';
+ok 'Bar'->isa('Mo::O'), 'Bar isa Mo::O';
 ok 'Bar'->isa('Foo'), 'Bar isa Foo';
 is "@Bar::ISA", 'Foo', '@Bar::ISA is Foo';
 ok 'Bar'->can('new'), 'Bar can new';
@@ -76,7 +76,7 @@ my $b = Bar->new(
 
 is ref($b), 'Bar', 'Object created';
 ok $b->isa('Foo'), 'Inheritance works';
-ok $b->isa('Mo'), 'Bar isa Mo since Foo isa Mo';
+ok $b->isa('Mo::O'), 'Bar isa Mo::O since Foo isa Mo::O';
 is $b->this, 'thing', 'Read works in parent class';
 is $b->that, 'thong', 'Read works in current class';
 is ref($b->them), 'ARRAY', 'default works';
