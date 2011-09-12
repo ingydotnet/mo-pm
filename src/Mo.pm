@@ -3,7 +3,7 @@ $VERSION = '0.21';
 
 sub import {
     require "$_.pm", $_->import for strict, warnings;
-    my $p = caller().'::';
+    my $p = caller()."'";
     @{ $p . ISA } = 'Mo::O';
     *{ $p . extends } =
       sub { @{ $p . ISA } = $_[0]; eval "require($_[0])" };
@@ -20,7 +20,7 @@ sub import {
       }
 }
 
-sub Mo::O::new {
+sub Mo'O'new {
     my $c = shift;
     my $s = bless {@_}, $c;
     my @c;
