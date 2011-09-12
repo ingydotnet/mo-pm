@@ -12,13 +12,13 @@ sub Mo'import {
         my ( $n, %a ) = @_;
         my $d = $a{default}||$a{builder};
         *{ $p . $n } = $d
-          ? sub {
-            return $#_ ? $$_{$n} = pop
-              : ! exists $$_{$n} ? $$_{$n} = $_->$d
-              : $$_{$n} for @_
-          }
-          : sub { $#_ ? $_[0]{$n} = $_[1] : $_[0]{$n} }
-      }
+            ? sub {
+                return $#_ ? $$_{$n} = pop
+                    : ! exists $$_{$n} ? $$_{$n} = $_->$d
+                    : $$_{$n} for @_
+            }
+            : sub { $#_ ? $_[0]{$n} = $_[1] : $_[0]{$n} }
+    }
 }
 
 sub Mo'_'new {
