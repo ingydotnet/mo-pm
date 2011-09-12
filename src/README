@@ -1,0 +1,7 @@
+The uncompressed source code lives in src/Mo.pm.
+
+From the main directory, run this:
+
+    make -C src/
+
+to build lib/Mo.pm (the compressed CPAN version).
