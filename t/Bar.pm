@@ -1,4 +1,4 @@
 package Bar;
 use Mo;
-extends 'Foo', 'Boo';
+extends 'Foo';
 1;
