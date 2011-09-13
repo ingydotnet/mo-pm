@@ -1,13 +1,32 @@
-use Test::More;
+use TestML -run;
 
-use FindBin qw($Bin);
-plan skip_all => 'XXX failing under current implementation';
-plan tests => 3;
-
-is count(''), 7, 'file scope opcode size';
-is count('Mo::import,'), 56, 'import opcode size';
-is count('Mo::_::new,'), 88, 'new opcode size';
-
-sub count {
-    `perl -MO=Concise,$_[0]-nobanner $Bin/../lib/Mo.pm 2>/dev/null | wc -l` + 0;
+sub count_ops {
+    my $code = (shift)->value;
+    $code = $code eq '_' ? '' : $code.',';
+    0 + `perl -MO=Concise,$code-nobanner lib/Mo.pm 2>/dev/null | wc -l`;
 }
+
+__DATA__
+
+%TestML 1.0
+
+Plan = 3;
+
+*code.count_ops == *count;
+
+
+=== File scope opcode size
+--- code: _
+--- count: 35
+--- count_before: 7
+
+=== Import opcode size
+--- code: Mo::import
+--- count: 2
+--- count_before: 56
+
+=== New opcode size
+--- code: Mo::_::new
+--- count: 2
+--- count_before: 88
+
