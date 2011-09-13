@@ -169,6 +169,10 @@ This is a list of eveything else.
 
 =over
 
+=item Extension Proposal
+
+blah
+
 =item Why not Moose?
 
 The sad fact of Perl 5 is that there's no object model built in.
