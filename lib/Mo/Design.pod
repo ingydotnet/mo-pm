@@ -165,15 +165,38 @@ and offers great value. Also, all the other Moose family does it.
 
 =head1 Topics, Concerns and Issues
 
-This is a list of eveything else.
+This is a list of everything else.
+
+=head2 Ungolfing
+
+The wave of golfing around 0.22 has been mostly awesome, but has raised some
+issues that need to be clarified both here and in the tests.
 
 =over
 
-=item Extension Proposal
+=item package avoidance
 
-blah
+By introducing C<Mo'_'new> etc, we save a few bytes but make the code harder
+to repackage.
 
-=item Why not Moose?
+If Mo usage becomes wide spread (even somewhat so) then we will have multiple
+versions clobbering each other in a given process.
+
+We need to suggest that when people inline Mo, they change the package name.
+Therefore, it is probably best to put package back in, and add a test to that
+effect.
+
+=item Runtime slowdown
+
+I think we need to start golfing runtime op calls. We should start by writing
+tests in xt, that count the ops for various calls. Then with every change we
+can balance speed against minimalism.
+
+I don't know how to count runtime op calls. Anyone?
+
+=back
+
+=head2 Why not Moose?
 
 The sad fact of Perl 5 is that there's no object model built in.
 
@@ -202,4 +225,3 @@ other OO base modules like Spiffy and Gloom. There are things about those that
 I sorely miss in the Moose family, but I have decided to stopping fighting the
 Moose. I for one, welcome our new giant antlered overlord.
 
-=back
