@@ -42,7 +42,7 @@ my $P = __PACKAGE__.::i;
     }
     while ($c) = @{ $c . ::ISA };
 
-    defined &$_ && &$_($s)
+    exists &$_ && &$_($s)
         for @c;
 
     $s;
