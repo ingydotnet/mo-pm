@@ -1,10 +1,12 @@
-no warnings;
+package Mo;$VERSION = 0.22;
 
-sub Mo'import {
+no warnings;
+my $P = __PACKAGE__;
+*{$P."'import"} = sub {
     import warnings;
     $^H |= 1538;
     my $p = caller."'";
-    @{ $p . ISA } = Mo'_;  #'vim
+    @{ $p . ISA } = $P."::_";  #'vim
     *{ $p . extends } = sub {
         eval "no $_[0] ()";
         @{ $p . ISA } = pop;
@@ -28,9 +30,9 @@ sub Mo'import {
                     : $_[0]{$n};
             };
     };
-}
+};
 
-sub Mo'_'new {
+*{$P."'_'new"} = sub {
     $c = shift;
     my $s = bless {@_}, $c;
     my @c;
@@ -45,5 +47,3 @@ sub Mo'_'new {
 
     $s;
 }
-
-$Mo'VERSION = 0.22
