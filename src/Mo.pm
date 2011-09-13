@@ -1,4 +1,3 @@
-$Mo'VERSION = '0.22';
 no warnings;
 
 sub Mo'import {
@@ -29,3 +28,5 @@ sub Mo'_'new {
     defined &$_ && &$_($s) for @c;
     $s
 }
+
+$Mo'VERSION = '0.22'
