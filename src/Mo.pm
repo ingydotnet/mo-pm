@@ -40,7 +40,7 @@ my $P = __PACKAGE__."'i";
     do {
         @c = ($c . "'BUILD", @c)
     }
-    while ($c) = @{ $c . "'ISA" };
+    while ($c) = @{ $c . ::ISA };
 
     defined &$_ && &$_($s)
         for @c;
