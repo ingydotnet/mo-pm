@@ -6,7 +6,7 @@ sub Mo'import {
     my $p = caller."'";
     @{ $p . ISA } = Mo'_;  #'vim
     *{ $p . extends } =
-      sub { @{ $p . ISA } = $_[0]; eval "no $_[0] ()" };
+      sub { eval "no $_[0] ()"; @{ $p . ISA } = pop };
     *{ $p . has } = sub {
         my ( $n, %a ) = @_;
         my $d = $a{default}||$a{builder};
