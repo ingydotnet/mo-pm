@@ -1,11 +1,11 @@
 package Mo;$VERSION = 0.22;
 
 no warnings;
-my $P = __PACKAGE__."'i";
+my $P = __PACKAGE__.::i;
 *{$P.mport} = sub {
     import warnings;
     $^H |= 1538;
-    my $p = caller."'";
+    my $p = caller.::;
     @{ $p . ISA } = $P;
     *{ $p . extends } = sub {
         eval "no $_[0] ()";
@@ -32,13 +32,13 @@ my $P = __PACKAGE__."'i";
     };
 };
 
-*{$P."'new"} = sub {
+*{$P.::new} = sub {
     $c = shift;
     my $s = bless {@_}, $c;
     my @c;
 
     do {
-        @c = ($c . "'BUILD", @c)
+        @c = ($c . ::BUILD, @c)
     }
     while ($c) = @{ $c . ::ISA };
 
