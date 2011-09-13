@@ -38,9 +38,9 @@ my $P = __PACKAGE__."'i";
     my @c;
 
     do {
-        @c = ($c . "'BUILD", @c);
+        @c = ($c . "'BUILD", @c)
     }
-    while $c = ${ $c . "'ISA" }[0];
+    while ($c) = @{ $c . "'ISA" };
 
     defined &$_ && &$_($s)
         for @c;
