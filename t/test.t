@@ -15,7 +15,7 @@ ok defined(&Foo::has), 'Mo exports has';
 ok defined(&Foo::extends), 'Mo exports extends';
 ok not(defined(&Foo::new)), 'Mo does not export new';
 ok 'Foo'->isa('Mo::i'), 'Foo isa Mo::i';
-is "@Foo::ISA", "Mo'i", '@Foo::ISA is Mo::i';
+is "@Foo::ISA", "Mo::i", '@Foo::ISA is Mo::i';
 ok 'Foo'->can('new'), 'Foo can new';
 ok 'Foo'->can('this'), 'Foo can this';
 
