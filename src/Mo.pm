@@ -29,4 +29,4 @@ sub Mo'_'new {
     $s
 }
 
-$Mo'VERSION = '0.22'
+$Mo'VERSION = 0.22
