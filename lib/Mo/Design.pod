@@ -69,7 +69,7 @@ do the things it does in an incompatible style to the C<Moose> family.
     
 This is not to say that all Mo code can be switched to Moo, or vice versa.
 This I<is> to say that you should be able to find a style of coding using the
-full capabilities of Mo, that you can switch to Moo (or L<Mouse> or L<Moose>),
+full capabilities of Mo, that you can switch to L<Moo> (or L<Mouse> or L<Moose>),
 if you want to.
 
 This is a difficult design goal, and might sometimes lose out to the other
@@ -205,7 +205,7 @@ level. It is indeed a postmodern system. Unfortunately this comes at a (often
 hefty) performance price.
 
 Attempts to make something similar but less hefty came in the forms of Mouse,
-Mousse and Moo. Mo is just the next attempt. It is a bare minimum OO
+L<Mousse> and Moo. Mo is just the next attempt. It is a bare minimum OO
 framework, that still looks like Moose.
 
 I've heard people argue that Mo doesn't belong in the Moose family, but those
@@ -221,7 +221,7 @@ point, all the others will become remnants of the past.
 
 In the meantime, I hope that Mo et al, helps people to get past their Moose
 inhibitions, and start using the Mo* that makes sense. I(ngy) have authored
-other OO base modules like Spiffy and Gloom. There are things about those that
+other OO base modules like L<Spiffy> and L<Gloom>. There are things about those that
 I sorely miss in the Moose family, but I have decided to stopping fighting the
 Moose. I for one, welcome our new giant antlered overlord.
 
