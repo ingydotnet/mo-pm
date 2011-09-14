@@ -1,4 +1,5 @@
-package Mo;$VERSION = 0.22;
+package Mo;
+$VERSION = 0.22;
 
 no warnings;
 my $P = __PACKAGE__.::i;

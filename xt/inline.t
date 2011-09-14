@@ -3,7 +3,7 @@ use IO::All;
 
 BEGIN {
     my $module_path = 'xt/FooMo.pm';
-    my $guts = io('lib/Mo.pm')->[1];
+    my $guts = io('lib/Mo.pm')->[2];
     chomp $guts;
     io($module_path)->print(<<"...");
 package FooMo;
