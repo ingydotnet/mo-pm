@@ -1,8 +1,4 @@
 use lib 'lib';
-use inc::Module::Install;
-
-all_from 'lib/Foo.pm';
+use inc::Module::Package 'Ingy:modern 0.15';
 
 include 'Foo';
-
-WriteAll;
