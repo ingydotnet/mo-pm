@@ -11,9 +11,11 @@ The second line is the compressed Mo code.
 If you want to inline Mo, it is best that you do it under your own package
 name. That way, if you use other modules that use Mo, you won't clobber their version of Mo or vice versa. Do something like this:
 
-    package YourClass::Mo;
-    <2nd line of Mo.pm goes here>
-    $INC{'YourClass/Mo.pm'} = __FILE__;
+    BEGIN {
+        package YourClass::Mo;
+        <2nd line of Mo.pm goes here>
+        $INC{'YourClass/Mo.pm'} = __FILE__;
+    }
 
     package YourClass;
     use YourClass::Mo;
