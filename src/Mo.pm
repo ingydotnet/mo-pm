@@ -8,7 +8,7 @@ my $P = __PACKAGE__.'::';
     import warnings;
     $^H |= 1538;
     my $p = caller.::;
-    @{ $p . ISA } = $P.'_';
+    @{ $p . ISA } = $P.'Object';
     *{ $p . extends } = sub {
         eval "no $_[0] ()";
         @{ $p . ISA } = $_[0];
@@ -33,7 +33,7 @@ my $P = __PACKAGE__.'::';
 };
 
 # Quotes are needed or else bug in Module::Install. :\
-*{$P.'_::new'} = sub {
+*{$P.'Object::new'} = sub {
     $c = shift;
     my $s = bless {@_}, $c;
     my @c;
