@@ -1,5 +1,5 @@
 package Mo;
-$VERSION = 0.22;
+$VERSION = 0.23;
 
 no warnings;
 # Quotes are needed or else bug in Module::Install. :\
