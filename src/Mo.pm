@@ -3,15 +3,15 @@ $VERSION = 0.22;
 
 no warnings;
 # Quotes are needed or else bug in Module::Install. :\
-my $P = __PACKAGE__.'::i';
-*{$P.mport} = sub {
+my $P = __PACKAGE__.'::';
+*{$P.import} = sub {
     import warnings;
     $^H |= 1538;
     my $p = caller.::;
-    @{ $p . ISA } = $P;
+    @{ $p . ISA } = $P.'_';
     *{ $p . extends } = sub {
         eval "no $_[0] ()";
-        @{ $p . ISA } = pop;
+        @{ $p . ISA } = $_[0];
     };
     *{ $p . has } = sub {
         my ( $n, %a ) = @_;
@@ -20,7 +20,7 @@ my $P = __PACKAGE__.'::i';
             ? sub {
                 return
                     $#_
-                        ? $$_{$n} = pop
+                        ? $$_{$n} = $_[1]
                         : ! exists $$_{$n}
                             ? $$_{$n} = $_->$d
                             : $$_{$n}
@@ -28,14 +28,14 @@ my $P = __PACKAGE__.'::i';
             }
             : sub {
                 $#_
-                    ? $_[0]{$n} = pop
+                    ? $_[0]{$n} = $_[1]
                     : $_[0]{$n};
             };
     };
 };
 
 # Quotes are needed or else bug in Module::Install. :\
-*{$P.'::new'} = sub {
+*{$P.'_::new'} = sub {
     $c = shift;
     my $s = bless {@_}, $c;
     my @c;
