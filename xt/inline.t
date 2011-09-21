@@ -33,5 +33,5 @@ package main;
 my $t = TestInline->new;
 
 is $t->this, 'Yep!', 'Yep';
-ok $t->isa('FooMo::_'),
-    'object isa FooMo::_';
+ok $t->isa('FooMo::Object'),
+    'object isa FooMo::Object';
