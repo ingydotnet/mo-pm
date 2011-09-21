@@ -17,7 +17,7 @@ Plan = 3;
 
 === File scope opcode size
 --- code: _
---- count: 37
+--- count: 35
 --- count_before: 7
 
 === Import opcode size

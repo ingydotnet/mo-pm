@@ -2,7 +2,8 @@ package Mo;
 $VERSION = 0.22;
 
 no warnings;
-my $P = __PACKAGE__.::i;
+# Quotes are needed or else bug in Module::Install. :\
+my $P = __PACKAGE__.'::i';
 *{$P.mport} = sub {
     import warnings;
     $^H |= 1538;
@@ -33,7 +34,8 @@ my $P = __PACKAGE__.::i;
     };
 };
 
-*{$P.::new} = sub {
+# Quotes are needed or else bug in Module::Install. :\
+*{$P.'::new'} = sub {
     $c = shift;
     my $s = bless {@_}, $c;
     my @c;
