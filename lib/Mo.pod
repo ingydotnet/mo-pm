@@ -59,11 +59,12 @@ roles, you should upgrade to Moo.
 Mo exports a C<has> keyword, to generate accessors.
 
 These accessors always support both C<get> and C<set> operations. They allow
-the C<default> and C<builder> options. That's it.
+the C<default> , C<builder> and C<lazy_build> options. That's it.
 
     has 'name1';
     has 'name2' => ( default => sub { 'Joe' } );
     has 'name3' => ( builder => 'name_builder' );
+    has 'name4' => ( lazy_build => 1 );     # expects sub _build_name4
 
 C<has> takes arguments after the name. Here is what it currently supports:
 
@@ -80,6 +81,13 @@ not(exists()).
 
 Must be a method name. This method should return the default value for this
 attribute. C<builder> is always called lazily.
+
+=item lazy_build
+
+This is a simple boolean. If set, it will automatically configure the builder
+parameter to C<_build_$attributename>, similar to how the Moose option works.
+It will however not create any of the other effects of that option, like
+creating predicate functions.
 
 =back
 

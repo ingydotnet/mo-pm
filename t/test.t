@@ -1,6 +1,6 @@
 use Test::More;
 
-plan tests => 39;
+plan tests => 40;
 
 #============
 package Foo;
@@ -53,6 +53,8 @@ has plop => (
 has 'plip';
 has bridge => builder => 'bridge_builder';
 use constant bridge_builder => 'A Bridge';
+has auto_bridge => lazy_build => 1;
+use constant _build_auto_bridge => 'A Bridge';
 has guess => (
     default => sub {'me me me'},
     builder => 'bridge_builder',
@@ -90,6 +92,7 @@ $b->that("thyng");
 is $b->plop, 'plop: thung', 'default works again';
 is $b->plip, undef, 'no default is undef';
 is $b->bridge, 'A Bridge', 'builder works';
+is $b->auto_bridge, 'A Bridge', 'automatic builder sub setting works';
 is $b->guess, 'me me me', 'default trumps builder';
 
 #============

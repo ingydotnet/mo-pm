@@ -15,7 +15,7 @@ my $P = __PACKAGE__.'::';
     };
     *{ $p . has } = sub {
         my ( $n, %a ) = @_;
-        my $d = $a{default}||$a{builder};
+        my $d = $a{default}||$a{builder}||$a{lazy_build}&&"_build_$n";
         *{ $p . $n } = $d
             ? sub {
                 $#_
