@@ -2,18 +2,34 @@ package Mo;
 $VERSION = 0.23;
 
 no warnings;
-# Quotes are needed or else bug in Module::Install. :\
+# Quotes are needed on next 2 lines or else bug in Module::Install. :\
 my $P = __PACKAGE__.'::';
+
+*{$P.'Object::new'} = sub {
+    $c = shift;
+    my $s = bless {@_}, $c;
+    my @c;
+
+    do {
+        @c = ($c . ::BUILD, @c)
+    }
+    while ($c) = @{ $c . ::ISA };
+
+    exists &$_ && &$_($s)
+        for @c;
+
+    $s;
+};
+
 *{$P.import} = sub {
     import warnings;
     $^H |= 1538;
     my $p = caller.::;
-    @{ $p . ISA } = $P.'Object';
-    *{ $p . extends } = sub {
+    my $e = sub {
         eval "no $_[0] ()";
         @{ $p . ISA } = $_[0];
     };
-    *{ $p . has } = sub {
+    my $h = sub {
         my ( $n, %a ) = @_;
         my $d = $a{default}||$a{builder};
         *{ $p . $n } = $d
@@ -30,21 +46,7 @@ my $P = __PACKAGE__.'::';
                     : $_[0]{$n};
             };
     };
+    *{ $p . has } = $h;
+    *{ $p . extends } = $e;
+    @{ $p . ISA } = $P.'Object';
 };
-
-# Quotes are needed or else bug in Module::Install. :\
-*{$P.'Object::new'} = sub {
-    $c = shift;
-    my $s = bless {@_}, $c;
-    my @c;
-
-    do {
-        @c = ($c . ::BUILD, @c)
-    }
-    while ($c) = @{ $c . ::ISA };
-
-    exists &$_ && &$_($s)
-        for @c;
-
-    $s;
-}
