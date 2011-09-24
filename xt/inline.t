@@ -16,7 +16,7 @@ $guts;
 }
 
 package TestInline;
-use FooMo;
+use FooMo 'default';
 
 has this => builder => 'that';
 
