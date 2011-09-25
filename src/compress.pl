@@ -1,8 +1,9 @@
 #!/usr/bin/perl
 
-undef $/;
-
-my $text = <>;
+my $text = do {
+    local undef $/;
+    <>;
+};
 
 $text =~ s/^#.*\n//mg;
 $text =~ s/\s*#'.*//;
