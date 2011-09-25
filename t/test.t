@@ -41,7 +41,7 @@ ok not(defined($f->{this})), '{this} is not defined';
 
 #============
 package Bar;
-use Mo 'default';
+use Mo 'builder', 'default';
 extends 'Foo';
 
 has 'that';
