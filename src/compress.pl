@@ -10,8 +10,9 @@ my $text = do {
 };
 
 binmode STDOUT;
-print golf_with_regex( $text );
-#print golf_with_ppi( $text );
+
+#print golf_with_regex( $text );
+print golf_with_ppi( $text );
 
 sub golf_with_regex {
     my ( $text ) = @_;
@@ -32,6 +33,9 @@ sub golf_with_ppi {
     my ( $text ) = @_;
 
     my $tree = PPI::Document->new( \$text );
+
+    my $comments = $tree->find( 'PPI::Token::Comment' );
+    $_->delete for @{$comments};
 
     return $tree->serialize;
 }
