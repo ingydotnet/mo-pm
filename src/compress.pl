@@ -18,20 +18,19 @@ sub finder_subs {
     return (
         comments => sub { $_[1]->isa( 'PPI::Token::Comment' ) },
 
+        duplicate_whitespace => sub {
+            my ( $top, $current ) = @_;
+            return 0 if !$current->isa( 'PPI::Token::Whitespace' );
+            return 0 if !$current->next_token;
+            return 0 if !$current->next_token->isa( 'PPI::Token::Whitespace' );
+            return 1;
+        },
+
         whitespace => sub {
             my ( $top, $current ) = @_;
             return 0 if !$current->isa( 'PPI::Token::Whitespace' );
             my $prev = $current->previous_token;
             my $next = $current->next_token;
-            return 1
-              if $prev->isa( 'PPI::Token::ArrayIndex' )
-                  and $next->isa( 'PPI::Token::Whitespace' )
-                  and $next->next_token->isa( 'PPI::Token::Operator' ); # !!! change this to collapse double whitespaces
-
-            return 1
-              if $prev->isa( 'PPI::Token::Symbol' )
-                  and $next->isa( 'PPI::Token::Whitespace' )
-                  and $next->next_token->isa( 'PPI::Token::Operator' ); # !!! change this to collapse double whitespaces
 
             return 1 if $prev->isa( tok 'Symbol' )     and $next->isa( tok 'Operator' );         # $VERSION =
             return 1 if $prev->isa( tok 'Word' )       and $next->isa( tok 'Symbol' );           # my $P
@@ -113,8 +112,7 @@ sub golf_with_ppi {
 
     my %finder_subs = finder_subs();
 
-    # whitespace needs to be double for now so i can compare things easier, needs to go later
-    my @order = qw( comments whitespace whitespace trailing_whitespace trailing_whitespace );
+    my @order = qw( comments duplicate_whitespace whitespace trailing_whitespace );
 
     for my $name ( @order ) {
         my $elements = $tree->find( $finder_subs{$name} );
