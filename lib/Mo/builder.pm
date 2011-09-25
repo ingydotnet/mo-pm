@@ -1,6 +1,6 @@
-package Mo::builder;
+package Mo::builder;package Mo;$K = __PACKAGE__;
 
-sub e {
+*{$K.'::builder::e'} = sub {
     my $P = shift;
     my %s = @_;
     my $h = $s{has};
@@ -19,5 +19,3 @@ sub e {
     };
     %s;
 }
-
-1;

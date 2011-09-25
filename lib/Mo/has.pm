@@ -1,11 +1,9 @@
-package Mo::has;
-use Mo::builder;
+package Mo::has;;package Mo;$K = __PACKAGE__;
 use Mo::default;
+use Mo::builder;
 
-sub e {
+*{$K.'::has::e'} = sub {
     my $p = shift;
-    my @e = Mo::default::e($p, @_);
-    Mo::builder::e($p, @e);
+    &{$K.'::builder::e'}($p,
+    &{$K.'::default::e'}($p, @_));
 }
-
-1;

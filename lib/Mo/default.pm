@@ -1,6 +1,6 @@
-package Mo::default;
+package Mo::default;package Mo;$K = __PACKAGE__;
 
-sub e {
+*{$K.'::default::e'} = sub {
     my $P = shift;
     my %s = @_;
     my $h = $s{has};
@@ -18,6 +18,4 @@ sub e {
             : $h->(@_);
     };
     %s;
-}
-
-1;
+};
