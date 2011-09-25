@@ -11,9 +11,9 @@ my $text = do {
 
 binmode STDOUT;
 
-print golf_with_regex( $text );
+#print golf_with_regex( $text );
 
-#print golf_with_ppi( $text );
+print golf_with_ppi( $text );
 
 sub golf_with_regex {
     my ( $text ) = @_;
@@ -31,13 +31,48 @@ sub golf_with_regex {
     return $text;
 }
 
+sub tok { "PPI::Token::$_[0]" }
+
 sub golf_with_ppi {
     my ( $text ) = @_;
 
     my $tree = PPI::Document->new( \$text );
 
-    my $comments = $tree->find( 'PPI::Token::Comment' );
-    $_->delete for @{$comments};
+    my %finder_subs = (
+        comments   => sub { $_[1]->isa( 'PPI::Token::Comment' ) },
+        whitespace => sub {
+            my ( $top, $current ) = @_;
+            return 0 if !$current->isa( 'PPI::Token::Whitespace' );
+            my $prev = $current->previous_token;
+            my $next = $current->next_token;
+            return 1
+              if $prev->isa( 'PPI::Token::ArrayIndex' )
+                  and $next->isa( 'PPI::Token::Whitespace' )
+                  and $next->next_token->isa( 'PPI::Token::Operator' ); # !!! change this to collapse double whitespaces
+
+            return 1
+              if $prev->isa( 'PPI::Token::Symbol' )
+                  and $next->isa( 'PPI::Token::Whitespace' )
+                  and $next->next_token->isa( 'PPI::Token::Operator' ); # !!! change this to collapse double whitespaces
+
+            return 1 if $prev->isa( tok 'Symbol' )     and $next->isa( tok 'Operator' );         # $VERSION =
+            return 1 if $prev->isa( tok 'Word' )       and $next->isa( tok 'Symbol' );           # my $P
+            return 1 if $prev->isa( tok 'Word' )       and $next->isa( tok 'Structure' );        # sub {
+            return 1 if $prev->isa( tok 'Word' )       and $next->isa( tok 'Quote::Double' );    # eval "
+            return 1 if $prev->isa( tok 'Symbol' )     and $next->isa( tok 'Structure' );        # %a )
+            return 1 if $prev->isa( tok 'ArrayIndex' ) and $next->isa( tok 'Operator' );         # $#_ ?
+            return 1 if $prev->isa( tok 'Word' )       and $next->isa( tok 'Cast' );             # exists &$_
+            return 0;
+        },
+    );
+
+    # whitespace needs to be double for now so i can compare things easier, needs to go later
+    my @order = qw( comments whitespace whitespace );
+
+    for my $name ( @order ) {
+        my $elements = $tree->find( $finder_subs{$name} ) || [];
+        $_->delete for @{$elements};
+    }
 
     return $tree->serialize;
 }
