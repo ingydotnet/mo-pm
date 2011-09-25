@@ -11,14 +11,16 @@ my $text = do {
 
 binmode STDOUT;
 
-#print golf_with_regex( $text );
-print golf_with_ppi( $text );
+print golf_with_regex( $text );
+
+#print golf_with_ppi( $text );
 
 sub golf_with_regex {
     my ( $text ) = @_;
 
     $text =~ s/^#.*\n//mg;
-    #$text =~ s/\s*#'.*//;
+    $text =~ s/\s*#'.*//;
+
     #$text =~ s/(\w)\s+([^\w])/$1$2/g;
     #$text =~ s/([^\w])\s+/$1/g;
     #$text =~ s/;\}/}/g;
