@@ -14,4 +14,5 @@ $text =~ s/(\$VERSION.*?;)/\n$1\n/;
 $text =~ s/(no\$)/no \$/;
 $text .= "\n";
 
+binmode STDOUT;
 print $text;
