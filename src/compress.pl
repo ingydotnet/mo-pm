@@ -143,5 +143,5 @@ sub golf_with_ppi {
 
     $tree->find( $finder_subs{$_} ) for qw( del_superfluous_concat del_last_semicolon_in_block separate_version );
 
-    return $tree->serialize;
+    return $tree->serialize . "\n";
 }
