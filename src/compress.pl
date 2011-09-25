@@ -25,8 +25,8 @@ sub golf_with_regex {
     $text =~ s/" . "//;
     $text =~ s/([^\w])\s+/$1/g;
     $text =~ s/;\}/}/g;
+    $text =~ s/(\$VERSION.*?;)/\n$1\n/;
 
-    #$text =~ s/(\$VERSION.*?;)/\n$1\n/;
     #$text .= "\n";
 
     return $text;
@@ -111,6 +111,18 @@ sub finder_subs {
 
             return 1;
         },
+
+        separate_version => sub {
+            my ( $top, $current ) = @_;
+            return 0 if !$current->isa( 'PPI::Statement' );
+
+            my $first = $current->first_token;
+            return 0 if $first->content ne '$VERSION';
+
+            $current->$_( PPI::Token::Whitespace->new( "\n" ) ) for qw( insert_before insert_after );
+
+            return 1;
+        },
     );
 }
 
@@ -129,7 +141,7 @@ sub golf_with_ppi {
         $_->delete for @{$elements};
     }
 
-    $tree->find( $finder_subs{$_} ) for qw( del_superfluous_concat del_last_semicolon_in_block );
+    $tree->find( $finder_subs{$_} ) for qw( del_superfluous_concat del_last_semicolon_in_block separate_version );
 
     return $tree->serialize;
 }
