@@ -2,7 +2,6 @@ package Mo;
 $VERSION = 0.24;
 
 no warnings;
-# Quotes are needed or else bug in Module::Install. :\
 my $P = __PACKAGE__.'::';
 *{$P.import} = sub {
     import warnings;
@@ -32,7 +31,6 @@ my $P = __PACKAGE__.'::';
     };
 };
 
-# Quotes are needed or else bug in Module::Install. :\
 *{$P.'Object::new'} = sub {
     $c = shift;
     my $s = bless {@_}, $c;

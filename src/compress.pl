@@ -11,7 +11,7 @@ my $text = do {
 
 my $tree = PPI::Document->new( \$text );
 
-#$text =~ s/^#.*\n//mg;
+$text =~ s/^#.*\n//mg;
 #$text =~ s/\s*#'.*//;
 #$text =~ s/(\w)\s+([^\w])/$1$2/g;
 #$text =~ s/([^\w])\s+/$1/g;
@@ -21,5 +21,5 @@ my $tree = PPI::Document->new( \$text );
 #$text .= "\n";
 
 binmode STDOUT;
-#print $text;
-print $tree->serialize;
+print $text;
+#print $tree->serialize;
