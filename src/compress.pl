@@ -117,7 +117,8 @@ sub golf_with_ppi {
     my @order = qw( comments whitespace whitespace trailing_whitespace trailing_whitespace );
 
     for my $name ( @order ) {
-        my $elements = $tree->find( $finder_subs{$name} ) || [];
+        my $elements = $tree->find( $finder_subs{$name} );
+        die $@ if !$elements;
         $_->delete for @{$elements};
     }
 
