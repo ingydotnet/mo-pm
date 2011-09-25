@@ -33,12 +33,8 @@ sub golf_with_regex {
 
 sub tok { "PPI::Token::$_[0]" }
 
-sub golf_with_ppi {
-    my ( $text ) = @_;
-
-    my $tree = PPI::Document->new( \$text );
-
-    my %finder_subs = (
+sub finder_subs {
+    return (
         comments => sub { $_[1]->isa( 'PPI::Token::Comment' ) },
 
         whitespace => sub {
@@ -78,6 +74,14 @@ sub golf_with_ppi {
             return 0;
         },
     );
+}
+
+sub golf_with_ppi {
+    my ( $text ) = @_;
+
+    my $tree = PPI::Document->new( \$text );
+
+    my %finder_subs = finder_subs();
 
     # whitespace needs to be double for now so i can compare things easier, needs to go later
     my @order = qw( comments whitespace whitespace trailing_whitespace trailing_whitespace );
