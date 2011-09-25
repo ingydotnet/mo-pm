@@ -1,5 +1,5 @@
 package Mo;
-$VERSION = 0.23;
+$VERSION = 0.24;
 
 no warnings;
 my $K = __PACKAGE__;

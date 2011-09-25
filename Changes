@@ -1,4 +1,11 @@
 ---
+version: 0.24
+date:    Sun Sep 25 12:44:29 CEST 2011
+changes:
+- Ensure that Mo.pm ends with semicolon. Needed for inlining.
+- Released from Laurent++ and Emmanuelle++ Parisian porch over a delightful
+  breakfast with they and BooK.
+---
 version: 0.23
 date:    Wed Sep 21 23:53:13 CEST 2011
 changes:
