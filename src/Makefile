@@ -1,2 +1,9 @@
-../lib/Mo.pm: Mo.pm compress.pl Makefile
+ALL = ../lib/Mo.pm \
+      ../lib/Mo/builder.pm \
+      ../lib/Mo/default.pm \
+      ../lib/Mo/has.pm \
+
+all: $(ALL)
+
+../lib/%: % compress.pl Makefile
 	perl compress.pl $< > $@
