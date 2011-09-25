@@ -102,6 +102,27 @@ sub finder_subs {
 
             return 1;
         },
+
+        shorten_var_names => sub {
+            my ( $top, $current ) = @_;
+            return 0 if !$current->isa( tok 'Symbol' );
+
+            my $name = $current->canonical;
+
+            my %short_names = shortened_var_names();
+
+            die "variable $name conflicts with shortened var name" if grep { $name eq $_ } values %short_names;
+
+            my $short = $short_names{$name};
+            $current->set_content( $short ) if $short;
+
+            return 1;
+        },
+    );
+}
+
+sub shortened_var_names {
+    return (
     );
 }
 
@@ -120,7 +141,8 @@ sub golf_with_ppi {
         $_->delete for @{$elements};
     }
 
-    $tree->find( $finder_subs{$_} ) for qw( del_superfluous_concat del_last_semicolon_in_block separate_version );
+    $tree->find( $finder_subs{$_} )
+      for qw( del_superfluous_concat del_last_semicolon_in_block separate_version shorten_var_names );
     die $@ if $@;
 
     return $tree->serialize . "\n";
