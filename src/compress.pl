@@ -22,9 +22,10 @@ sub golf_with_regex {
     $text =~ s/\s*#'.*//;
     $text =~ s/(\w)\s+([^\w])/$1$2/g;
     $text =~ s/(no\$)/no \$/;
+    $text =~ s/" . "//;
     $text =~ s/([^\w])\s+/$1/g;
+    $text =~ s/;\}/}/g;
 
-    #$text =~ s/;\}/}/g;
     #$text =~ s/(\$VERSION.*?;)/\n$1\n/;
     #$text .= "\n";
 
@@ -74,6 +75,25 @@ sub finder_subs {
             return 0;
         },
 
+        del_last_semicolon_in_block => sub {
+            my ( $top, $current ) = @_;
+            return 0 if !$current->isa( 'PPI::Structure::Block' );
+
+            my $last = $current->last_token;
+
+            return 0 if !$last->isa( tok 'Structure' );
+            return 0 if $last->content ne '}';
+
+            my $maybe_semi = $last->previous_token;
+
+            return 0 if !$maybe_semi->isa( tok 'Structure' );
+            return 0 if $maybe_semi->content ne ';';
+
+            $maybe_semi->delete;
+
+            return 1;
+        },
+
         del_superfluous_concat => sub {
             my ( $top, $current ) = @_;
             return 0 if !$current->isa( tok 'Operator' );
@@ -109,7 +129,7 @@ sub golf_with_ppi {
         $_->delete for @{$elements};
     }
 
-    $tree->find( $finder_subs{del_superfluous_concat} );
+    $tree->find( $finder_subs{$_} ) for qw( del_superfluous_concat del_last_semicolon_in_block );
 
     return $tree->serialize;
 }
