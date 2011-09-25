@@ -1,5 +1,5 @@
 package Mo;
-$VERSION = 0.23;
+$VERSION = 0.24;
 
 no warnings;
 # Quotes are needed or else bug in Module::Install. :\
@@ -47,4 +47,4 @@ my $P = __PACKAGE__.'::';
         for @c;
 
     $s;
-}
+};
