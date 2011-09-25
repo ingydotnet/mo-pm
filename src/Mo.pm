@@ -10,7 +10,7 @@ my $P = __PACKAGE__.'::';
     my $p = caller.::;
     @{ $p . ISA } = $P.'Object';
     *{ $p . extends } = sub {
-        eval "no $_[0] ()";
+        eval "no $_[0]" . "()";
         @{ $p . ISA } = $_[0];
     };
     *{ $p . has } = sub {

@@ -73,6 +73,24 @@ sub finder_subs {
 
             return 0;
         },
+
+        del_superfluous_concat => sub {
+            my ( $top, $current ) = @_;
+            return 0 if !$current->isa( tok 'Operator' );
+
+            my $prev = $current->previous_token;
+            my $next = $current->next_token;
+
+            return 0 if $current->content ne '.';
+            return 0 if !$prev->isa( tok 'Quote::Double' );
+            return 0 if !$next->isa( tok 'Quote::Double' );
+
+            $current->delete;
+            $prev->set_content( $prev->{separator} . $prev->string . $next->string . $prev->{separator} );
+            $next->delete;
+
+            return 1;
+        },
     );
 }
 
@@ -90,6 +108,8 @@ sub golf_with_ppi {
         my $elements = $tree->find( $finder_subs{$name} ) || [];
         $_->delete for @{$elements};
     }
+
+    $tree->find( $finder_subs{del_superfluous_concat} );
 
     return $tree->serialize;
 }
