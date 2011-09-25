@@ -174,9 +174,28 @@ core until they can be proven in an extension system. This means that there
 actually needs to be an extension system. I have some idea about how this
 should work. Here goes:
 
-We write a number of extensions. They have the ability to wrap, add to or remove 
+We write a number of extensions. They have the ability to wrap, add to or
+remove exported subs. You use one like this:
 
+    use Mo qw'foo bar';
 
+This loads Mo::foo and Mo::Bar. It calls the C<e()> subroutine on each. It
+passes in a list like:
+
+    has => \&has, extends => \&extends
+
+It receives back a mutated list and passes it to the next extension module.
+Finally it exports all the subs.
+
+That's it. It will require some attention and a lot of tests, but it should
+beable to make anything possible.
+
+The work on this idea is being done on the C<momo> branch.
+
+=head2 1024 Size Limit
+
+Mo.pm is currently around 500 bytes long. It should strive to never exceed
+1024 bytes. Much less if possible, but 1024 is the limit.
 
 =head2 Ungolfing
 
