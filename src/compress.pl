@@ -11,9 +11,9 @@ my $text = do {
 
 binmode STDOUT;
 
-print golf_with_regex( $text );
+#print golf_with_regex( $text );
 
-#print golf_with_ppi( $text );
+print golf_with_ppi( $text );
 
 sub golf_with_regex {
     my ( $text ) = @_;
@@ -39,7 +39,8 @@ sub golf_with_ppi {
     my $tree = PPI::Document->new( \$text );
 
     my %finder_subs = (
-        comments   => sub { $_[1]->isa( 'PPI::Token::Comment' ) },
+        comments => sub { $_[1]->isa( 'PPI::Token::Comment' ) },
+
         whitespace => sub {
             my ( $top, $current ) = @_;
             return 0 if !$current->isa( 'PPI::Token::Whitespace' );
@@ -64,10 +65,22 @@ sub golf_with_ppi {
             return 1 if $prev->isa( tok 'Word' )       and $next->isa( tok 'Cast' );             # exists &$_
             return 0;
         },
+
+        trailing_whitespace => sub {
+            my ( $top, $current ) = @_;
+            return 0 if !$current->isa( 'PPI::Token::Whitespace' );
+            my $prev = $current->previous_token;
+
+            return 1 if $prev->isa( tok 'Structure' );                                           # ;[\n\s]
+            return 1 if $prev->isa( tok 'Operator' );                                            # = 0.24
+            return 1 if $prev->isa( tok 'Quote::Double' );                                       # " .
+
+            return 0;
+        },
     );
 
     # whitespace needs to be double for now so i can compare things easier, needs to go later
-    my @order = qw( comments whitespace whitespace );
+    my @order = qw( comments whitespace whitespace trailing_whitespace trailing_whitespace );
 
     for my $name ( @order ) {
         my $elements = $tree->find( $finder_subs{$name} ) || [];
