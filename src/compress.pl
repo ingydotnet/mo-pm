@@ -1,9 +1,15 @@
 #!/usr/bin/perl
 
+use strict;
+use warnings;
+use PPI;
+
 my $text = do {
     local undef $/;
     <>;
 };
+
+my $tree = PPI::Document->new( \$text );
 
 #$text =~ s/^#.*\n//mg;
 #$text =~ s/\s*#'.*//;
@@ -15,4 +21,5 @@ my $text = do {
 #$text .= "\n";
 
 binmode STDOUT;
-print $text;
+#print $text;
+print $tree->serialize;
