@@ -6,3 +6,5 @@ module_name 'Mo';
 perl_version '5.006';
 all_from 'lib/Mo.pm';
 all_from 'lib/Mo.pod';
+
+recommends 'IO::All';
