@@ -24,7 +24,7 @@ my $MoPKG = __PACKAGE__."::";
     $^H |= 1538;
     my $caller_pkg = caller."::";
     my %exports = (
-        extends => sub {
+        extends => sub(*){
             eval "no $_[0]" . "()";
             @{ $caller_pkg . 'ISA' } = $_[0];
         },

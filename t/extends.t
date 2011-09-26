@@ -1,13 +1,18 @@
-use Test::More tests => 4;
+use Test::More tests => 15;
 
 use lib 't';
 use Bar;
+use Baz;
+use Goo;
 
-my $b = Bar->new;
+foreach my $class (qw<Bar Baz Goo>) {
+    my $b = $class->new;
 
-ok $b->isa('Foo'), 'Bar is a subclass of Foo';
+    isa_ok $b, $class;
+    isa_ok $b, 'Foo';
 
-is "@Bar::ISA", "Foo", 'Extends with multiple classes not supported';
+    is "@Bar::ISA", "Foo", 'Extends with multiple classes not supported';
 
-ok 'Foo'->can('stuff'), 'Foo is loaded';
-ok not('Bar'->can('buff')), 'Boo is not loaded';
+    ok 'Foo'->can('stuff'), 'Foo is loaded';
+    ok not('Bar'->can('buff')), 'Boo is not loaded';
+}
