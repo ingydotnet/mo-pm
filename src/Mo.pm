@@ -40,8 +40,8 @@ my $K = __PACKAGE__;
         },
     );
     for (@_[1..$#_]) {
-        eval "require Mo::$_;1" or die $@;
-        %s = &{"Mo::${_}::e"}($P => %s);
+        eval "require Mo::$_;1";
+        %s = &{"${K}::${_}::e"}($P => %s);
     }
     *{ $P . "::$_"} = $s{$_} for keys %s;
     @{ $P . '::ISA' } = $K.'::Object';
