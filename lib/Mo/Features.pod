@@ -1,0 +1,22 @@
+=head1 Mo Features
+
+Mo is absoutely minimal, but let's you add on features at will like this:
+
+    use Mo qw[default builder other features];
+
+This will load the modules L<Mo::default>, etc, and have them modify your Mo
+reality.
+
+Here's a list of the current feature modules:
+
+=over
+
+=item * L<Mo::default> - Add C<default> feature to C<has>.
+
+=item * L<Mo::builder> - Add C<builder> feature to C<has>.
+
+=item * L<Mo::has> - Add C<default> and C<buiilder> features to C<has> with one feature.
+
+This module will likely change, and may be renamed entirely.
+
+=back
