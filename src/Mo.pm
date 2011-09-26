@@ -26,7 +26,7 @@ my $K = __PACKAGE__;
     my $P = caller;
     my %s = (
         extends => sub {
-            eval "no $_[0] ()";
+            eval "no $_[0]" . "()";
             @{ $P . '::ISA' } = $_[0];
         },
         has => sub {
