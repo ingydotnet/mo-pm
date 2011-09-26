@@ -80,6 +80,7 @@ In your module:
 
     package MyModule::Mo;
     # use Mo qw'builder default';
+    1;
 
 From the command line:
 
