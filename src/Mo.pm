@@ -2,9 +2,9 @@ package Mo;
 $VERSION = 0.24;
 
 no warnings;
-my $MoPKG = __PACKAGE__;
+my $MoPKG = __PACKAGE__."::";
 
-*{$MoPKG.'::Object::new'} = sub {
+*{$MoPKG.'Object::new'} = sub {
     my $class = shift;
     my $self = bless {@_}, $class;
     my @build_subs;
@@ -19,7 +19,7 @@ my $MoPKG = __PACKAGE__;
     $self;
 };
 
-*{$MoPKG.'::import'} = sub {
+*{$MoPKG.'import'} = sub {
     import warnings;
     $^H |= 1538;
     my $caller_pkg = caller."::";
@@ -40,8 +40,8 @@ my $MoPKG = __PACKAGE__;
     );
     for (@_[1..$#_]) {
         eval "require Mo::$_;1";
-        %exports = &{$MoPKG."::${_}::e"}($caller_pkg => %exports);
+        %exports = &{$MoPKG."${_}::e"}($caller_pkg => %exports);
     }
     *{ $caller_pkg . $_} = $exports{$_} for keys %exports;
-    @{ $caller_pkg . 'ISA' } = $MoPKG.'::Object';
+    @{ $caller_pkg . 'ISA' } = $MoPKG.'Object';
 };
