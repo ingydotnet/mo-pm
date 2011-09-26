@@ -12,9 +12,13 @@ exit;
 sub run {
     my $mymo = "xt/MyMo.pm";
 
+    if (-e 'blib') {
+        `chmod -R +w blib`;
+    }
+
     "package MyMo;\n# use Mo qw'builder default';\n1;" > io $mymo;
     $ENV{PERL5LIB} ||= 'lib';
-    `$^X bin/mo-inline xt/MyMo.pm`;
+    `$^X bin/mo-inline xt/MyMo.pm 2> /dev/null`;
     require "xt/TestMyMo.pm";
 
     my $t = TestMyMo->new;
