@@ -1,4 +1,5 @@
 ALL = ../lib/Mo.pm \
+      ../lib/Mo/autobuild.pm \
       ../lib/Mo/builder.pm \
       ../lib/Mo/default.pm \
       ../lib/Mo/has.pm \

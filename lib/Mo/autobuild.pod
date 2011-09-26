@@ -1,0 +1,20 @@
+=encoding utf8
+
+=head1 Name
+
+Mo::autobuild - adds the feature autobuild to Mo's has
+
+=head1 Synopsis
+
+    use Mo qw'autobuild';
+    has name => ( builder => 'name_lookup' );
+    has car => ( builder => 1 ); # sets builder for car to '_build_car'
+
+=head1 Description
+
+Adds the builder parameter to has, which expects a method name, which is
+executed on $self to set the attribute if it hasn't been set yet. If builder
+is set to the number 1, instead of a method name, builder is automatically set
+to C<_build_$name>.
+
+=cut
