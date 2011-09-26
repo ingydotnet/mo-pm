@@ -1,7 +1,7 @@
-package Mo::default;package Mo;$MoPKG = __PACKAGE__;
+package Mo::default;package Mo;$MoPKG = __PACKAGE__."::";
 $VERSION = 0.24;
 
-*{$MoPKG.'::default::e'} = sub {
+*{$MoPKG.'default::e'} = sub {
     my $caller_pkg = shift;
     my %exports = @_;
     my $old_export = $exports{has};

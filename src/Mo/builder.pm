@@ -1,7 +1,7 @@
-package Mo::builder;package Mo;$MoPKG = __PACKAGE__;
+package Mo::builder;package Mo;$MoPKG = __PACKAGE__."::";
 $VERSION = 0.24;
 
-*{$MoPKG.'::builder::e'} = sub {
+*{$MoPKG.'builder::e'} = sub {
     my $caller_pkg = shift;
     my %exports = @_;
     my $old_export = $exports{has};
