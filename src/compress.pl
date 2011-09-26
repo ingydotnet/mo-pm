@@ -56,6 +56,19 @@ sub finder_subs {
             return 0;
         },
 
+        double_semicolon => sub {
+            my ( $top, $current ) = @_;
+            return 0 if !$current->isa( tok 'Structure' );
+            return 0 if $current->content ne ';';
+
+            my $prev = $current->previous_token;
+
+            return 0 if !$prev->isa( tok 'Structure' );
+            return 0 if $prev->content ne ';';
+
+            return 1;
+        },
+
         del_last_semicolon_in_block => sub {
             my ( $top, $current ) = @_;
             return 0 if !$current->isa( 'PPI::Structure::Block' );
@@ -159,6 +172,12 @@ sub golf_with_ppi {
     $tree->find( $finder_subs{$_} )
       for qw( del_superfluous_concat del_last_semicolon_in_block separate_version shorten_var_names );
     die $@ if $@;
+
+    for my $name ( 'double_semicolon' ) {
+        my $elements = $tree->find( $finder_subs{$name} );
+        die $@ if !defined $elements;
+        $_->delete for @{ $elements || [] };
+    }
 
     return $tree->serialize . "\n";
 }
