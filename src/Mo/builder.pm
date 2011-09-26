@@ -8,7 +8,7 @@ $VERSION = 0.24;
     $exports{has} = sub {
         my ( $name, %args ) = @_;
         my $builder = $args{builder};
-        *{ $caller_pkg . "::".$name } = $builder
+        *{ $caller_pkg . $name } = $builder
             ? sub {
                 $#_
                   ? $_[0]{$name} = $_[1]

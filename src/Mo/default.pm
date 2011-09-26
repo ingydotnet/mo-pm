@@ -8,7 +8,7 @@ $VERSION = 0.24;
     $exports{has} = sub {
         my ( $name, %args ) = @_;
         my $default = $args{default};
-        *{ $caller_pkg . "::".$name } = $default
+        *{ $caller_pkg . $name } = $default
             ? sub {
                 $#_
                   ? $_[0]{$name} = $_[1]

@@ -22,15 +22,15 @@ my $MoPKG = __PACKAGE__;
 *{$MoPKG.'::import'} = sub {
     import warnings;
     $^H |= 1538;
-    my $caller_pkg = caller;
+    my $caller_pkg = caller."::";
     my %exports = (
         extends => sub {
             eval "no $_[0]" . "()";
-            @{ $caller_pkg . '::ISA' } = $_[0];
+            @{ $caller_pkg . 'ISA' } = $_[0];
         },
         has => sub {
             my $name = shift;
-            *{ $caller_pkg . "::".$name } =
+            *{ $caller_pkg . $name } =
                 sub {
                     $#_
                         ? $_[0]{$name} = $_[1]
@@ -42,6 +42,6 @@ my $MoPKG = __PACKAGE__;
         eval "require Mo::$_;1";
         %exports = &{$MoPKG."::${_}::e"}($caller_pkg => %exports);
     }
-    *{ $caller_pkg . "::$_"} = $exports{$_} for keys %exports;
-    @{ $caller_pkg . '::ISA' } = $MoPKG.'::Object';
+    *{ $caller_pkg . $_} = $exports{$_} for keys %exports;
+    @{ $caller_pkg . 'ISA' } = $MoPKG.'::Object';
 };
