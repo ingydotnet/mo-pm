@@ -2,7 +2,7 @@
 
 =head1 Name
 
-Mo::builder - adds the features builder and default to Mo's has
+Mo::builder - adds the builder and default features to Mo's has
 
 =head1 Synopsis
 
@@ -13,5 +13,7 @@ Mo::builder - adds the features builder and default to Mo's has
 =head1 Description
 
 Loads the features L<Mo::builder> and L<Mo:default>.
+
+NOTE: This feature is likely to undergo a lot of changes. Beware.
 
 =cut
