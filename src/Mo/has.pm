@@ -1,10 +1,10 @@
-package Mo::has;;package Mo;$K = __PACKAGE__;
+package Mo::has;;package Mo;$MoPKG = __PACKAGE__."::";
 use Mo::default;
 use Mo::builder;
 $VERSION = 0.24;
 
-*{$K.'::has::e'} = sub {
-    my $p = shift;
-    &{$K.'::builder::e'}($p,
-    &{$K.'::default::e'}($p, @_));
+*{$MoPKG.'has::e'} = sub {
+    my $caller_pkg = shift;
+    &{$MoPKG.'builder::e'}($caller_pkg,
+    &{$MoPKG.'default::e'}($caller_pkg, @_));
 };

@@ -1,22 +1,22 @@
-package Mo::default;package Mo;$K = __PACKAGE__;
+package Mo::default;package Mo;$MoPKG = __PACKAGE__;
 $VERSION = 0.24;
 
-*{$K.'::default::e'} = sub {
-    my $P = shift;
-    my %s = @_;
-    my $h = $s{has};
-    $s{has} = sub {
-        my ( $n, %a ) = @_;
-        my $d = $a{default};
-        *{ $P . "::$n" } = $d
+*{$MoPKG.'::default::e'} = sub {
+    my $caller_pkg = shift;
+    my %exports = @_;
+    my $old_export = $exports{has};
+    $exports{has} = sub {
+        my ( $name, %args ) = @_;
+        my $default = $args{default};
+        *{ $caller_pkg . $name } = $default
             ? sub {
                 $#_
-                  ? $_[0]{$n} = $_[1]
-                    : ! exists $_[0]{$n}
-                      ? $_[0]{$n} = $_[0]->$d
-                      : $_[0]{$n}
+                  ? $_[0]{$name} = $_[1]
+                    : ! exists $_[0]{$name}
+                      ? $_[0]{$name} = $_[0]->$default
+                      : $_[0]{$name}
             }
-            : $h->(@_);
+            : $old_export->(@_);
     };
-    %s;
+    %exports;
 };
