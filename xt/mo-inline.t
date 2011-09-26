@@ -18,7 +18,7 @@ sub run {
 
     "package MyMo;\n# use Mo qw'builder default';\n1;" > io $mymo;
     $ENV{PERL5LIB} ||= 'lib';
-    `$^X bin/mo-inline xt/MyMo.pm 2> /dev/null`;
+    `$^X bin/mo-inline xt/MyMo.pm`;
     require "xt/TestMyMo.pm";
 
     my $t = TestMyMo->new;

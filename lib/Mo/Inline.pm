@@ -17,7 +17,7 @@ sub run {
     my $class = shift;
     my @files;
     if (not @_ or @_ == 1 and $_[0] =~ /^(?:-\?|-h|--help)$/) {
-        warn usage();
+        print usage();
         return 0;
     }
     for my $name (@_) {
@@ -39,12 +39,12 @@ sub run {
     for my $file (@files) {
         my $text = io($file)->all;
         if ($text !~ $matcher) {
-            warn "Ignoring $file - No Mo to Inline!\n";
+            print "Ignoring $file - No Mo to Inline!\n";
             next;
         }
         $text =~ s/$matcher/"$1" . &inliner($2)/eg;
         io($file)->print($text);
-        warn "Mo Inlined $file\n";
+        print "Mo Inlined $file\n";
     }
 }
 
