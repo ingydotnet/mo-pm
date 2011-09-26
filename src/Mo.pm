@@ -2,47 +2,46 @@ package Mo;
 $VERSION = 0.24;
 
 no warnings;
-my $K = __PACKAGE__;
+my $MoPKG = __PACKAGE__;
 
-*{$K.'::Object::new'} = sub {
-    my $c = shift;
-    my $s = bless {@_}, $c;
-    my @c;
+*{$MoPKG.'::Object::new'} = sub {
+    my $class = shift;
+    my $self = bless {@_}, $class;
+    my @build_subs;
 
     do {
-        @c = ($c . '::BUILD', @c)
+        @build_subs = ($class . '::BUILD', @build_subs)
     }
-    while ($c) = @{ $c . '::ISA' };
+    while ($class) = @{ $class . '::ISA' };
 
-    exists &$_ && &$_($s)
-        for @c;
+    exists &$_ && &$_( $self ) for @build_subs;
 
-    $s;
+    $self;
 };
 
-*{$K.'::import'} = sub {
+*{$MoPKG.'::import'} = sub {
     import warnings;
     $^H |= 1538;
-    my $P = caller;
-    my %s = (
+    my $caller_pkg = caller;
+    my %exports = (
         extends => sub {
             eval "no $_[0]" . "()";
-            @{ $P . '::ISA' } = $_[0];
+            @{ $caller_pkg . '::ISA' } = $_[0];
         },
         has => sub {
-            my $n = shift;
-            *{ $P . "::$n" } =
+            my $name = shift;
+            *{ $caller_pkg . "::".$name } =
                 sub {
                     $#_
-                        ? $_[0]{$n} = $_[1]
-                        : $_[0]{$n};
+                        ? $_[0]{$name} = $_[1]
+                        : $_[0]{$name};
                 };
         },
     );
     for (@_[1..$#_]) {
         eval "require Mo::$_;1";
-        %s = &{"${K}::${_}::e"}($P => %s);
+        %exports = &{$MoPKG."::${_}::e"}($caller_pkg => %exports);
     }
-    *{ $P . "::$_"} = $s{$_} for keys %s;
-    @{ $P . '::ISA' } = $K.'::Object';
+    *{ $caller_pkg . "::$_"} = $exports{$_} for keys %exports;
+    @{ $caller_pkg . '::ISA' } = $MoPKG.'::Object';
 };

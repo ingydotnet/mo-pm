@@ -33,7 +33,7 @@ sub finder_subs {
             my $next = $current->next_token;
 
             return 1 if $prev->isa( tok 'Symbol' )     and $next->isa( tok 'Operator' );         # $VERSION =
-            return 1 if $prev->isa( tok 'Word' )       and $next->isa( tok 'Operator' );           # my $P
+            return 1 if $prev->isa( tok 'Word' )       and $next->isa( tok 'Operator' );         # my $P
             return 1 if $prev->isa( tok 'Word' )       and $next->isa( tok 'Symbol' );           # my $P
             return 1 if $prev->isa( tok 'Word' )       and $next->isa( tok 'Structure' );        # sub {
             return 1 if $prev->isa( tok 'Word' )       and $next->isa( tok 'Quote::Double' );    # eval "
@@ -125,6 +125,19 @@ sub finder_subs {
 
 sub shortened_var_names {
     return (
+        '%args'       => '%a',
+        '$args'       => '$a',
+        '@build_subs' => '@B',
+        '$builder'    => '$b',
+        '$class'      => '$c',
+        '$default'    => '$d',
+        '%exports'    => '%e',
+        '$exports'    => '$e',
+        '$MoPKG'      => '$K',
+        '$name'       => '$n',
+        '$old_export' => '$o',
+        '$caller_pkg' => '$P',
+        '$self'       => '$s',
     );
 }
 
