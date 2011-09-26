@@ -1,8 +1,10 @@
 use Test::More tests => 3;
 use IO::All;
 
+my $module_path;
 BEGIN {
-    my $module_path = 'xt/FooMo.pm';
+    $module_path = 'xt/FooMo.pm';
+    unlink $module_path;
     my $guts =
         io('lib/Mo.pm')->[-1] . "\n" .
         io('lib/Mo/builder.pm')->[-1] . "\n" .
@@ -16,8 +18,6 @@ $guts;
 1;
 ...
     push @INC, 'xt';
-
-    END { unlink $module_path }
 }
 
 package TestInline;
@@ -41,3 +41,5 @@ my $t = TestInline->new;
 is $t->this, 'Yep!', 'Inline builder works';
 is $t->thunk, 'DEfault', 'Inline default works';
 ok $t->isa('FooMo::Object'), 'object isa FooMo::Object';
+
+unlink $module_path;

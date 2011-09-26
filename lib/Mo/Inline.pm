@@ -59,7 +59,6 @@ sub inliner {
     $inline .= $_ for map {
         my $module = $_;
         $module .= '.pm';
-        warn ">> $module - $INC{$module}";
         io($INC{$module})->[-1];
     } ('Mo', map { s!::!/!g; "Mo/$_" } @features);
     $inline .= "\n";
