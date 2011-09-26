@@ -137,8 +137,8 @@ sub golf_with_ppi {
 
     for my $name ( @order ) {
         my $elements = $tree->find( $finder_subs{$name} );
-        die $@ if !$elements;
-        $_->delete for @{$elements};
+        die $@ if !defined $elements;
+        $_->delete for @{ $elements || [] };
     }
 
     $tree->find( $finder_subs{$_} )
