@@ -1,29 +1,23 @@
 =encoding utf8
 
-=head1 NAME
+=head1 Name
 
 Mo - Micro Objects. Mo is less.
 
-=head1 SYNOPSIS
+=head1 Synopsis
 
     package Less;
     use Mo;
     extends 'Nothing';
 
-    has 'something' => (
-        is => 'rw',
-        default => sub {
-            my $self = shift;
-            $self->build_something;
-        },
-    );
+    has something => ();
 
     sub BUILD {
         my $self = shift;
         # enhance your object before it is returned by new()
     }
 
-=head1 DESCRIPTION
+=head1 Description
 
 use Mo. Mo is less. Much less.
 
@@ -32,7 +26,9 @@ more. Not much.
 
 When Moo is more than you need, drop an 'o' and get some Mo.
 
-=head1 FEATURES
+To get just a little Mo from Mo, use L<Mo Features> below.
+
+=head1 Core Features
 
 This is what you get. Nothing Mo.
 
@@ -48,8 +44,8 @@ of its parents and itself.
 
 =item C<extends>
 
-Mo exports the C<extends> keyword, to declare your parent class. C<Mo> itself
-is your default parent class, of course.
+Mo exports the C<extends> keyword, to declare your parent class. C<Mo::Object>
+itself is your default parent class.
 
 Mo only supports single inheritance. If you need multiple inheritance or
 roles, you should upgrade to Moo.
@@ -58,33 +54,13 @@ roles, you should upgrade to Moo.
 
 Mo exports a C<has> keyword, to generate accessors.
 
-These accessors always support both C<get> and C<set> operations. They allow
-the C<default> and C<builder> options. That's it.
+These accessors always support both C<get> and C<set> operations. That's it.
 
-    has 'name1';
-    has 'name2' => ( default => sub { 'Joe' } );
-    has 'name3' => ( builder => 'name_builder' );
+    has name => ();
+    has thing => (is => 'ro');  # arguments silently ignored
 
-C<has> takes arguments after the name. Here is what it currently supports:
-
-=over
-
-=item default
-
-Must be a code reference. The object instance is passed in, and it should
-return the default value for this attribute. C<default> is always called
-lazily. ie It is called when you try to get the value and it does
-not(exists()).
-
-=item builder
-
-Must be a method name. This method should return the default value for this
-attribute. C<builder> is always called lazily.
-
-=back
-
-Any other arguments are ignored. This lets you switch from Moo to Mo and back,
-without having to change all your accessors.
+All arguments passed to C<has> are ignored. This makes it easier to switch
+between Mo and Moo, without having to change all your accessors.
 
 =item C<strict> and C<warnings>
 
@@ -98,7 +74,24 @@ information.
 
 =back
 
-=head1 SEE
+=head1 Mo Features
+
+Mo is the bare minimum needed for Perl OO. Many times you'll want just a
+couple more features. Don't worry. Mo's got you covered:
+
+    use Mo qw'default builder';
+    has name1 => ( default => sub { 'Joe' } );
+    has name2 => ( builder => 'name_builder' );
+
+Mo simply loads the feature classes L<Mo::default> and L<Mo::builder>. These
+add their magics to C<has>. A L<Mo::Feature> module can enhance C<new>,
+C<extends> and C<has>, and also add new export subs, or remove existing ones.
+See L<Mo::Features> for a list of all the features and for an explanation of
+the Feature API..
+
+=head1 See
+
+L<Mo::Features>
 
 L<Mo::Inlining>
 
@@ -106,7 +99,7 @@ L<Mo::Hacking>
 
 L<Mo::Design>
 
-=head1 AUTHORS
+=head1 Authors
 
 Ingy döt Net <ingy@cpan.org>
 
@@ -114,7 +107,7 @@ Damien 'dams' Krotkine <dams@cpan.org>
 
 Matt S. Trout (mst) <mst@shadowcat.co.uk>
 
-=head1 COPYRIGHT AND LICENSE
+=head1 Copyright and License
 
 Copyright (c) 2011. Ingy döt Net.
 

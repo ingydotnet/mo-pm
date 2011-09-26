@@ -1,25 +1,19 @@
-NAME
+Name
     Mo - Micro Objects. Mo is less.
 
-SYNOPSIS
+Synopsis
         package Less;
         use Mo;
         extends 'Nothing';
 
-        has 'something' => (
-            is => 'rw',
-            default => sub {
-                my $self = shift;
-                $self->build_something;
-            },
-        );
+        has something => ();
 
         sub BUILD {
             my $self = shift;
             # enhance your object before it is returned by new()
         }
 
-DESCRIPTION
+Description
     use Mo. Mo is less. Much less.
 
     Moose is huge. Moose led to Mouse led to Moo led to Mo. M is nothing. Mo
@@ -27,7 +21,9 @@ DESCRIPTION
 
     When Moo is more than you need, drop an 'o' and get some Mo.
 
-FEATURES
+    To get just a little Mo from Mo, use "Mo Features" below.
+
+Core Features
     This is what you get. Nothing Mo.
 
     "new" method
@@ -38,8 +34,8 @@ FEATURES
         for all of its parents and itself.
 
     "extends"
-        Mo exports the "extends" keyword, to declare your parent class. "Mo"
-        itself is your default parent class, of course.
+        Mo exports the "extends" keyword, to declare your parent class.
+        "Mo::Object" itself is your default parent class.
 
         Mo only supports single inheritance. If you need multiple
         inheritance or roles, you should upgrade to Moo.
@@ -47,28 +43,15 @@ FEATURES
     "has"
         Mo exports a "has" keyword, to generate accessors.
 
-        These accessors always support both "get" and "set" operations. They
-        allow the "default" and "builder" options. That's it.
+        These accessors always support both "get" and "set" operations.
+        That's it.
 
-            has 'name1';
-            has 'name2' => ( default => sub { 'Joe' } );
-            has 'name3' => ( builder => 'name_builder' );
+            has name => ();
+            has thing => (is => 'ro');  # arguments silently ignored
 
-        "has" takes arguments after the name. Here is what it currently
-        supports:
-
-        default
-            Must be a code reference. The object instance is passed in, and
-            it should return the default value for this attribute. "default"
-            is always called lazily. ie It is called when you try to get the
-            value and it does not(exists()).
-
-        builder
-            Must be a method name. This method should return the default
-            value for this attribute. "builder" is always called lazily.
-
-        Any other arguments are ignored. This lets you switch from Moo to Mo
-        and back, without having to change all your accessors.
+        All arguments passed to "has" are ignored. This makes it easier to
+        switch between Mo and Moo, without having to change all your
+        accessors.
 
     "strict" and "warnings"
         Mo turns on "use strict" and "use warnings" for you.
@@ -78,21 +61,37 @@ FEATURES
         inline it in your code, should you want to do that. See Mo::Inlining
         for more information.
 
-SEE
+Mo Features
+    Mo is the bare minimum needed for Perl OO. Many times you'll want just a
+    couple more features. Don't worry. Mo's got you covered:
+
+        use Mo qw'default builder';
+        has name1 => ( default => sub { 'Joe' } );
+        has name2 => ( builder => 'name_builder' );
+
+    Mo simply loads the feature classes Mo::default and Mo::builder. These
+    add their magics to "has". A Mo::Feature module can enhance "new",
+    "extends" and "has", and also add new export subs, or remove existing
+    ones. See Mo::Features for a list of all the features and for an
+    explanation of the Feature API..
+
+See
+    Mo::Features
+
     Mo::Inlining
 
     Mo::Hacking
 
     Mo::Design
 
-AUTHORS
+Authors
     Ingy döt Net <ingy@cpan.org>
 
     Damien 'dams' Krotkine <dams@cpan.org>
 
     Matt S. Trout (mst) <mst@shadowcat.co.uk>
 
-COPYRIGHT AND LICENSE
+Copyright and License
     Copyright (c) 2011. Ingy döt Net.
 
     This program is free software; you can redistribute it and/or modify it
