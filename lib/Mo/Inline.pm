@@ -29,7 +29,7 @@ sub run {
             push @files, $name;
         }
         elsif (-d $name) {
-            push @_, grep /\.pm$/, map { "$_" } io($name)->all_files;
+            push @_, grep /\.pm$/, map { "$_" } io($name)->All_Files;
         }
     }
 
