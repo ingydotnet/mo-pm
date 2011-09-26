@@ -33,6 +33,7 @@ sub finder_subs {
             my $next = $current->next_token;
 
             return 1 if $prev->isa( tok 'Symbol' )     and $next->isa( tok 'Operator' );         # $VERSION =
+            return 1 if $prev->isa( tok 'Word' )       and $next->isa( tok 'Operator' );           # my $P
             return 1 if $prev->isa( tok 'Word' )       and $next->isa( tok 'Symbol' );           # my $P
             return 1 if $prev->isa( tok 'Word' )       and $next->isa( tok 'Structure' );        # sub {
             return 1 if $prev->isa( tok 'Word' )       and $next->isa( tok 'Quote::Double' );    # eval "
@@ -50,6 +51,7 @@ sub finder_subs {
             return 1 if $prev->isa( tok 'Structure' );                                           # ;[\n\s]
             return 1 if $prev->isa( tok 'Operator' );                                            # = 0.24
             return 1 if $prev->isa( tok 'Quote::Double' );                                       # " .
+            return 1 if $prev->isa( tok 'Quote::Single' );                                       # ' }
 
             return 0;
         },
