@@ -107,6 +107,8 @@ Damien 'dams' Krotkine <dams@cpan.org>
 
 Matt S. Trout (mst) <mst@shadowcat.co.uk>
 
+Christian Walde <walde.christian@googlemail.com>
+
 =head1 Copyright and License
 
 Copyright (c) 2011. Ingy döt Net.
