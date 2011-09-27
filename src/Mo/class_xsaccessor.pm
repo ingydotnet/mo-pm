@@ -7,8 +7,11 @@ require Class::XSAccessor;
     my $caller_pkg = shift;
     $caller_pkg =~ s/::$//;
     my %exports = @_;
+    my $old_export = $exports{has};
     $exports{has} = sub {
-        my ( $name ) = @_;
+        my ( $name, %args ) = @_;
+        $args{default} || $args{builder}
+          and return $old_export->(@_);
         Class::XSAccessor->import(
           class => $caller_pkg,
           accessors => { $name => $name }
