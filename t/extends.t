@@ -1,5 +1,8 @@
 use Test::More tests => 4;
 
+use lib 't/lib';
+use HijackMo;
+
 use lib 't';
 use Bar;
 
