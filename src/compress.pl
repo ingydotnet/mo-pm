@@ -49,7 +49,7 @@ sub finder_subs {
             my $prev = $current->previous_token;
 
             return 1 if $prev->isa( tok 'Structure' );                                           # ;[\n\s]
-            return 1 if $prev->isa( tok 'Operator' );                                            # = 0.24
+            return 1 if $prev->isa( tok 'Operator' ) and $prev->content =~ /\W$/;                # = 0.24
             return 1 if $prev->isa( tok 'Quote::Double' );                                       # " .
             return 1 if $prev->isa( tok 'Quote::Single' );                                       # ' }
 
