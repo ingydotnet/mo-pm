@@ -2,32 +2,33 @@ package Mo;
 $VERSION = 0.25;
 
 no warnings;
-my $MoPKG = __PACKAGE__.::;
+my $MoPKG = __PACKAGE__."::";
 
-*{$MoPKG.Object::new} = sub {
-    $class = shift;
+*{$MoPKG.'Object::new'} = sub {
+    my $class = shift;
     my $self = bless {@_}, $class;
     my @build_subs;
 
     do {
-        @build_subs = ($class . ::BUILD, @build_subs)
+        @build_subs = ($class . '::BUILD', @build_subs)
     }
-    while ($class) = @{ $class . ::ISA };
+    while ($class) = @{ $class . '::ISA' };
 
     exists &$_ && &$_( $self ) for @build_subs;
+
     $self;
 };
 
-*{$MoPKG.import} = sub {
+*{$MoPKG.'import'} = sub {
     import warnings;
     $^H |= 1538;
-    my $caller_pkg = caller.::;
+    my $caller_pkg = caller."::";
     my %exports = (
-        extends, sub {
+        extends => sub {
             eval "no $_[0]" . "()";
-            @{ $caller_pkg . ISA } = $_[0];
+            @{ $caller_pkg . 'ISA' } = $_[0];
         },
-        has, sub {
+        has => sub {
             my $name = shift;
             *{ $caller_pkg . $name } =
                 sub {
@@ -36,9 +37,11 @@ my $MoPKG = __PACKAGE__.::;
                         : $_[0]{$name};
                 };
         },
-        ISA, [$MoPKG.Object]
     );
-    shift;
-    eval "no Mo::$_", %exports = &{$MoPKG.$_.::e}($caller_pkg, %exports) for @_;
+    for (@_[1..$#_]) {
+        eval "require Mo::$_;1";
+        %exports = &{$MoPKG."${_}::e"}($caller_pkg => %exports);
+    }
     *{ $caller_pkg . $_} = $exports{$_} for keys %exports;
+    @{ $caller_pkg . 'ISA' } = $MoPKG.'Object';
 };
