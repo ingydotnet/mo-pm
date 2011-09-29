@@ -8,3 +8,4 @@ all_from 'lib/Mo.pm';
 all_from 'lib/Mo.pod';
 
 recommends 'IO::All';
+no_index 'directory' => 'src';
