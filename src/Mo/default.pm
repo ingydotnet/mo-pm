@@ -1,4 +1,4 @@
-package Mo::default;package Mo;$MoPKG = __PACKAGE__."::";
+package Mo::default;$MoPKG = "Mo::";
 $VERSION = 0.24;
 
 *{$MoPKG.'default::e'} = sub {

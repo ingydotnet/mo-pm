@@ -1,4 +1,4 @@
-package Mo::builder;package Mo;$MoPKG = __PACKAGE__."::";
+package Mo::builder;$MoPKG = "Mo::";
 $VERSION = 0.24;
 
 *{$MoPKG.'builder::e'} = sub {

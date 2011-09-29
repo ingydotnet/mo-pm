@@ -1,5 +1,6 @@
-package Mo::class_xsaccessor;package Mo;$MoPKG = __PACKAGE__."::";
+package Mo::class_xsaccessor;
 $VERSION = 0.24;
+package Mo;$MoPKG = __PACKAGE__."::";
 
 require Class::XSAccessor;
 

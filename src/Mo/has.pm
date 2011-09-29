@@ -1,7 +1,8 @@
-package Mo::has;;package Mo;$MoPKG = __PACKAGE__."::";
+package Mo::has;
+$VERSION = 0.24;
+package Mo;$MoPKG = __PACKAGE__."::";
 use Mo::default;
 use Mo::builder;
-$VERSION = 0.24;
 
 *{$MoPKG.'has::e'} = sub {
     my $caller_pkg = shift;
