@@ -5,7 +5,7 @@ plan tests => 2;
 $main::count = 1;
 
 package Foo;
-use Mo;
+use Mo 'build';
 has 'foo' => (is => 'rw');
 sub BUILD {
     my $self = shift;

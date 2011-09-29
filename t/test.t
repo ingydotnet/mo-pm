@@ -94,7 +94,7 @@ is $b->guess, 'me me me', 'default trumps builder';
 
 #============
 package Baz;
-use Mo;
+use Mo 'build';
 
 has 'foo';
 

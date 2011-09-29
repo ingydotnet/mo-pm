@@ -5,17 +5,7 @@ no warnings;
 my $MoPKG = __PACKAGE__.::;
 
 *{$MoPKG.Object::new} = sub {
-    $class = shift;
-    my $self = bless {@_}, $class;
-    my @build_subs;
-
-    do {
-        @build_subs = ($class . ::BUILD, @build_subs)
-    }
-    while ($class) = @{ $class . ::ISA };
-
-    exists &$_ && &$_( $self ) for @build_subs;
-    $self;
+    bless {@_[1..$#_]}, $_[0];
 };
 
 *{$MoPKG.import} = sub {
