@@ -1,5 +1,4 @@
-ALL = ../lib/Mo.pm \
-      ../lib/Mo/*.pm \
+ALL := $(shell perl -e "print join q{ },map qq{../lib/\$$_},q{Mo.pm},glob(q{Mo/*.pm})") 
 
 all: $(ALL)
 
