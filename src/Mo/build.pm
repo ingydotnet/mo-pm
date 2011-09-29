@@ -1,6 +1,6 @@
 package Mo::build;
-$VERSION = 0.24;
-package Mo;$MoPKG = __PACKAGE__."::";
+my $MoPKG = "Mo::";
+$VERSION = 0.25;
 
 *{$MoPKG.'build::e'} = sub {
     my $caller_pkg = shift;

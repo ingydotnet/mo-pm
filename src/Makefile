@@ -1,4 +1,10 @@
-ALL := $(shell perl -e "print join q{ },map qq{../lib/\$$_},q{Mo.pm},glob(q{Mo/*.pm})") 
+ALL := \
+    ../lib/Mo.pm \
+    ../lib/Mo/builder.pm \
+    ../lib/Mo/build.pm \
+    ../lib/Mo/class_xsaccessor.pm \
+    ../lib/Mo/default.pm \
+    ../lib/Mo/has.pm \
 
 all: $(ALL)
 

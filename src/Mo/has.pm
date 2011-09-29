@@ -1,6 +1,6 @@
 package Mo::has;
-$VERSION = 0.24;
-package Mo;$MoPKG = __PACKAGE__."::";
+my $MoPKG = "Mo::";
+$VERSION = 0.25;
 use Mo::default;
 use Mo::builder;
 

@@ -1,5 +1,6 @@
-package Mo::default;$MoPKG = "Mo::";
-$VERSION = 0.24;
+package Mo::default;
+my $MoPKG = "Mo::";
+$VERSION = 0.25;
 
 *{$MoPKG.'default::e'} = sub {
     my $caller_pkg = shift;
