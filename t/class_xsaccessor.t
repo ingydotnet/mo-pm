@@ -1,5 +1,10 @@
 use Test::More;
 
+BEGIN {
+    eval "use Class::XSAccessor;";
+    $@ and plan skip_all => "Class::XSAccessor is needed";
+};
+
 plan tests => 4;
 
 #============
