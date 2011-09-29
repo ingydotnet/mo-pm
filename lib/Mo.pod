@@ -12,11 +12,6 @@ Mo - Micro Objects. Mo is less.
 
     has something => ();
 
-    sub BUILD {
-        my $self = shift;
-        # enhance your object before it is returned by new()
-    }
-
 =head1 Description
 
 use Mo. Mo is less. Much less.
@@ -39,8 +34,8 @@ This is what you get. Nothing Mo.
 Mo provides a C<new> object constructor. You pass it a list of name/value
 pairs and it returns a new object.
 
-After object creation, it will call the C<BUILD> method (if present) for all
-of its parents and itself.
+Constructor will not call BUILD metthods. This is available using the
+L<Mo::build> feature.
 
 =item C<extends>
 
@@ -70,7 +65,7 @@ Mo turns on C<use strict> and C<use warnings> for you.
 
 Mo is tiny. It is compressed into a single line. You can easily inline it in
 your code, should you want to do that. See L<Mo::Inlining> for more
-information.
+information, including a utility that will do it for you.
 
 =back
 
@@ -79,11 +74,16 @@ information.
 Mo is the bare minimum needed for Perl OO. Many times you'll want just a
 couple more features. Don't worry. Mo's got you covered:
 
-    use Mo qw'default builder';
+    use Mo qw'build default builder';
     has name1 => ( default => sub { 'Joe' } );
     has name2 => ( builder => 'name_builder' );
+    sub BUILD {
+        my $self = shift;
+        ...
+    }
 
-Mo simply loads the feature classes L<Mo::default> and L<Mo::builder>. These
+Mo simply loads the feature classes L<Mo::build>, L<Mo::default> and
+L<Mo::builder>. The first one supports BUILD constructing and the other two
 add their magics to C<has>. A L<Mo::Feature> module can enhance C<new>,
 C<extends> and C<has>, and also add new export subs, or remove existing ones.
 See L<Mo::Features> for a list of all the features and for an explanation of
