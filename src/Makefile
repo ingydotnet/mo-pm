@@ -5,5 +5,6 @@ ALL = ../lib/Mo.pm \
 
 all: $(ALL)
 
-$(ALL): Mo.pm compress.pl Makefile
-	perl compress.pl $(subst,..\lib\, $@) > $@
+$(ALL) : Makefile compress.pl
+../lib/%.pm : %.pm
+	perl compress.pl $< > $@
