@@ -3,7 +3,7 @@ my $MoPKG = "Mo::";
 $VERSION = 0.25;
 
 *{$MoPKG.'build::e'} = sub {
-    my ($caller_pkg, $params, $exports) = @_;
+    my ($caller_pkg, $handlers, $exports) = @_;
     $exports->{new} = sub {
         $class = shift;
         my $self = bless {@_}, $class;

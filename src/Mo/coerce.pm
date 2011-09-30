@@ -2,8 +2,8 @@ package Mo::coerce;$MoPKG = "Mo::";
 $VERSION = 0.24;
 
 *{$MoPKG.'coerce::e'} = sub {
-    my ($caller_pkg, $params, $exports) = @_;
-    $params->{coerce} = sub {
+    my ($caller_pkg, $handlers, $exports) = @_;
+    $handlers->{coerce} = sub {
         my ($method, $name, %args) = @_;
         $args{coerce} or return $method;
         sub {

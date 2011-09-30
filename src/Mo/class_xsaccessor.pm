@@ -5,7 +5,7 @@ $VERSION = 0.25;
 require Class::XSAccessor;
 
 *{$MoPKG.'class_xsaccessor::e'} = sub {
-    my ($caller_pkg, $params, $exports, $features) = @_;
+    my ($caller_pkg, $handlers, $exports, $features) = @_;
     $caller_pkg =~ s/::$//;
     $exports->{has} = sub {
         my ( $name, %args ) = @_;
