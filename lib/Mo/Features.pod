@@ -15,7 +15,7 @@ Here's a list of the current feature modules:
 
 =item * L<Mo::builder> - Add C<builder> feature to C<has>.
 
-=item * L<Mo::has> - Add C<default> and C<buiilder> features to C<has> with one feature.
+=item * L<Mo::coerce> - Add C<coerce> feature to C<has>.
 
 This module will likely change, and may be renamed entirely.
 
