@@ -5,6 +5,7 @@ ALL := \
     ../lib/Mo/class_xsaccessor.pm \
     ../lib/Mo/default.pm \
     ../lib/Mo/has.pm \
+    ../lib/Mo/moo.pm \
 
 all: $(ALL)
 
