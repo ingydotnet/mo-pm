@@ -13,8 +13,8 @@ my $MoPKG = __PACKAGE__.::;
     $^H |= 1538;
     my $caller_pkg = caller.::;
     shift;
-    my (%handlers, %exports);
-    eval "no Mo::$_", &{$MoPKG.$_.::e}($caller_pkg, \%handlers, \%exports, \@_) for @_;
+    my (%exports, %handlers);
+    eval "no Mo::$_", &{$MoPKG.$_.::e}($caller_pkg, \%exports, \%handlers, \@_) for @_;
     %exports = (
         extends, sub {
             eval "no $_[0]()";
