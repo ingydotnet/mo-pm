@@ -28,7 +28,7 @@ my $MoPKG = __PACKAGE__.::;
                         ? $_[0]{$name} = $_[1]
                         : $_[0]{$name};
                 };
-            $method = $handlers{$_}->($method, $name, @_) for keys %handlers;
+            $method = $handlers{$_}->($method, $name, @_) for sort keys %handlers;
             *{ $caller_pkg . $name } = $method;
         },
         %exports,
