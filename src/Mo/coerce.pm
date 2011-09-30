@@ -1,4 +1,5 @@
-package Mo::coerce;$MoPKG = "Mo::";
+package Mo::coerce;
+my $MoPKG = "Mo::";
 $VERSION = 0.25;
 
 *{$MoPKG.'coerce::e'} = sub {

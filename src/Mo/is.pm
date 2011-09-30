@@ -7,7 +7,7 @@ $VERSION = 0.25;
         my ($method, $name, %args) = @_;
         $args{is} or return $method;
         sub {
-            $#_ && $args{is} eq 'ro'
+            $#_ && $args{is} eq 'ro' && (caller) ne 'Mo::coerce'
               ? die 
                 : $method->(@_)
         };
