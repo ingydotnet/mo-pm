@@ -1,3 +1,3 @@
-package Mo::builder;my$K="Mo::";
-$VERSION=0.25;
-*{$K.'builder::e'}=sub{my$P=shift;my%e=@_;my$o=$e{has};$e{has}=sub{my($n,%a)=@_;my$b=$a{builder}or return$o->(@_);*{$P.$n}=sub{$#_?$_[0]{$n}=$_[1]:!exists$_[0]{$n}?$_[0]{$n}=$_[0]->$b:$_[0]{$n}}};%e};
+package Mo::builder;$K="Mo::";
+$VERSION=0.24;
+*{$K.'builder::e'}=sub{my($P,$p,$e)=@_;$p->{builder}=sub{my($m,$n,%a)=@_;my$b=$a{builder}or return$m;sub{$#_?$m->(@_):!exists$_[0]{$n}?$_[0]{$n}=$_[0]->$b:$m->(@_)}}};

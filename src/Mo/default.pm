@@ -3,21 +3,16 @@ my $MoPKG = "Mo::";
 $VERSION = 0.25;
 
 *{$MoPKG.'default::e'} = sub {
-    my $caller_pkg = shift;
-    my %exports = @_;
-    my $old_export = $exports{has};
-    $exports{has} = sub {
-        my ( $name, %args ) = @_;
-        my $default = $args{default}
-          or return $old_export->(@_);
-        *{ $caller_pkg . $name } =
-            sub {
-                $#_
-                  ? $_[0]{$name} = $_[1]
-                    : ! exists $_[0]{$name}
-                      ? $_[0]{$name} = $_[0]->$default
-                      : $_[0]{$name}
-            };
+    my ($caller_pkg, $params, $exports) = @_;
+    $params->{default} = sub {
+        my ($method, $name, %args) = @_;
+        $args{default} or return $method;
+        sub {
+            $#_
+              ? $method->(@_)
+                : ! exists $_[0]{$name}
+                    ? $_[0]{$name} = $args{default}->(@_)
+                    : $method->(@_)
+        };
     };
-    %exports;
 };

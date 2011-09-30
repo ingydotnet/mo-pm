@@ -3,9 +3,8 @@ my $MoPKG = "Mo::";
 $VERSION = 0.25;
 
 *{$MoPKG.'build::e'} = sub {
-    my $caller_pkg = shift;
-    my %exports = @_;
-    $exports{new} = sub {
+    my ($caller_pkg, $params, $exports) = @_;
+    $exports->{new} = sub {
         $class = shift;
         my $self = bless {@_}, $class;
         my @build_subs;
@@ -18,5 +17,4 @@ $VERSION = 0.25;
         exists &$_ && &$_( $self ) for @build_subs;
         $self;
     };
-    %exports;
 };

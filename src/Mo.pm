@@ -12,23 +12,27 @@ my $MoPKG = __PACKAGE__.::;
     import warnings;
     $^H |= 1538;
     my $caller_pkg = caller.::;
-    my %exports = (
+    shift;
+    my (%features, %exports);
+    eval "no Mo::$_", &{$MoPKG.$_.::e}($caller_pkg, \%features, \%exports, \@_) for @_;
+    %exports = (
         extends, sub {
             eval "no $_[0]()";
             @{ $caller_pkg . ISA } = $_[0];
         },
         has, sub {
             my $name = shift;
-            *{ $caller_pkg . $name } =
+            my $method =
                 sub {
                     $#_
                         ? $_[0]{$name} = $_[1]
                         : $_[0]{$name};
                 };
+            $method = $features{$_}->($method, $name, @_) for keys %features;
+            *{ $caller_pkg . $name } = $method;
         },
+        %exports,
     );
-    shift;
-    eval "no Mo::$_", %exports = &{$MoPKG.$_.::e}($caller_pkg, %exports) for @_;
     *{ $caller_pkg . $_} = $exports{$_} for keys %exports;
     @{ $caller_pkg . ISA } = $MoPKG.Object;
 };
