@@ -32,8 +32,9 @@ sub finder_subs {
             my $prev = $current->previous_token;
             my $next = $current->next_token;
 
+            return 1 if $prev->isa( tok 'Word' ) and $next->isa( tok 'Operator' ) and $next->content =~ /^\W/;   # my $P
+
             return 1 if $prev->isa( tok 'Symbol' )     and $next->isa( tok 'Operator' );         # $VERSION =
-            return 1 if $prev->isa( tok 'Word' )       and $next->isa( tok 'Operator' );         # my $P
             return 1 if $prev->isa( tok 'Word' )       and $next->isa( tok 'Symbol' );           # my $P
             return 1 if $prev->isa( tok 'Word' )       and $next->isa( tok 'Structure' );        # sub {
             return 1 if $prev->isa( tok 'Word' )       and $next->isa( tok 'Quote::Double' );    # eval "
