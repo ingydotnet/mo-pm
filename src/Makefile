@@ -3,6 +3,7 @@ ALL := \
     ../lib/Mo/builder.pm \
     ../lib/Mo/build.pm \
     ../lib/Mo/class_xsaccessor.pm \
+    ../lib/Mo/coerce.pm \
     ../lib/Mo/default.pm \
     ../lib/Mo/has.pm \
 

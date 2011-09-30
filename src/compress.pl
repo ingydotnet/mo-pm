@@ -146,11 +146,16 @@ sub shortened_var_names {
         '$default'    => '$d',
         '%exports'    => '%e',
         '$exports'    => '$e',
+        '%features'   => '%f',
+        '$features'   => '$f',
+        '%params'     => '%p',
+        '$params'     => '$p',
         '$MoPKG'      => '$K',
         '$name'       => '$n',
         '$old_export' => '$o',
         '$caller_pkg' => '$P',
         '$self'       => '$s',
+        '$method'     => '$m',
     );
 }
 
