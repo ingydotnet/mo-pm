@@ -42,7 +42,7 @@ Core Features
         That's it.
 
             has name => ();
-            has thing => (is => 'ro');  # arguments silently ignored
+            has thing => (foo => 'bar');  # arguments silently ignored
 
         All arguments passed to "has" are ignored. This makes it easier to
         switch between Mo and Moo, without having to change all your
@@ -60,20 +60,21 @@ Mo Features
     Mo is the bare minimum needed for Perl OO. Many times you'll want just a
     couple more features. Don't worry. Mo's got you covered:
 
-        use Mo qw'build default builder coerce';
+        use Mo qw'build default builder coerce is';
         has name1 => ( default => sub { 'Joe' } );
         has name2 => ( builder => 'name_builder' );
         has name3 => ( coerce => sub {$_[0]} );
+        has name4 => ( is => 'ro' );
         sub BUILD {
             my $self = shift;
             ...
         }
 
-    Mo simply loads the feature classes Mo::build, Mo::default, Mo::builder
-    and Mo::coerce. The first one supports BUILD constructing and the other
-    three add their magics to "has". A Mo::Feature module can enhance "new",
-    "extends" and "has", and also add new export subs, or remove existing
-    ones. Features can also be combined for a single accessor. See
+    Mo simply loads the feature classes Mo::build, Mo::default, Mo::builder,
+    Mo::coerce and Mo::is. The first one supports BUILD constructing and the
+    other three add their magics to "has". A Mo::Feature module can enhance
+    "new", "extends" and "has", and also add new export subs, or remove
+    existing ones. Features can also be combined for a single accessor. See
     Mo::Features for a list of all the features and for an explanation of
     the Feature API..
 
