@@ -53,7 +53,7 @@ Core Features
 
     Embeddable
         Mo is tiny. It is compressed into a single line. You can easily
-        inline it in your code, should you want to do that. See Mo::Inlining
+        inline it in your code, should you want to do that. See Mo::Inline
         for more information, including a utility that will do it for you.
 
 Mo Features
