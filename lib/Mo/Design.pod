@@ -41,8 +41,9 @@ be able to set and get values.
 
 =item Be minimal
 
-Mo only adds features if they are considered very desirable B<and> can be
-implemented in a very small amount of code.
+Mo only adds core features if they are considered very desirable B<and> can be
+implemented in a very small amount of code. Most features are in external
+C<feature> modules now.
 
 =item Be useful
 
@@ -60,7 +61,7 @@ have fast accessors. Speed optimizations should be simple and minimal.
 
 There may be situations where you want to inline Mo into your code, For this
 reason, Mo will try to be in one minimal pure Perl file, with no comments or
-documentation.
+documentation. See C<Mo::Inline>.
 
 =item Easy upgrade/downgrade path with Moo
 
@@ -99,36 +100,22 @@ to Moo or higher when MI or roles become needed.
 
 =item Construction
 
-Mo uses a C<new> method for construction.
+Mo uses a C<new> method for construction. It is super minimal and fast. It does no calling of the BUILD sequence. To get that, use:
 
-It makes use of the BUILD method, for construction extension. Since it does
-this, it is only proper to call the SUPER::BUILD methods in the same order as
-the Moose family. Mo does this. This is not the minimal method of
-construction, but it is considered useful to have, so we do it. Hopefully this
-is not too big of a performance penalty. Speed optimations should be
-considered.
+    use Mo 'build';
 
 =item Accessors
 
 Mo uses C<has> for generating accessors. Like Moose, it takes a name and a
 list of option/value pairs.
 
-All options are silently ignored, except C<default> and C<builder>. These were
-implemented because they are almost always needed, and the implementation is
-minimal. They are always lazy (like 'lazy => 1' in Moose). Since Mo will
-likely be rare in a precompile environment like in mod_perl, this is
-considered a speed gain. It also happens to be the more minimal way to code
-this.
+All options are silently ignored. Options like C<default> and C<builder> are
+available as feature modules:
 
-If neither C<default> nor C<builder> is requested, C<has> will return a
-getter/setter that is optimized for speed.
+    use Mo qw'deafult builder';
 
-All accessors are 'rw'. That means they are getter+setter methods. Since
-C<has> ignores the C<is> option, there is no special case for a read only
-accessor. The accessor (in 'get' mode) checks C<@_> for zero. This check could
-potentially be avoided if 'ro' were honored, but if one expects a 'ro'
-accessor, they expect it to fail on set. Given that, you would still need to
-check for zero args, so no speed gain is possible.
+The default getter/setter is optimized for speed. It does no checks and is
+always 'rw'.
 
 =item No runtime checks
 
@@ -142,19 +129,17 @@ from Mo is another alternative.
 
 =item Size matters
 
-Mo.pm is currently golfed, compressed and unreadable by mere mortals. It has
-no comments or pod. The documentation is in Mo.pod and the comments are all in
-here. This makes Mo.pm a little black box of code that you can use anywhere.
+Mo.pm and its feature modules are golfed, compressed and unreadable by mere
+mortals. It has no comments or pod. The documentation is in Mo.pod and the
+comments are all in here. This makes Mo.pm a little black box of code that you
+can use anywhere.
 
-When we hack on Mo.pm we do it on src/Mo.pm. When we are done we run C<make -C
-src/> and it turns into 3 lines.
+When we hack on Mo.pm we do it on src/. When we are done we run C<make -C
+src/> and it compresses stuff into C<lib/>.
 
 The package declaration and $VERSION are on their own lines. That way if
 someone inlines Mo, they can make their own package line more easily, and just
 grab line 3, the code.
-
-This also helps because Module::Install barfs on parsing out the VERSION
-otherwise. We should fix Module::Install or consider stop using it for this.
 
 =item strict and warnings
 
@@ -167,42 +152,19 @@ and offers great value. Also, all the other Moose family does it.
 
 This is a list of everything else.
 
-=head2 An extension system
+=head2 The feature system
 
-Mo gets requests to add certain features. These should not be added to the
-core until they can be proven in an extension system. This means that there
-actually needs to be an extension system. I have some idea about how this
-should work. Here goes:
-
-We write a number of extensions. They have the ability to wrap, add to or
-remove exported subs. You use one like this:
+Mo now has a decent feature system so that almost anything can be added piecemeal. To use features you say:
 
     use Mo qw'foo bar';
 
-This loads Mo::foo and Mo::Bar. It calls the C<e()> subroutine on each. It
-passes in a list like:
-
-    has => \&has, extends => \&extends
-
-It receives back a mutated list and passes it to the next extension module.
-Finally it exports all the subs.
-
-That's it. It will require some attention and a lot of tests, but it should
-beable to make anything possible.
-
-The work on this idea is being done on the C<momo> branch.
+This loads Mo::foo and Mo::Bar. It calls the C<e()> subroutine on each.
 
 =head2 1024 Size Limit
 
-Mo.pm is currently around 500 bytes long. It should strive to never exceed
-1024 bytes. Much less if possible, but 1024 is the limit.
-
-=head2 Ungolfing
-
-The wave of golfing around 0.22 has been mostly awesome, but has raised some
-issues that need to be clarified both here and in the tests.
-
-=over
+Mo.pm has a goal to never be larger than 1024 bytes. It has almost never been
+larger than 500 bytes so far. It is currently under 450 and should only go
+down (assuming we have the core features nailed down).
 
 =head2 Automated Golfing
 
@@ -210,27 +172,7 @@ I want to start a policy that all of the golfing efforts will be made via a
 script to sane code. We should automate testing both the ungolfed and golfed
 code.
 
-=item package avoidance
-
-By introducing C<Mo'_'new> etc, we save a few bytes but make the code harder
-to repackage.
-
-If Mo usage becomes wide spread (even somewhat so) then we will have multiple
-versions clobbering each other in a given process.
-
-We need to suggest that when people inline Mo, they change the package name.
-Therefore, it is probably best to put package back in, and add a test to that
-effect.
-
-=item Runtime slowdown
-
-I think we need to start golfing runtime op calls. We should start by writing
-tests in xt, that count the ops for various calls. Then with every change we
-can balance speed against minimalism.
-
-I don't know how to count runtime op calls. Anyone?
-
-=back
+Golfing has now been automated using the power of PPI.
 
 =head2 Moose and Moo creators like Mo
 
@@ -251,9 +193,9 @@ Moose not only added an elegant, usable object model, it took OO to a new
 level. It is indeed a postmodern system. Unfortunately this comes at a (often
 hefty) performance price.
 
-Attempts to make something similar but less hefty came in the forms of Mouse,
-L<Mousse> and Moo. Mo is just the next attempt. It is a bare minimum OO
-framework, that still looks like Moose.
+Attempts to make something similar but less hefty came in the forms of
+L<Mouse>, L<Mousse> and L<Moo>. L<Mo> is just the next attempt. It is a bare
+minimum OO framework, that still looks like Moose.
 
 I've heard people argue that Mo doesn't belong in the Moose family, but those
 same people often feel the same way about Mouse and Moo. It won't stop me from
