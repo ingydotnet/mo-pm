@@ -17,6 +17,8 @@ Here's a list of the current feature modules:
 
 =item * L<Mo::coerce> - Add C<coerce> feature to C<has>.
 
+=item * L<Mo::is> - Add C<is> feature to C<has>.
+
 This module will likely change, and may be renamed entirely.
 
 =back
