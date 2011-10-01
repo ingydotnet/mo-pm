@@ -1,6 +1,6 @@
 =head1 Mo Features
 
-Mo is absoutely minimal, but let's you add on features at will like this:
+Mo is absoutely minimal, but it let's you easily add many features like this:
 
     use Mo qw[default builder other features];
 
@@ -21,6 +21,10 @@ Here's a list of the current feature modules:
 
 =item * L<Mo::required> - Add C<required> feature to C<has>.
 
-This module will likely change, and may be renamed entirely.
-
 =back
+
+=head1 NOTE
+
+Don't assume that all feature modules will work together. Sometimes the order
+you specify them in may affect how they work together. Read the feature docs
+and test you assumptions.
