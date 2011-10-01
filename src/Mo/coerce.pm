@@ -1,9 +1,10 @@
-package Mo::coerce;$MoPKG = "Mo::";
-$VERSION = 0.24;
+package Mo::coerce;
+my $MoPKG = "Mo::";
+$VERSION = 0.25;
 
 *{$MoPKG.'coerce::e'} = sub {
-    my ($caller_pkg, $params, $exports) = @_;
-    $params->{coerce} = sub {
+    my ($caller_pkg, $exports, $handlers) = @_;
+    $handlers->{coerce} = sub {
         my ($method, $name, %args) = @_;
         $args{coerce} or return $method;
         sub {
@@ -12,10 +13,11 @@ $VERSION = 0.24;
                 : $method->(@_)
         };
     };
+    
+    my $old_constructor = $exports->{new} || *{$MoPKG.Object::new}{CODE};
     $exports->{new} = sub {
-        my ($class, %args) = @_;
-        my $self = bless {%args}, $class;
-        $self->$_($args{$_}) for keys %args;
+        my $self = $old_constructor->(@_);
+        $self->$_($self->{$_}) for keys %$self;
         $self;
     };
 };

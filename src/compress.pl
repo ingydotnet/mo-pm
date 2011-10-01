@@ -16,24 +16,25 @@ sub tok { "PPI::Token::$_[0]" }
 
 sub finder_subs {
     return (
-        comments => sub { $_[1]->isa( 'PPI::Token::Comment' ) },
+        comments => sub { $_[1]->isa( tok 'Comment' ) },
 
         duplicate_whitespace => sub {
             my ( $top, $current ) = @_;
-            return 0 if !$current->isa( 'PPI::Token::Whitespace' );
+            return 0 if !$current->isa( tok 'Whitespace' );
             return 0 if !$current->next_token;
-            return 0 if !$current->next_token->isa( 'PPI::Token::Whitespace' );
+            return 0 if !$current->next_token->isa( tok 'Whitespace' );
             return 1;
         },
 
         whitespace => sub {
             my ( $top, $current ) = @_;
-            return 0 if !$current->isa( 'PPI::Token::Whitespace' );
+            return 0 if !$current->isa( tok 'Whitespace' );
             my $prev = $current->previous_token;
             my $next = $current->next_token;
 
+            return 1 if $prev->isa( tok 'Word' ) and $next->isa( tok 'Operator' ) and $next->content =~ /^\W/;   # my $P
+
             return 1 if $prev->isa( tok 'Symbol' )     and $next->isa( tok 'Operator' );         # $VERSION =
-            return 1 if $prev->isa( tok 'Word' )       and $next->isa( tok 'Operator' );         # my $P
             return 1 if $prev->isa( tok 'Word' )       and $next->isa( tok 'Symbol' );           # my $P
             return 1 if $prev->isa( tok 'Word' )       and $next->isa( tok 'Structure' );        # sub {
             return 1 if $prev->isa( tok 'Word' )       and $next->isa( tok 'Quote::Double' );    # eval "
@@ -45,7 +46,7 @@ sub finder_subs {
 
         trailing_whitespace => sub {
             my ( $top, $current ) = @_;
-            return 0 if !$current->isa( 'PPI::Token::Whitespace' );
+            return 0 if !$current->isa( tok 'Whitespace' );
             my $prev = $current->previous_token;
 
             return 1 if $prev->isa( tok 'Structure' );                                           # ;[\n\s]
@@ -146,13 +147,11 @@ sub shortened_var_names {
         '$default'    => '$d',
         '%exports'    => '%e',
         '$exports'    => '$e',
-        '%features'   => '%f',
-        '$features'   => '$f',
-        '%params'     => '%p',
-        '$params'     => '$p',
+        '%handlers'   => '%h',
+        '$handlers'   => '$h',
         '$MoPKG'      => '$K',
         '$name'       => '$n',
-        '$old_export' => '$o',
+        '$old_constructor' => '$o',
         '$caller_pkg' => '$P',
         '$self'       => '$s',
         '$method'     => '$m',

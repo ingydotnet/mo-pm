@@ -13,8 +13,8 @@ my $MoPKG = __PACKAGE__.::;
     $^H |= 1538;
     my $caller_pkg = caller.::;
     shift;
-    my (%features, %exports);
-    eval "no Mo::$_", &{$MoPKG.$_.::e}($caller_pkg, \%features, \%exports, \@_) for @_;
+    my (%exports, %handlers);
+    eval "no Mo::$_", &{$MoPKG.$_.::e}($caller_pkg, \%exports, \%handlers, \@_) for @_;
     %exports = (
         extends, sub {
             eval "no $_[0]()";
@@ -28,7 +28,7 @@ my $MoPKG = __PACKAGE__.::;
                         ? $_[0]{$name} = $_[1]
                         : $_[0]{$name};
                 };
-            $method = $features{$_}->($method, $name, @_) for keys %features;
+            $method = $handlers{$_}->($method, $name, @_) for sort keys %handlers;
             *{ $caller_pkg . $name } = $method;
         },
         %exports,

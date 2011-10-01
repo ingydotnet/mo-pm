@@ -3,8 +3,8 @@ my $MoPKG = "Mo::";
 $VERSION = 0.25;
 
 *{$MoPKG.'default::e'} = sub {
-    my ($caller_pkg, $params, $exports) = @_;
-    $params->{default} = sub {
+    my ($caller_pkg, $exports, $handlers) = @_;
+    $handlers->{default} = sub {
         my ($method, $name, %args) = @_;
         $args{default} or return $method;
         sub {

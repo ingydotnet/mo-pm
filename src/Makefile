@@ -6,6 +6,7 @@ ALL := \
     ../lib/Mo/coerce.pm \
     ../lib/Mo/default.pm \
     ../lib/Mo/has.pm \
+    ../lib/Mo/is.pm \
 
 all: $(ALL)
 
