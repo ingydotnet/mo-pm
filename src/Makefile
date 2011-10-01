@@ -1,5 +1,6 @@
 ALL := \
     ../lib/Mo.pm \
+    ../lib/Mo/autobuild.pm \
     ../lib/Mo/builder.pm \
     ../lib/Mo/build.pm \
     ../lib/Mo/coerce.pm \
