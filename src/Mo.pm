@@ -20,16 +20,14 @@ my $MoPKG = __PACKAGE__.::;
     import warnings;
     # This is a golf for: use strict(); strict->import;
     $^H |= 1538;
-    my $caller_pkg = caller.::;
+    my ($caller_pkg, %exports, %options) = caller.::;
     shift;
-    my (%exports, %options);
     # Load each feature and call its &e.
     eval "no Mo::$_",
         &{$MoPKG.$_.::e}(
             $caller_pkg,
             \%exports,
-            \%options,
-            \@_
+            \%options
         ) for @_;
     %exports = (
         extends, sub {
