@@ -84,9 +84,13 @@ couple more features. Don't worry. Mo's got you covered:
         my $self = shift;
         ...
     }
+    
+    use Mo qw'autobuild'
+    has name1 => ( builder => 1 );
+    sub _build_name1 { ... }
 
 Mo simply loads the feature classes L<Mo::build>, L<Mo::default>,
-L<Mo::builder>, L<Mo::coerce>, L<Mo::is> and L<Mo::required>. 
+L<Mo::builder>, L<Mo::autobuild>, L<Mo::coerce>, L<Mo::is> and L<Mo::required>. 
 The first one supports BUILD constructing and the other three
 add their magics to C<has>. A L<Mo::Feature> module can enhance C<new>,
 C<extends> and C<has>, and also add new export subs, or remove existing ones.

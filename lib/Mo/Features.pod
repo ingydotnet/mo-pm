@@ -15,6 +15,8 @@ Here's a list of the current feature modules:
 
 =item * L<Mo::builder> - Add C<builder> feature to C<has>.
 
+=item * L<Mo::autobuild> - Allows to set C<builder> to 1 in C<has> to auto-generate the method name.
+
 =item * L<Mo::coerce> - Add C<coerce> feature to C<has>.
 
 =item * L<Mo::is> - Add C<is> feature to C<has>.

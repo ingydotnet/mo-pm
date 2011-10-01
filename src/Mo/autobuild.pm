@@ -5,5 +5,5 @@ $VERSION = 0.25;
 no Mo::builder;
 
 *{$MoPKG.'autobuild::e'} = sub {
-    &{$MoPKG.builder.::e}(@_);
+    &{$MoPKG.'builder::e'}(@_);
 };

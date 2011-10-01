@@ -4,7 +4,6 @@ plan tests => 3;
 
 #============
 package Foo;
-eval "
 use Mo 'autobuild';
 
 use constant that_builder => 'O HAI';
@@ -13,7 +12,6 @@ use constant _build_auto  => 'like a car';
 has 'this';
 has 'that' => ( builder => 'that_builder' );
 has 'auto' => ( builder => 1 );
-";
 #============
 package main;
 

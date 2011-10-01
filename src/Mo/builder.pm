@@ -8,7 +8,7 @@ $VERSION = 0.25;
     $options->{builder} = sub {
         my ($method, $name, %args) = @_;
         my $builder = $args{builder} or return $method;
-        $builder = "_build_$name" if ($builder) eq '1' && ($e_caller) eq 'Mo::autobuild';
+        $builder = "_build_".$name if $builder eq '1' && $e_caller eq 'Mo::autobuild';
         sub {
             $#_
               ? $method->(@_)
