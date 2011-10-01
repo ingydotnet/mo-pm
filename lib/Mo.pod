@@ -74,18 +74,19 @@ including a utility that will do it for you.
 Mo is the bare minimum needed for Perl OO. Many times you'll want just a
 couple more features. Don't worry. Mo's got you covered:
 
-    use Mo qw'build default builder coerce is';
+    use Mo qw'build default builder coerce is required';
     has name1 => ( default => sub { 'Joe' } );
     has name2 => ( builder => 'name_builder' );
     has name3 => ( coerce => sub {$_[0]} );
     has name4 => ( is => 'ro' );
+    has name4 => ( required => 1 );
     sub BUILD {
         my $self = shift;
         ...
     }
 
 Mo simply loads the feature classes L<Mo::build>, L<Mo::default>,
-L<Mo::builder>, L<Mo::coerce> and L<Mo::is>. 
+L<Mo::builder>, L<Mo::coerce>, L<Mo::is> and L<Mo::required>. 
 The first one supports BUILD constructing and the other three
 add their magics to C<has>. A L<Mo::Feature> module can enhance C<new>,
 C<extends> and C<has>, and also add new export subs, or remove existing ones.

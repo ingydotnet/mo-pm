@@ -7,6 +7,7 @@ ALL := \
     ../lib/Mo/default.pm \
     ../lib/Mo/has.pm \
     ../lib/Mo/is.pm \
+    ../lib/Mo/required.pm \
 
 all: $(ALL)
 
