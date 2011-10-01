@@ -5,6 +5,7 @@ We want to put out a 0.25 release with the new Features API.
 - Merge Sound's new API from coerce to master
 - Figure out the default/builder relationship
   - Should default take string args like Moose and Mouse?
+- Decide which features we ship with core.
 
 = Features
 
@@ -26,6 +27,22 @@ Please feel free to add to this list.
 - is - provides a ro accessor
 - coerce - applies a function to on get
 - required - property is required on construction
+- isa -
+- reader -
+- writer -
+- clearer - 
+- predicate - 
+- lazy - 
+- init_arg -
+- weak_
+- trigger -
+- does -
+- handles -
+- traits -
+- description -
+- documentation -
+- auto_deref -
+- initializer -
 
 == Other Features
 
@@ -33,6 +50,7 @@ Please feel free to add to this list.
 - inheritance - Multiple Inheritance
 - roles - Adds with functionality
 - checks - Adds tons of compile and runtime checks
+- mop - Add a MOP
 - Moo - Uses Moo for everything
 - Moose - Uses Moose for everything
 - Mouse - Uses Moose for everything
