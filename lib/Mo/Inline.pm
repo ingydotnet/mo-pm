@@ -8,14 +8,21 @@
 # - Mo
 
 package Mo::Inline;
+use Mo;
+
+our $VERSION = 0.25;
 
 use IO::All;
 
-my $matcher = qr/((?m:^#\s*use Mo(\s.*)?;.*\n))(?:.{400,}\n)?/;
+my $matcher = qr/((?m:^#\s*use Mo(\s.*)?;.*\n))(?:#.*\n)*(?:.{400,}\n)?/;
 
 sub run {
-    my $class = shift;
+    my $self = shift;
     my @files;
+    if (not @_ and -d 'lib') {
+        print "Searching the 'lib' directory for a Mo to inline:\n";
+        @_ = 'lib';
+    }
     if (not @_ or @_ == 1 and $_[0] =~ /^(?:-\?|-h|--help)$/) {
         print usage();
         return 0;
@@ -42,10 +49,17 @@ sub run {
             print "Ignoring $file - No Mo to Inline!\n";
             next;
         }
-        $text =~ s/$matcher/"$1" . &inliner($2)/eg;
-        io($file)->print($text);
-        print "Mo Inlined $file\n";
+        $self->inline($file, 1);
     }
+}
+
+sub inline {
+    my ($self, $file, $noisy) = @_;
+    my $text = io($file)->all;
+    $text =~ s/$matcher/"$1" . &inliner($2)/eg;
+    io($file)->print($text);
+    print "Mo Inlined $file\n"
+        if $noisy;
 }
 
 sub inliner {
@@ -62,8 +76,12 @@ sub inliner {
         my @lines = io($INC{$module})->chomp->getlines;
         $lines[-1];
     } ('Mo', map { s!::!/!g; "Mo/$_" } @features);
-    $inline .= "\n";
-    return $inline;
+    $inline .= 'use strict;use warnings;';
+    return <<"...";
+#   The following line of code was produced from the previous line by
+#   Mo::Inline version $VERSION
+$inline
+...
 }
 
 sub usage {
@@ -80,7 +98,7 @@ Usage: mo-linline <perl module files or directories>
 In your module:
 
     package MyModule::Mo;
-    # use Mo qw'builder default';
+    # use Mo qw'build builder default';
     1;
 
 From the command line:
@@ -90,6 +108,10 @@ From the command line:
 or:
 
     > mo-inline lib/
+
+or (if you are really lazy):
+
+    > mo-inline
 
 =head1 DESCRIPTION
 
@@ -102,7 +124,7 @@ It will also replace any old inlined Mo with the latest version.
 
 What Mo could you possibly want?
 
-=head1 EXAMPLES OF INLINING MO
+=head1 REAL WORLD EXAMPLES
 
 For real world examples of Mo inlined using C<mo-inline>, see L<Pegex::Mo> and
 L<TestML::Mo>.
