@@ -154,6 +154,7 @@ sub shortened_var_names {
         '%options'    => '%o',
         '$options'    => '$o',
         '$caller_pkg' => '$P',
+        '$e_caller'   => '$l',
         '$self'       => '$s',
     );
 }
