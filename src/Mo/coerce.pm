@@ -3,8 +3,8 @@ my $MoPKG = "Mo::";
 $VERSION = 0.25;
 
 *{$MoPKG.'coerce::e'} = sub {
-    my ($caller_pkg, $exports, $handlers) = @_;
-    $handlers->{coerce} = sub {
+    my ($caller_pkg, $exports, $options) = @_;
+    $options->{coerce} = sub {
         my ($method, $name, %args) = @_;
         $args{coerce} or return $method;
         sub {

@@ -144,17 +144,17 @@ sub shortened_var_names {
         '@build_subs' => '@B',
         '$builder'    => '$b',
         '$class'      => '$c',
+        '$old_constructor' => '$C',
         '$default'    => '$d',
         '%exports'    => '%e',
         '$exports'    => '$e',
-        '%handlers'   => '%h',
-        '$handlers'   => '$h',
-        '$MoPKG'      => '$K',
+        '$method'     => '$m',
+        '$MoPKG'      => '$M',
         '$name'       => '$n',
-        '$old_constructor' => '$o',
+        '%options'    => '%o',
+        '$options'    => '$o',
         '$caller_pkg' => '$P',
         '$self'       => '$s',
-        '$method'     => '$m',
     );
 }
 

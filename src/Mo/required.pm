@@ -3,8 +3,8 @@ my $MoPKG = "Mo::";
 $VERSION = 0.25;
 
 *{$MoPKG.'required::e'} = sub {
-    my ($caller_pkg, $exports, $handlers) = @_;
-    $handlers->{required} = sub {
+    my ($caller_pkg, $exports, $options) = @_;
+    $options->{required} = sub {
         my ($method, $name, %args) = @_;
         
         if ($args{required}) {

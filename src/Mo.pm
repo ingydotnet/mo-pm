@@ -22,13 +22,13 @@ my $MoPKG = __PACKAGE__.::;
     $^H |= 1538;
     my $caller_pkg = caller.::;
     shift;
-    my (%exports, %handlers);
+    my (%exports, %options);
     # Load each feature and call its &e.
     eval "no Mo::$_",
         &{$MoPKG.$_.::e}(
             $caller_pkg,
             \%exports,
-            \%handlers,
+            \%options,
             \@_
         ) for @_;
     %exports = (
@@ -44,8 +44,8 @@ my $MoPKG = __PACKAGE__.::;
                         ? $_[0]{$name} = $_[1]
                         : $_[0]{$name};
                 };
-            $method = $handlers{$_}->($method, $name, @_)
-                for sort keys %handlers;
+            $method = $options{$_}->($method, $name, @_)
+                for sort keys %options;
             *{ $caller_pkg . $name } = $method;
         },
         %exports,
