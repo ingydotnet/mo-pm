@@ -1,10 +1,11 @@
 ---
 version: 0.25
-date:    
+date:    Sat Oct  1 15:46:19 BST 2011
 changes:
 - Add a Feature extension system.
 - This is a non-backward compat release as it no longer includes builder and
   default automatically.
+- Add new feaures: coerce, is.
 ---
 version: 0.24
 date:    Sun Sep 25 12:44:29 CEST 2011
