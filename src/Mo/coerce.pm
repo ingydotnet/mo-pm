@@ -13,10 +13,11 @@ $VERSION = 0.25;
                 : $method->(@_)
         };
     };
+    
+    my $old_constructor = $exports->{new} || *{$MoPKG.Object::new}{CODE};
     $exports->{new} = sub {
-        my ($class, %args) = @_;
-        my $self = bless {%args}, $class;
-        $self->$_($args{$_}) for keys %args;
+        my $self = $old_constructor->(@_);
+        $self->$_($self->{$_}) for keys %$self;
         $self;
     };
 };

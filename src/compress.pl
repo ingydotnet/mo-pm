@@ -151,7 +151,7 @@ sub shortened_var_names {
         '$handlers'   => '$h',
         '$MoPKG'      => '$K',
         '$name'       => '$n',
-        '$old_export' => '$o',
+        '$old_constructor' => '$o',
         '$caller_pkg' => '$P',
         '$self'       => '$s',
         '$method'     => '$m',
