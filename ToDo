@@ -1,0 +1,38 @@
+= To Do
+
+We want to put out a 0.25 release with the new Features API.
+
+- Merge Sound's new API from coerce to master
+- Figure out the default/builder relationship
+  - Should default take string args like Moose and Mouse?
+
+= Features
+
+This is a list of all the known things we might do. The list will help us make
+better design decisions of core Mo.
+
+Please keep in mind that it is not a design goal that all of these play nicely
+with each other. We want that to happen more and more, but it shouldn't be a
+showstopper if "X does not work if declared after Y and without Z". We just
+add that to the doc and carry on.
+
+Please feel free to add to this list.
+
+== has Option Features
+
+- builder - calls a builder method
+- default - calls a code ref for the default
+- autobuild - adds a _build_$name method
+- is - provides a ro accessor
+- coerce - applies a function to on get
+- required - property is required on construction
+
+== Other Features
+
+- build - Call BUILD on construction
+- inheritance - Multiple Inheritance
+- roles - Adds with functionality
+- checks - Adds tons of compile and runtime checks
+- Moo - Uses Moo for everything
+- Moose - Uses Moose for everything
+- Mouse - Uses Moose for everything
