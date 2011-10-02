@@ -21,6 +21,4 @@ Here's a list of the current feature modules:
 
 =item * L<Mo::required> - Add C<required> feature to C<has>.
 
-This module will likely change, and may be renamed entirely.
-
 =back
