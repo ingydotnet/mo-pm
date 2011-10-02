@@ -11,7 +11,7 @@ ALL := \
 
 all: $(ALL)
 
-$(ALL) : Makefile compress.pl
+$(ALL) : Makefile
 
 ../lib/%.pm : %.pm
-	perl compress.pl $< > $@
+	perl -I../lib -MMo::Golf=golf < $< > $@

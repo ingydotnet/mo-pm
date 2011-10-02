@@ -2,7 +2,7 @@
 
 We want to put out a 0.25 release with the new Features API.
 
-- Merge Sound's new API from coerce to master
++ Merge Sound's new API from coerce to master
 - Figure out the default/builder relationship
   - Should default take string args like Moose and Mouse?
 - Decide which features we ship with core.

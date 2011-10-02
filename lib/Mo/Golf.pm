@@ -1,20 +1,70 @@
-#!/usr/bin/perl
+##
+# name:      Mo::Golf
+# abstract:  Module for Compacting Mo Modules
+# author:    Ingy döt Net <ingy@ingy.net>
+# license:   perl
+# copyright: 2011
+# see:
+# - Mo
 
 use strict;
 use warnings;
+package Mo::Golf;
+
+our $VERSION = '0.25';
+
 use PPI;
 
-my $text = do {
-    local undef $/;
-    <>;
+# This is the mapping of common names to shorter forms that still make some
+# sense.
+my %short_names = (
+    (
+        map {($_, substr($_, 0, 1))}
+        qw(args builder class default exports method MoPKG name options self)
+    ),
+    build_subs => 'B',
+    old_constructor => 'C',
+    caller_pkg => 'P',
+);
+
+sub import {
+    return unless @_ == 2 and $_[1] eq 'golf';
+    binmode STDOUT;
+    my $text = do { local $/; <> };
+    print STDOUT golf( $text );
 };
 
-binmode STDOUT;
-print golf_with_ppi( $text );
+sub golf {
+    my ( $text ) = @_;
+
+    my $tree = PPI::Document->new( \$text );
+
+    my %finder_subs = _finder_subs();
+
+    my @order = qw( comments duplicate_whitespace whitespace trailing_whitespace );
+
+    for my $name ( @order ) {
+        my $elements = $tree->find( $finder_subs{$name} );
+        die $@ if !defined $elements;
+        $_->delete for @{ $elements || [] };
+    }
+
+    $tree->find( $finder_subs{$_} )
+      for qw( del_superfluous_concat del_last_semicolon_in_block separate_version shorten_var_names );
+    die $@ if $@;
+
+    for my $name ( 'double_semicolon' ) {
+        my $elements = $tree->find( $finder_subs{$name} );
+        die $@ if !defined $elements;
+        $_->delete for @{ $elements || [] };
+    }
+
+    return $tree->serialize . "\n";
+}
 
 sub tok { "PPI::Token::$_[0]" }
 
-sub finder_subs {
+sub _finder_subs {
     return (
         comments => sub { $_[1]->isa( tok 'Comment' ) },
 
@@ -123,65 +173,29 @@ sub finder_subs {
             my ( $top, $current ) = @_;
             return 0 if !$current->isa( tok 'Symbol' );
 
-            my $name = $current->canonical;
+            my $long_name = $current->canonical;
 
-            my %short_names = shortened_var_names();
+            (my $name = $long_name) =~ s/^([\$\@\%])// or die $long_name;
+            my $sigil = $1;
+            die "variable $long_name conflicts with shortened var name"
+                if grep {
+                    $name eq $_
+                } values %short_names;
 
-            die "variable $name conflicts with shortened var name" if grep { $name eq $_ } values %short_names;
-
-            my $short = $short_names{$name};
-            $current->set_content( $short ) if $short;
+            my $short_name = $short_names{$name};
+            $current->set_content( "$sigil$short_name" ) if $short_name;
 
             return 1;
         },
     );
 }
 
-sub shortened_var_names {
-    return (
-        '%args'       => '%a',
-        '$args'       => '$a',
-        '@build_subs' => '@B',
-        '$builder'    => '$b',
-        '$class'      => '$c',
-        '$default'    => '$d',
-        '%exports'    => '%e',
-        '$exports'    => '$e',
-        '%handlers'   => '%h',
-        '$handlers'   => '$h',
-        '$MoPKG'      => '$K',
-        '$name'       => '$n',
-        '$old_constructor' => '$o',
-        '$caller_pkg' => '$P',
-        '$self'       => '$s',
-        '$method'     => '$m',
-    );
-}
+=head1 SYNOPSIS
 
-sub golf_with_ppi {
-    my ( $text ) = @_;
+    perl -MMo::Golf=golf < src/Mo/foo.pm > lib/Mo/foo.pm
 
-    my $tree = PPI::Document->new( \$text );
+=head1 DESCRIPTION
 
-    my %finder_subs = finder_subs();
-
-    my @order = qw( comments duplicate_whitespace whitespace trailing_whitespace );
-
-    for my $name ( @order ) {
-        my $elements = $tree->find( $finder_subs{$name} );
-        die $@ if !defined $elements;
-        $_->delete for @{ $elements || [] };
-    }
-
-    $tree->find( $finder_subs{$_} )
-      for qw( del_superfluous_concat del_last_semicolon_in_block separate_version shorten_var_names );
-    die $@ if $@;
-
-    for my $name ( 'double_semicolon' ) {
-        my $elements = $tree->find( $finder_subs{$name} );
-        die $@ if !defined $elements;
-        $_->delete for @{ $elements || [] };
-    }
-
-    return $tree->serialize . "\n";
-}
+This is the module that is respeonsible for taking Mo code (which is
+documented and fairly readable) and reducing it to a single undecipherable
+line.
