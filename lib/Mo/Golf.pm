@@ -1,5 +1,5 @@
 ##
-# name:      Mo::Golfer
+# name:      Mo::Golf
 # abstract:  Module for Compacting Mo Modules
 # author:    Ingy döt Net <ingy@ingy.net>
 # license:   perl
@@ -9,13 +9,14 @@
 
 use strict;
 use warnings;
-package Mo::Golfer;
+package Mo::Golf;
 
 our $VERSION = '0.25';
 
 use PPI;
 
-sub run {
+sub import {
+    return unless @_ == 2 and $_[1] eq 'golf';
     binmode STDOUT;
     my $text = do { local $/; <> };
     print STDOUT golf( $text );
@@ -195,3 +196,12 @@ sub _shortened_var_names {
     );
 }
 
+=head1 SYNOPSIS
+
+    perl -MMo::Golf=golf < src/Mo/foo.pm > lib/Mo/foo.pm
+
+=head1 DESCRIPTION
+
+This is the module that is respeonsible for taking Mo code (which is
+documented and fairly readable) and reducing it to a single undecipherable
+line.
