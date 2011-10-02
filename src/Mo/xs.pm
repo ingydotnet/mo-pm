@@ -4,8 +4,8 @@ $VERSION = 0.25;
 
 require Class::XSAccessor;
 
-*{$MoPKG.'class_xsaccessor::e'} = sub {
-    my ($caller_pkg, $exports) = @_;
+*{$MoPKG.'xs::e'} = sub {
+    my ($caller_pkg, $exports, $options, $features) = @_;
     $caller_pkg =~ s/::$//;
     $exports->{has} = sub {
         my ( $name, %args ) = @_;
@@ -13,5 +13,5 @@ require Class::XSAccessor;
           class => $caller_pkg,
           accessors => { $name => $name }
         );
-    };
+    } unless grep /^xs$/, @$features;
 };
