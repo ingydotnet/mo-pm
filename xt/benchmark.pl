@@ -8,15 +8,17 @@ my $tests = {
     map {
         my $t = $_;
         my $l = lc($t);
+        my $m =
         eval <<"...";
 package $l;
 use $t;
 has good => (is => 'ro');
 has bad => (is => 'ro');
 has ugly => (is => 'rw');
+$l->new(good => 'Perl', bad => 'Python', ugly => 'Ruby');
 ...
         my $v = do { no strict 'refs'; ${$t."::VERSION"} };
-        ($l => [ "$t $v"  =>
+        ($l => [ "$t $v" =>
             sub {
                 my $m = $l->new(good => 'Perl', bad => 'Python', ugly => 'Ruby');
                 $m->good;
