@@ -15,6 +15,18 @@ our $VERSION = '0.25';
 
 use PPI;
 
+# This is the mapping of common names to shorter forms that still make some
+# sense.
+my %short_names = (
+    (
+        map {($_, substr($_, 0, 1))}
+        qw(args builder class default exports method MoPKG name options self)
+    ),
+    build_subs => 'B',
+    old_constructor => 'C',
+    caller_pkg => 'P',
+);
+
 sub import {
     return unless @_ == 2 and $_[1] eq 'golf';
     binmode STDOUT;
@@ -161,38 +173,20 @@ sub _finder_subs {
             my ( $top, $current ) = @_;
             return 0 if !$current->isa( tok 'Symbol' );
 
-            my $name = $current->canonical;
+            my $long_name = $current->canonical;
 
-            my %short_names = _shortened_var_names();
+            (my $name = $long_name) =~ s/^([\$\@\%])// or die $long_name;
+            my $sigil = $1;
+            die "variable $long_name conflicts with shortened var name"
+                if grep {
+                    $name eq $_
+                } values %short_names;
 
-            die "variable $name conflicts with shortened var name" if grep { $name eq $_ } values %short_names;
-
-            my $short = $short_names{$name};
-            $current->set_content( $short ) if $short;
+            my $short_name = $short_names{$name};
+            $current->set_content( "$sigil$short_name" ) if $short_name;
 
             return 1;
         },
-    );
-}
-
-sub _shortened_var_names {
-    return (
-        '%args'       => '%a',
-        '$args'       => '$a',
-        '@build_subs' => '@B',
-        '$builder'    => '$b',
-        '$class'      => '$c',
-        '$old_constructor' => '$C',
-        '$default'    => '$d',
-        '%exports'    => '%e',
-        '$exports'    => '$e',
-        '$method'     => '$m',
-        '$MoPKG'      => '$M',
-        '$name'       => '$n',
-        '%options'    => '%o',
-        '$options'    => '$o',
-        '$caller_pkg' => '$P',
-        '$self'       => '$s',
     );
 }
 
