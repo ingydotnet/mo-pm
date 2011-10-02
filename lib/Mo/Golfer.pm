@@ -1,20 +1,57 @@
-#!/usr/bin/perl
+##
+# name:      Mo::Golfer
+# abstract:  Module for Compacting Mo Modules
+# author:    Ingy döt Net <ingy@ingy.net>
+# license:   perl
+# copyright: 2011
+# see:
+# - Mo
 
 use strict;
 use warnings;
+package Mo::Golfer;
+
+our $VERSION = '0.25';
+
 use PPI;
 
-my $text = do {
-    local undef $/;
-    <>;
+sub run {
+    binmode STDOUT;
+    my $text = do { local $/; <> };
+    print STDOUT golf( $text );
 };
 
-binmode STDOUT;
-print golf_with_ppi( $text );
+sub golf {
+    my ( $text ) = @_;
+
+    my $tree = PPI::Document->new( \$text );
+
+    my %finder_subs = _finder_subs();
+
+    my @order = qw( comments duplicate_whitespace whitespace trailing_whitespace );
+
+    for my $name ( @order ) {
+        my $elements = $tree->find( $finder_subs{$name} );
+        die $@ if !defined $elements;
+        $_->delete for @{ $elements || [] };
+    }
+
+    $tree->find( $finder_subs{$_} )
+      for qw( del_superfluous_concat del_last_semicolon_in_block separate_version shorten_var_names );
+    die $@ if $@;
+
+    for my $name ( 'double_semicolon' ) {
+        my $elements = $tree->find( $finder_subs{$name} );
+        die $@ if !defined $elements;
+        $_->delete for @{ $elements || [] };
+    }
+
+    return $tree->serialize . "\n";
+}
 
 sub tok { "PPI::Token::$_[0]" }
 
-sub finder_subs {
+sub _finder_subs {
     return (
         comments => sub { $_[1]->isa( tok 'Comment' ) },
 
@@ -125,7 +162,7 @@ sub finder_subs {
 
             my $name = $current->canonical;
 
-            my %short_names = shortened_var_names();
+            my %short_names = _shortened_var_names();
 
             die "variable $name conflicts with shortened var name" if grep { $name eq $_ } values %short_names;
 
@@ -137,7 +174,7 @@ sub finder_subs {
     );
 }
 
-sub shortened_var_names {
+sub _shortened_var_names {
     return (
         '%args'       => '%a',
         '$args'       => '$a',
@@ -158,30 +195,3 @@ sub shortened_var_names {
     );
 }
 
-sub golf_with_ppi {
-    my ( $text ) = @_;
-
-    my $tree = PPI::Document->new( \$text );
-
-    my %finder_subs = finder_subs();
-
-    my @order = qw( comments duplicate_whitespace whitespace trailing_whitespace );
-
-    for my $name ( @order ) {
-        my $elements = $tree->find( $finder_subs{$name} );
-        die $@ if !defined $elements;
-        $_->delete for @{ $elements || [] };
-    }
-
-    $tree->find( $finder_subs{$_} )
-      for qw( del_superfluous_concat del_last_semicolon_in_block separate_version shorten_var_names );
-    die $@ if $@;
-
-    for my $name ( 'double_semicolon' ) {
-        my $elements = $tree->find( $finder_subs{$name} );
-        die $@ if !defined $elements;
-        $_->delete for @{ $elements || [] };
-    }
-
-    return $tree->serialize . "\n";
-}

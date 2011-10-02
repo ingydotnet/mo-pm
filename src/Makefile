@@ -7,10 +7,11 @@ ALL := \
     ../lib/Mo/has.pm \
     ../lib/Mo/is.pm \
     ../lib/Mo/required.pm \
+    ../lib/Mo/xxx.pm \
 
 all: $(ALL)
 
-$(ALL) : Makefile compress.pl
+$(ALL) : Makefile
 
 ../lib/%.pm : %.pm
-	perl compress.pl $< > $@
+	perl -I../lib -MMo::Golfer -e "Mo::Golfer::run" $< > $@
