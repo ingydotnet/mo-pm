@@ -90,7 +90,8 @@ sub _finder_subs {
             my $prev = $current->previous_token;
             my $next = $current->next_token;
 
-            return 1 if $prev->isa( tok 'Word' ) and $next->isa( tok 'Operator' ) and $next->content =~ /^\W/;   # my $P
+            return 1 if $prev->isa( tok 'Number' ) and $next->isa( tok 'Operator' ) and $next->content =~ /^\W/; # my $P
+            return 1 if $prev->isa( tok 'Word' )   and $next->isa( tok 'Operator' ) and $next->content =~ /^\W/; # my $P
 
             return 1 if $prev->isa( tok 'Symbol' )     and $next->isa( tok 'Operator' );         # $VERSION =
             return 1 if $prev->isa( tok 'Word' )       and $next->isa( tok 'Symbol' );           # my $P
