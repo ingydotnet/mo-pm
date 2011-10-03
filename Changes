@@ -1,6 +1,6 @@
 ---
 version: 0.26
-date:    
+date:    Mon Oct  3 18:03:21 BST 2011
 changes:
 - Added Mo::import and Mo::exporter.
 - Add Mo::xs
