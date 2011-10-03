@@ -79,7 +79,7 @@ sub inliner {
     return <<"...";
 #   The following line of code was produced from the previous line by
 #   Mo::Inline version $VERSION
-$inline\@f=qw[@features];
+$inline\@f=qw[@features];use strict;use warnings;
 ...
 }
 
