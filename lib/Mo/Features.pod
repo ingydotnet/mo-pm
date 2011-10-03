@@ -27,11 +27,13 @@ Add C<coerce> feature to C<has>.
 
 Add C<default> feature to C<has>.
 
+=item L<Mo::exporter>
+
+Exporter for L<Mo::Inline> usage. Only works with inlined Mo.
+
 =item L<Mo::import>
 
-Finalizer for L<Mo::Inline> usage.
-
-This is not quite the same as the others. Read the doc.
+Finalizer for L<Mo::Inline> usage. Only works with inlined Mo.
 
 =item L<Mo::is>
 
