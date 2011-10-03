@@ -10,7 +10,7 @@ plan tests => 4;
 #============
 package Foo;
 
-use Mo 'default', 'xs', 'builder';
+use Mo 'xs', 'default', 'builder';
 
 has 'this';
 has 'that' => (builder => 'that_builder');

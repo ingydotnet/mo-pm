@@ -13,5 +13,5 @@ require Class::XSAccessor;
           class => $caller_pkg,
           accessors => { $name => $name }
         );
-    } unless grep /^xs$/, @$features;
+    } if grep !/^xs$/, @$features;
 };
