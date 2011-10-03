@@ -76,6 +76,9 @@ sub _finder_subs {
         duplicate_whitespace => sub {
             my ( $top, $current ) = @_;
             return 0 if !$current->isa( tok 'Whitespace' );
+
+            $current->set_content(' ') if 1 < length $current->content;
+
             return 0 if !$current->next_token;
             return 0 if !$current->next_token->isa( tok 'Whitespace' );
             return 1;
