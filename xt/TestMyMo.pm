@@ -1,6 +1,6 @@
 package TestMyMo;
 use lib 'xt';
-use MyMo qw'default builder';
+use MyMo;
 
 has this => builder => 'that';
 has thunk => default => sub { 'DEfault' };

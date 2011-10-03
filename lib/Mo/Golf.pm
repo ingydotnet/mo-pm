@@ -20,12 +20,17 @@ use PPI;
 my %short_names = (
     (
         map {($_, substr($_, 0, 1))}
-        qw(args builder class default exports method MoPKG name options self)
+        qw(
+            args builder class default exports features method
+            MoPKG name options self
+        )
     ),
     build_subs => 'B',
     old_constructor => 'C',
     caller_pkg => 'P',
 );
+
+my %hands_off = map {($_,1)} qw'&import *import';
 
 sub import {
     return unless @_ == 2 and $_[1] eq 'golf';
@@ -175,6 +180,7 @@ sub _finder_subs {
 
             my $long_name = $current->canonical;
 
+            return 1 if $hands_off{$long_name};
             (my $name = $long_name) =~ s/^([\$\@\%])// or die $long_name;
             my $sigil = $1;
             die "variable $long_name conflicts with shortened var name"

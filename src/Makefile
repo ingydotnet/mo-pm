@@ -5,6 +5,7 @@ ALL := \
     ../lib/Mo/coerce.pm \
     ../lib/Mo/default.pm \
     ../lib/Mo/has.pm \
+    ../lib/Mo/import.pm \
     ../lib/Mo/is.pm \
     ../lib/Mo/required.pm \
     ../lib/Mo/xs.pm \
