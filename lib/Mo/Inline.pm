@@ -94,10 +94,11 @@ Usage: mo-linline <perl module files or directories>
 
 =head1 SYNOPSIS
 
-In your module:
+In your Mo module:
 
+    # This is effectively your own private Mo(ose) setup
     package MyModule::Mo;
-    # use Mo qw'build builder default';
+    # use Mo qw'build builder default import';
     1;
 
 From the command line:
@@ -112,6 +113,11 @@ or (if you are really lazy):
 
     > mo-inline
 
+Then from another module:
+
+    package MyModule::Foo;
+    use MyModule::Mo;       # gets build, builder and default automatically
+
 =head1 DESCRIPTION
 
 Mo is so small that you can easily inline it, along with any feature modules.
@@ -123,7 +129,13 @@ It will also replace any old inlined Mo with the latest version.
 
 What Mo could you possibly want?
 
+=head1 AUTOMATIC FEATURES
+
+By using the L<Mo::import> feature, all uses of your Mo class will turn on all
+the features you specified. You can override it if you want, but that will be
+the default.
+
 =head1 REAL WORLD EXAMPLES
 
-For real world examples of Mo inlined using C<mo-inline>, see L<Pegex::Mo> and
-L<TestML::Mo>.
+For real world examples of Mo inlined using C<mo-inline>, see L<YAML::Mo>,
+L<Pegex::Mo> and L<TestML::Mo>.
