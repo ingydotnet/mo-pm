@@ -1,4 +1,4 @@
-use inc::Module::Package 'Ingy:modern 0.16';
+use inc::Module::Package 'Ingy:modern 0.17';
 
 # Inline this to keep Mo.pm minimal:
 name 'Mo';

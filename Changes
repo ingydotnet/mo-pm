@@ -1,4 +1,12 @@
 ---
+version: 0.26
+date:    
+changes:
+- Added Mo::import and Mo::exporter.
+- Add Mo::xs
+- Make Mo::Inline better
+- More docs
+---
 version: 0.25
 date:    Sat Oct  1 15:46:19 BST 2011
 changes:

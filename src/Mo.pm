@@ -1,6 +1,6 @@
 # The first two lines are left alone in the compressed source.
 package Mo;
-$VERSION = 0.25;
+$VERSION = 0.26;
 
 # 'no' is a shorter 'use', but we really don't want warnings.
 no warnings;
