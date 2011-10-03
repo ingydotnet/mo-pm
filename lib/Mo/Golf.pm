@@ -21,8 +21,8 @@ my %short_names = (
     (
         map {($_, substr($_, 0, 1))}
         qw(
-            args builder class default exports features method
-            MoPKG name options self
+            args builder class default exports features
+            import method MoPKG name options self
         )
     ),
     build_subs => 'B',
