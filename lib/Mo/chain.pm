@@ -1,12 +1,12 @@
-package Mo::chaining;
+package Mo::chain;
 my $MoPKG = "Mo::";
 $VERSION = 0.26;
 
-*{$MoPKG.'chaining::e'} = sub {
+*{$MoPKG.'chain::e'} = sub {
     my ($caller_pkg, $exports, $options) = @_;
-    $options->{chaining} = sub {
+    $options->{chain} = sub {
         my ($method, $name, %args) = @_;
-        $args{chaining} or return $method;
+        $args{chain} or return $method;
         sub {
             $#_ ? ($method->(@_) and return $_[0]) : $method->(@_);
         };
