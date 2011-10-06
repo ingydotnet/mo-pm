@@ -42,7 +42,10 @@ is $f->first(1)->second(2)->third(3), 3;
 is $f->first, 1;
 is $f->second, 2;
 
-
+# chain with set to false
+is $f->first(0)->second(undef)->third(''), '';
+is $f->first, 0;
+is $f->second, undef;
 
 ### chain with default
 $f = Test::ChainWithDefault->new;
