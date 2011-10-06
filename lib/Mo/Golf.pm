@@ -11,7 +11,7 @@ use strict;
 use warnings;
 package Mo::Golf;
 
-our $VERSION = '0.26';
+our $VERSION = '0.27';
 
 use PPI;
 

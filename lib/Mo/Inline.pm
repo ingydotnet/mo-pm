@@ -10,7 +10,7 @@
 package Mo::Inline;
 use Mo;
 
-our $VERSION = 0.26;
+our $VERSION = 0.27;
 
 use IO::All;
 

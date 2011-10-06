@@ -1,6 +1,6 @@
 package Mo::chain;
 my $MoPKG = "Mo::";
-$VERSION = 0.26;
+$VERSION = 0.27;
 
 *{$MoPKG.'chain::e'} = sub {
     my ($caller_pkg, $exports, $options) = @_;

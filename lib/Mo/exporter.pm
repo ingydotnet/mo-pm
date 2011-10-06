@@ -1,3 +1,3 @@
 package Mo::exporter;my$M="Mo::";
-$VERSION=0.26;
+$VERSION=0.27;
 *{$M.'exporter::e'}=sub{my($P)=@_;if(defined@{$M.EXPORT}){*{$P.$_}=\&{$M.$_}for@{$M.EXPORT}}};
