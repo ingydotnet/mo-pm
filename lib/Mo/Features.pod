@@ -11,10 +11,6 @@ Here's a list of the current feature modules that ship with L<Mo>:
 
 =over
 
-=item L<Mo::default>
-
-Add C<default> feature to C<has>.
-
 =item L<Mo::builder>
 
 Add C<builder> feature to C<has>.
@@ -63,6 +59,8 @@ can search CPAN, but heres a starter list:
 =item L<Mo::xxx>
 
 Exports the L<XXX> functions for debugging. Handy!
+
+=back
 
 =head1 NOTE
 
