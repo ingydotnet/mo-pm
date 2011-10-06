@@ -21,7 +21,7 @@ Add C<builder> feature to C<has>.
 
 =item L<Mo::chain>
 
-Add C<chain> feature to C<has> (chained accessors).
+Add C<chain> feature to C<has>.
 
 =item L<Mo::coerce>
 
