@@ -1,6 +1,6 @@
 use Test::More;
 
-plan tests => 22;
+plan tests => 25;
 
 package Test::Chain;
 use Mo qw(chain);

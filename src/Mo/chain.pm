@@ -8,7 +8,7 @@ $VERSION = 0.26;
         my ($method, $name, %args) = @_;
         $args{chain} or return $method;
         sub {
-            $#_ ? ($method->(@_) and return $_[0]) : $method->(@_);
+            $#_ ? ($method->(@_), return $_[0]) : $method->(@_);
         };
     };
 };
