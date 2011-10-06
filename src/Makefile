@@ -2,6 +2,7 @@ ALL := \
     ../lib/Mo.pm \
     ../lib/Mo/build.pm \
     ../lib/Mo/builder.pm \
+    ../lib/Mo/chain.pm \
     ../lib/Mo/coerce.pm \
     ../lib/Mo/default.pm \
     ../lib/Mo/exporter.pm \

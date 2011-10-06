@@ -19,6 +19,10 @@ Add C<default> feature to C<has>.
 
 Add C<builder> feature to C<has>.
 
+=item L<Mo::chain>
+
+Add C<chain> feature to C<has> (chained accessors).
+
 =item L<Mo::coerce>
 
 Add C<coerce> feature to C<has>.
