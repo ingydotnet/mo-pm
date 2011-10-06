@@ -1,6 +1,6 @@
 =head1 Mo Features
 
-Mo is absoutely minimal, but it let's you easily add many features like this:
+Mo is absolutely minimal, but it let's you easily add many features like this:
 
     use Mo qw[default builder other features];
 
