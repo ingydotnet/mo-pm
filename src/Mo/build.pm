@@ -1,6 +1,6 @@
 package Mo::build;
 my $MoPKG = "Mo::";
-$VERSION = 0.27;
+$VERSION = 0.28;
 
 *{$MoPKG.'build::e'} = sub {
     my ($caller_pkg, $exports) = @_;

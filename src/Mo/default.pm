@@ -1,6 +1,6 @@
 package Mo::default;
 my $MoPKG = "Mo::";
-$VERSION = 0.27;
+$VERSION = 0.28;
 
 *{$MoPKG.'default::e'} = sub {
     my ($caller_pkg, $exports, $options) = @_;
