@@ -12,6 +12,7 @@ ALL := \
     ../lib/Mo/option.pm \
     ../lib/Mo/required.pm \
     ../lib/Mo/xs.pm \
+    ../lib/Mo/Moose.pm \
 
 all: $(ALL)
 

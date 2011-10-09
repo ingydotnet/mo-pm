@@ -29,6 +29,7 @@ my $MoPKG = __PACKAGE__.::;
             \%exports,
             \%options
         ) for @_;
+    return if $exports{M}; 
     %exports = (
         extends, sub {
             eval "no $_[0]()";
