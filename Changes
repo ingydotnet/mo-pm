@@ -1,8 +1,10 @@
 ---
 version: 0.28
-date:    
+date:    Sun Oct  9 16:29:07 EDT 2011
 changes:
 - First module ever released during a Lightning Talk (PPW 2011)
+- Mo::Moose with help by doy++
+- Mo::option
 ---
 version: 0.27
 date:    Thu Oct  6 10:33:29 EDT 2011
