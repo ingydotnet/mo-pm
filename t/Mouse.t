@@ -1,4 +1,4 @@
-use Test::More tests => 4;
+use Test::More tests => 5;
 
 {
     package Foo;
@@ -8,8 +8,9 @@ use Test::More tests => 4;
     has bar => (default => 'I like pie!');
 }
 
+is $Foo::ISA[0], 'Mouse::Object', 'ISA Mouse::Object';
+
 my $f = Foo->new(foo => 42);
-die @Foo::ISA;
 
 is $f->foo, 42, 'Normal';
 is $f->{bar}, undef, 'before (lazy)';

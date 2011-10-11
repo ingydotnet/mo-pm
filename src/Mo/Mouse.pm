@@ -6,6 +6,8 @@ $VERSION = 0.28;
     $caller_pkg =~ s/::$//;
     %$exports = (M => 1);
     require Mouse;
+#     require Mouse::Role;
+    require Mouse::Util::MetaRole;
     Mouse->import({into => $caller_pkg});
     Mouse::Util::MetaRole::apply_metaroles(
         for => $caller_pkg,

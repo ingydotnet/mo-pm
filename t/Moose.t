@@ -1,4 +1,4 @@
-use Test::More tests => 4;
+use Test::More tests => 5;
 
 {
     package Foo;
@@ -7,6 +7,8 @@ use Test::More tests => 4;
     has foo => ();
     has bar => (default => 'I like pie!');
 }
+
+is $Foo::ISA[0], 'Moose::Object', 'ISA Moose::Object';
 
 my $f = Foo->new(foo => 42);
 
