@@ -8,4 +8,5 @@ all_from 'lib/Mo.pm';
 all_from 'lib/Mo.pod';
 
 recommends 'IO::All';
+recommends 'Class::XSAccessor';
 no_index 'directory' => 'src';

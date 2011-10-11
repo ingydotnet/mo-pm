@@ -1,4 +1,9 @@
 ---
+version: 0.29
+date:    Mon Oct 10 22:46:50 EDT 2011
+changes:
+- Mo::Mouse with help by gfx++
+---
 version: 0.28
 date:    Sun Oct  9 16:29:07 EDT 2011
 changes:

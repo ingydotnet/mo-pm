@@ -1,5 +1,5 @@
 package Mo::is;$MoPKG = "Mo::";
-$VERSION = 0.28;
+$VERSION = 0.29;
 
 *{$MoPKG.'is::e'} = sub {
     my ($caller_pkg, $exports, $options) = @_;
