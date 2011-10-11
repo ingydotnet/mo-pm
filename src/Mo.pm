@@ -1,6 +1,6 @@
 # The first two lines are left alone in the compressed source.
 package Mo;
-$VERSION = 0.29;
+$VERSION = '0.30';
 
 # 'no' is a shorter 'use', but we really don't want warnings.
 no warnings;
@@ -27,7 +27,8 @@ my $MoPKG = __PACKAGE__.::;
         &{$MoPKG.$_.::e}(
             $caller_pkg,
             \%exports,
-            \%options
+            \%options,
+            \@_
         ) for @_;
     return if $exports{M}; 
     %exports = (

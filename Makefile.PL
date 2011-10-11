@@ -9,4 +9,7 @@ all_from 'lib/Mo.pod';
 
 recommends 'IO::All';
 recommends 'Class::XSAccessor';
+recommends 'Moose';
+recommends 'Mouse';
+
 no_index 'directory' => 'src';

@@ -1,4 +1,10 @@
 ---
+version: 0.30
+date:    Tue Oct 11 19:36:07 EDT 2011
+changes:
+- Don't run moose/mouse tests unless deps exist
+- Add Mo::importer
+---
 version: 0.29
 date:    Mon Oct 10 22:46:50 EDT 2011
 changes:

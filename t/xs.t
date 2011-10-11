@@ -1,25 +1,23 @@
 use Test::More;
 
 BEGIN {
-    eval "use Class::XSAccessor;";
+    eval "use Class::XSAccessor";
     $@ and plan skip_all => "Class::XSAccessor is needed";
 };
 
 plan tests => 4;
 
-#============
-package Foo;
+{
+    package Foo;
 
-use Mo 'xs', 'default', 'builder';
+    use Mo 'xs', 'default', 'builder';
 
-has 'this';
-has 'that' => (builder => 'that_builder');
-has 'them' => (default => sub {[]});
+    has 'this';
+    has 'that' => (builder => 'that_builder');
+    has 'them' => (default => sub {[]});
 
-use constant that_builder => 'O HAI';
-
-#============
-package main;
+    use constant that_builder => 'O HAI';
+}
 
 my $f = Foo->new(this => 'thing');
 

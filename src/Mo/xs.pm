@@ -1,6 +1,6 @@
 package Mo::xs;
 my $MoPKG = "Mo::";
-$VERSION = 0.29;
+$VERSION = 0.30;
 
 require Class::XSAccessor;
 
@@ -10,8 +10,8 @@ require Class::XSAccessor;
     $exports->{has} = sub {
         my ( $name, %args ) = @_;
         Class::XSAccessor->import(
-          class => $caller_pkg,
-          accessors => { $name => $name }
+            class => $caller_pkg,
+            accessors => { $name => $name }
         );
-    } if grep !/^xs$/, @$features;
+    } if ! grep !/^xs$/, @$features;
 };

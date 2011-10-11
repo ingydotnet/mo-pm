@@ -1,4 +1,11 @@
-use Test::More tests => 5;
+use Test::More;
+
+BEGIN {
+    eval "use Mouse";
+    $@ and plan skip_all => "Mouse is needed";
+};
+
+plan tests => 5;
 
 {
     package Foo;
