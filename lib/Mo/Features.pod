@@ -39,6 +39,14 @@ Finalizer for L<Mo::Inline> usage. Only works with inlined Mo.
 
 Add C<is> feature to C<has>.
 
+=item L<Mo::Moose>
+
+Use Moose in place of Mo for everything.
+
+=item L<Mo::Mouse>
+
+Use Mouse in place of Mo for everything.
+
 =item L<Mo::option>
 
 Add C<option> feature to C<has>.

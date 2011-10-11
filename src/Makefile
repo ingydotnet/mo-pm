@@ -13,6 +13,7 @@ ALL := \
     ../lib/Mo/required.pm \
     ../lib/Mo/xs.pm \
     ../lib/Mo/Moose.pm \
+    ../lib/Mo/Mouse.pm \
 
 all: $(ALL)
 
