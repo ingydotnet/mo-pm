@@ -59,7 +59,7 @@ have fast accessors. Speed optimizations should be simple and minimal.
 
 =item Be embeddable
 
-There may be situations where you want to inline Mo into your code, For this
+There may be situations where you want to inline Mo into your code. For this
 reason, Mo will try to be in one minimal pure Perl file, with no comments or
 documentation. See C<Mo::Inline>.
 
@@ -112,7 +112,7 @@ list of option/value pairs.
 All options are silently ignored. Options like C<default> and C<builder> are
 available as feature modules:
 
-    use Mo qw'deafult builder';
+    use Mo qw'default builder';
 
 The default getter/setter is optimized for speed. It does no checks and is
 always 'rw'.
@@ -158,7 +158,7 @@ Mo now has a decent feature system so that almost anything can be added piecemea
 
     use Mo qw'foo bar';
 
-This loads Mo::foo and Mo::Bar. It calls the C<e()> subroutine on each.
+This loads Mo::foo and Mo::bar. It calls the C<e()> subroutine on each.
 
 =head2 1024 Size Limit
 
