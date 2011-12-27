@@ -9,7 +9,7 @@ Mo::option - Allow an attribute to be a chainable, boolean option.
     package Foo;
 
     use Mo qw'option';
-    has this  => ( option => 1 );
+    has this => ( option => 1 );
     has that => ( option => 1 );
 
     my $f = Foo->new;
