@@ -1,14 +1,15 @@
 use strict;
 use warnings FATAL => "all";
-use Test::More tests => 42;
+use Test::More tests => 45;
 use Test::Exception;
 
 package Foo::isa;
-use Mo qw"isa";
+use Mo qw(isa);
 
 my @types = qw(Bool Num Int Str ArrayRef CodeRef HashRef RegexpRef);
 my @refs = ([], sub { }, {}, qr( ));
 has( "my$_" => ( isa => $_ ) ) for @types;
+has( myFoo => ( isa => "Foo::isa" ) );
 
 package main;
 use Data::Dump;
@@ -49,6 +50,11 @@ is $foo->myStr, "abcdefg", "Str passed to constructor accepted";
 lives_and { is $foo->myStr("hijklmn"), "hijklmn" } "Str attr set to a string";
 is $foo->myStr, "hijklmn", "new value of \$foo->myStr as expected";
 lives_and { is $foo->myStr(5.5), 5.5 } "Str attr set to a decimal value";
+
+# Class instance:
+lives_and { is $foo->myFoo($foo), $foo } "Class instance attr set to self";
+isa_ok $foo->myFoo, "Foo::isa", "new value of \$foo->myFoo as expected";
+dies_ok { $foo->myFoo({}) } "Class instance attr set to hash dies";
 
 # Refs:
 for my $i (4..7) {

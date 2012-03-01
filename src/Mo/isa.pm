@@ -17,20 +17,12 @@ my $N = sub {
         ref()
             ? sub { ref $_[0] eq ref $type }
             : $_.Ref } Array, [], Code, $N, Hash, {}, Regexp, qr( ) ) );
-
 *{$MoPKG."isa::e"} = sub {
     $_[2]{isa} = sub {
         my ($method, $name, %args) = @_;
         my $I = $args{isa};
         $I
-            # Does the type exist in %TYPES?
-            ? $TYPES{$I}
-                # If so, test against the type sub:
-                ? sub {
-                    $TYPES{$I}->($_[1]) || die if $#_;
-                    goto $method; }
-                # Otherwise, test for class instance:
-                : ref $_[1] eq $I
-                    ? goto $method
-                    : die
+            ? sub {
+                ref $_[1] eq $I || $TYPES{$I}->($_[1]) || die if $#_;
+                goto $method; }
             : $method } };
