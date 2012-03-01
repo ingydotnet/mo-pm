@@ -1,0 +1,44 @@
+=encoding utf8
+
+=head1 Name
+
+Mo::isa - Adds the isa feature to Mo's has
+
+=head1 Synopsis
+
+    use Mo qw(isa);
+    has name => ( isa => 'Str' );
+
+=head1 Description
+
+Adds the C<isa> parameter to has. The following types are supported by default:
+
+=over
+
+=item Bool
+
+=item Num
+
+=item Int
+
+=item Str
+
+=item ArrayRef
+
+=item CodeRef
+
+=item HashRef
+
+=item RegexpRef
+
+=item Class instance
+
+=back
+
+Additional types can be added by editing C<%Mo::isa::TYPES>, a map of type names
+to predicate subroutines.
+
+=head1 Caveat
+
+100% compatibility with Moose's type checks are neither guaranteed nor likely.
+If compatibility is needed, replace the defaults checks in <%Mo::isa::TYPES>;
