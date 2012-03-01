@@ -12,11 +12,10 @@ my $N = sub {
     Str, sub { defined $_[0] },
 
     # Ref types:
-    ( map {
-        my $type = $_;
-        ref()
-            ? sub { ref $_[0] eq ref $type }
-            : $_.Ref } Array, [], Code, $N, Hash, {}, Regexp, qr( ) ) );
+    map {
+        my $type = /R/ ? $_ : uc $_;
+        $_.Ref, sub { ref $_[0] eq $type }  } <Array Code Hash Regexp> );
+
 *{$MoPKG."isa::e"} = sub {
     $_[2]{isa} = sub {
         my ($method, $name, %args) = @_;
