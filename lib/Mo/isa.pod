@@ -36,7 +36,7 @@ Adds the C<isa> parameter to has. The following types are supported by default:
 =back
 
 Additional types can be added by editing C<%Mo::isa::TYPES>, a map of type names
-to predicate subroutines.
+to predicate subroutines. It is polite to use C<local> when doing so.
 
 =head1 Caveat
 
