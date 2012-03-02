@@ -36,4 +36,7 @@ Mo::isa will get confused if you use a "complicated" parameter for a
 parameterized type. The parameter itself should not be a parameterized
 type constraint, and should not be a union.
 
+ClassName and RoleName constraints are not verified to the same extent
+that Moose does. Any non-empty string containing no whitespace passes.
+
 =cut
