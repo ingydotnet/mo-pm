@@ -1,6 +1,6 @@
 use strict;
 use warnings FATAL => "all";
-use Test::More tests => 45;
+use Test::More tests => 60;
 use Test::Exception;
 
 package Foo::isa;
@@ -28,6 +28,25 @@ lives_and { is $foo->myBool(0), 0 }   "Bool attr set to 0";
 lives_and { is $foo->myBool(0.0), 0 } "Bool attr set to 0.0";
 lives_and { is $foo->myBool(0e0), 0 } "Bool attr set to 0e0";
 dies_ok { $foo->myBool("0.0") }       "Bool attr set to stringy 0.0 dies";
+
+# Bool tests from Mouse:
+open(my $FH, "<", $0) or die "Could not open $0 for the test";
+my $msg = q(Bool rejects anything which is not a 1 or 0 or "" or undef");
+lives_ok { $foo->myBool(0) }              $msg;
+lives_ok { $foo->myBool(1) }              $msg;
+dies_ok { $foo->myBool(100) }             $msg;
+lives_ok { $foo->myBool("") }             $msg;
+dies_ok { $foo->myBool("Foo") }           $msg;
+dies_ok { $foo->myBool([]) }              $msg;
+dies_ok { $foo->myBool({}) }              $msg;
+dies_ok { $foo->myBool(sub {}) }          $msg;
+dies_ok { $foo->myBool(\"") }             $msg;
+dies_ok { $foo->myBool(*STDIN) }          $msg;
+dies_ok { $foo->myBool(\*STDIN) }         $msg;
+dies_ok { $foo->myBool($FH) }             $msg;
+dies_ok { $foo->myBool(qr/../) }          $msg;
+dies_ok { $foo->myBool(bless {}, "Foo") } $msg;
+lives_ok { $foo->myBool(undef) }          $msg;
 
 # Num:
 lives_and { is $foo->myNum(5.5), 5.5 } "Num attr set to decimal";
