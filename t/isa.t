@@ -5,7 +5,7 @@ BEGIN {
 		or plan skip_all => 1;
 }
 
-plan tests => 100;
+plan tests => 200;
 
 {
 	package Foo::isa;
@@ -70,17 +70,28 @@ foreach my $set (@tests)
 	foreach my $value (@$should_allow)
 	{
 		my $sv = defined $value ? "`$value`" : 'undef';
+		
 		lives_and {
 			$f->$attribute($value);
 			is $f->$attribute(), $value;
 		} "Attribute $attribute accepts value $sv";
+		
+		lives_and {
+			my $f2 = Foo::isa::->new($attribute => $value);
+			is $f->$attribute(), $value;
+		} "Attribute $attribute accepts value $sv in constructor";
 	}
 
 	foreach my $value (@$should_deny)
 	{
 		my $sv = defined $value ? "`$value`" : 'undef';
+		
 		dies_ok {
 			$f->$attribute($value);
 		} "Attribute $attribute denies value $sv";
+		
+		dies_ok {
+			my $f2 = Foo::isa::->new($attribute => $value);
+		} "Attribute $attribute denies value $sv in constructor";
 	}
 }

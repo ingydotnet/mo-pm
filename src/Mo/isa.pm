@@ -69,12 +69,37 @@ sub assert_value
 	die "value did not pass constraint $con\n";
 }
 
-*{$MoPKG.'isa::e'} = sub {
+my %constraints;
+
+*{$MoPKG.'isa::e'} = sub
+{
 	my ($caller_pkg, $exports, $options) = @_;
-	$options->{isa} = sub {
+	
+	{
+		no warnings 'redefine';
+		my $old_constructor = *{$caller_pkg."new"}{CODE} || *{$MoPKG.Object::new}{CODE};
+		*{$caller_pkg."new"} = sub
+		{
+			my $self = $old_constructor->(@_);
+			my %args = @_[1..$#_];
+			
+			for my $arg (keys %args)
+			{
+				next if !exists $constraints{$caller_pkg.$arg};
+				assert_value($constraints{$caller_pkg.$arg}, $args{$arg});
+			}
+			
+			$self;
+		};
+	}
+	
+	$options->{isa} = sub
+	{
 		my ($method, $name, %args) = @_;
-		$args{isa} or return $method;
-		return sub {
+		$constraints{$caller_pkg.$name} = $args{isa}
+			or return $method;
+		return sub
+		{
 			assert_value($args{isa}, $_[1])if$#_;
 			$method->(@_);
 		};
