@@ -6,9 +6,9 @@ $VERSION = 0.30;
 my $N = sub {
         $_[0] =~ /^([+-]?\d+|([+-]?)(?=\d|\.\d)\d*(\.\d*)?(e([+-]?\d+))?|(Inf(inity)?|NaN))$/i };
 %TYPES = (
-    Bool, sub { !$_[0] || $_[0] == 1 && goto $N },
+    Bool, sub { !$_[0] || $_[0] == 1 && &$N },
     Num, $N,
-    Int, sub { $_[0] == int $_[0] && goto $N },
+    Int, sub { $_[0] == int $_[0] && &$N },
     Str, sub { defined $_[0] },
 
     # Ref types:
@@ -23,5 +23,5 @@ my $N = sub {
         $I
             ? sub {
                 ref $_[1] eq $I || $TYPES{$I}->($_[1]) || die if $#_;
-                goto $method; }
+                &$method; }
             : $method } };
