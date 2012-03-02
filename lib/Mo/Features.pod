@@ -39,6 +39,10 @@ Finalizer for L<Mo::Inline> usage. Only works with inlined Mo.
 
 Add C<is> feature to C<has>.
 
+=item L<Mo::isa>
+
+Add C<isa> feature to C<has>.
+
 =item L<Mo::Moose>
 
 Use Moose in place of Mo for everything.

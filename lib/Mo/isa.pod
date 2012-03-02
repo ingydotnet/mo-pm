@@ -1,0 +1,39 @@
+=encoding utf8
+
+=head1 Name
+
+Mo::isa - Adds the isa feature to Mo's has
+
+=head1 Synopsis
+
+    use Mo qw'isa';
+    has name => ( isa => 'Str' );
+
+=head1 Description
+
+Adds the isa parameter to has.
+
+Clearly this does not support the full Moose type constraint system, but it
+does support:
+
+=over
+
+=item * Moose's built-in non-parameterized type constraints
+
+=item * Any type constraint containing "::" (which is treated as a class name)
+
+=item * The C<< Maybe[`a] >> constraint, provided that the parameter is supported.
+
+=item * The C<< ScalarRef[`a] >>, C<< ArrayRef[`a] >> and C<< HashRef[`a] >> constraints are supported, but the parameter is ignored.
+
+=item * Unions like "Str|Int" are supported.
+
+=back
+
+Any unrecognised type is given an automatic "pass".
+
+Mo::isa will get confused if you use a "complicated" parameter for a
+parameterized type. The parameter itself should not be a parameterized
+type constraint, and should not be a union.
+
+=cut
