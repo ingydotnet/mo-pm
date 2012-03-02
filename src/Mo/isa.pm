@@ -14,7 +14,7 @@ my $N = sub {
     # Ref types:
     map {
         my $type = /R/ ? $_ : uc $_;
-        $_.Ref, sub { ref $_[0] eq $type }  } <Array Code Hash Regexp> );
+        $_.Ref, sub { ref $_[0] eq $type }  } qw(Array Code Hash Regexp) );
 
 *{$MoPKG."isa::e"} = sub {
     $_[2]{isa} = sub {
