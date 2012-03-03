@@ -33,13 +33,14 @@ plan tests => 200;
 	has filehandle  => (isa => 'FileHandle');
 	has object      => (isa => 'Object');
 	has foo         => (isa => 'Foo::isa');
+	has moo         => (isa => sub { $_[0]==1 or $_[0]==2 or die "needs to be 1 or 2" });
 }
 
 my $f = Foo::isa::->new;
 
 my @tests = (
-	[ any        => ['abc', 1, 1.5, [], {}],   [] ],
-	[ item       => ['abc', 1, 1.5, [], {}],   [] ],
+	[ any        => ['abc', 1, {}],            [] ],
+	[ item       => ['abc', 1, {}],            [] ],
 	[ bool       => [1, 0],                    [] ],
 	[ undef      => [undef],                   [0, 1, '', {}] ],
 	[ defined    => [0, 1, '', {}, $f],        [undef] ],
@@ -61,6 +62,7 @@ my @tests = (
 	# filehandle
 	[ object     => [$f],                      [0, 1, {}] ],
 	[ foo        => [$f],                      [0, 1, {}] ],
+	[ moo        => [1, 2],                    [0, sub{}] ],
 	);
 
 foreach my $set (@tests)

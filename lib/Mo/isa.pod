@@ -39,4 +39,8 @@ type constraint, and should not be a union.
 ClassName and RoleName constraints are not verified to the same extent
 that Moose does. Any non-empty string containing no whitespace passes.
 
+Additionally, Moo-style type constraints are supported, a la:
+
+  has age => (isa => sub { die "must be non-negative" if $_[0] < 0 });
+
 =cut

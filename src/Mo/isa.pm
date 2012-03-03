@@ -30,6 +30,12 @@ use Scalar::Util qw/blessed looks_like_number/;
 sub check
 {
 	my $value = pop;
+	
+	if (ref $_[0] eq 'CODE')
+	{
+		return eval { $_[0]->($value); $_[0] };
+	}
+	
 	my @cons = split /\|/, shift;
 	
 	while (@cons)
@@ -65,6 +71,13 @@ sub check
 sub assert_value
 {
 	my ($con, $value) = @_;
+	
+	if (ref($con) eq 'CODE')
+	{
+		$_[0]->($value);
+		return;
+	}
+	
 	return if check($con, $value);
 	die "value did not pass constraint $con\n";
 }
