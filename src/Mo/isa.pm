@@ -21,9 +21,9 @@ our%TC = (
 	Ref        , \&R,
 	FileHandle , \&R,
 	Object     , sub{R && O($_)},
-	(map{$_.'Name',sub{Y && /^\S+$/}}qw/Class Role/),
+	(map{$_.Name,sub{Y && /^\S+$/}}qw/Class Role/),
 	map
-		{ my $J = /R/ ? $_ : uc$_; "${_}Ref", sub{R eq$J} }
+		{ my $J = /R/? $_ : uc$_; "${_}Ref", sub{R eq$J} }
 		qw/Scalar Array Hash Code Glob Regexp/,
 	);
 
@@ -33,7 +33,7 @@ sub check
 	
 	if (ref $_[0] eq'CODE')
 	{
-		return eval { $_[0]->($v); 1 }
+		return eval { $_[0]->($v); 1}
 	}
 	
 	@_ = split/\|/, shift;
@@ -50,10 +50,10 @@ sub check
 		
 		$t = $1 if $t =~ /^(.+)\[/;
 		
-		if (my $chk = $TC{$t})
+		if (my $k = $TC{$t})
 		{
 			local $_ = $v;
-			return 1 if $chk->()
+			return 1 if $k->()
 		}
 		elsif ($t =~ /::/)
 		{
@@ -62,12 +62,10 @@ sub check
 		else 
 		{
 			# I don't understand the constraint!
-			return 1
-		}
+			return 1}
 	}
 	
-	return
-}
+	0}
 
 sub av
 {
@@ -79,24 +77,22 @@ sub av
 
 my %cx;
 
-*{$MoPKG.'isa::e'} = sub
+*{$MoPKG.isa::e} = sub
 {
 	my ($caller_pkg, $exports, $options) = @_;
 	
+	my $old_constructor = *{$caller_pkg.new}{CODE} || *{$MoPKG.Object::new}{CODE};
+	*{$caller_pkg.new} = sub
 	{
-		my $old_constructor = *{$caller_pkg."new"}{CODE} || *{$MoPKG.Object::new}{CODE};
-		*{$caller_pkg."new"} = sub
+		my %args = @_[1..$#_];
+		
+		for (keys %args)
 		{
-			my %args = @_[1..$#_];
-			
-			for my $arg (keys %args)
-			{
-				av($cx{$caller_pkg.$arg}, $args{$arg}) if $cx{$caller_pkg.$arg}
-			}
-			
-			$old_constructor->(@_)
-		};
-	}
+			av($cx{$caller_pkg.$_}, $args{$_}) if $cx{$caller_pkg.$_}
+		}
+		
+		goto$old_constructor
+	};
 	
 	$options->{isa} = sub
 	{
@@ -106,7 +102,7 @@ my %cx;
 		sub
 		{
 			av($V, $_[1])if$#_;
-			$method->(@_);
-		};
-	};
-};
+			$method->(@_)
+		}
+	}
+}
