@@ -43,4 +43,15 @@ Additionally, Moo-style type constraints are supported, a la:
 
   has age => (isa => sub { die "must be non-negative" if $_[0] < 0 });
 
+=head2 C<< Mo::isa::check($type, $value) >>
+
+A convenience function is provided for checking a value against a type
+constraint. Returns a boolean, even in list context.
+
+=head2 C<< %Mo::isa::TC >>
+
+This is a hash mapping allowing additional type constraints to be defined.
+The key is the name of the type constraint; the value is a coderef that
+should return true iff C<< $_ >> meets the constraint.
+
 =cut
