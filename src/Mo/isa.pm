@@ -2,118 +2,110 @@ package Mo::isa;
 $MoPKG = "Mo::";
 $VERSION = 0.30;
 
-use Scalar::Util qw/blessed looks_like_number/;
+sub O{UNIVERSAL::can(@_,'isa')}
+sub Z{1}
+sub R(){ref}
+sub Y(){defined&&!ref}
+sub L(){Y&&/^([+-]?\d+|([+-]?)(?=\d|\.\d)\d*(\.\d*)?(e([+-]?\d+))?|(Inf(inity)?|NaN))$/i}
 
-%Easy = (
-	Any        => sub{1},
-	Item       => sub{1},
-	Bool       => sub{1},
-	Undef      => sub{!defined$_[0]},
-	Defined    => sub{defined$_[0]},
-	Value      => sub{defined$_[0]&&!ref$_[0]},
-	Str        => sub{defined$_[0]&&!ref$_[0]},
-	Num        => sub{defined$_[0]&&!ref$_[0]&&looks_like_number($_[0])},
-	Int        => sub{defined$_[0]&&!ref$_[0]&&looks_like_number($_[0])&&$_[0]!~/\./},
-	ClassName  => sub{defined$_[0]&&!ref$_[0]&&$_[0]=~/^\S+$/},
-	RoleName   => sub{defined$_[0]&&!ref$_[0]&&$_[0]=~/^\S+$/},
-	Ref        => sub{defined$_[0]&&ref$_[0]},
-	ScalarRef  => sub{defined$_[0]&&ref$_[0]eq'SCALAR'},
-	ArrayRef   => sub{defined$_[0]&&ref$_[0]eq'ARRAY'},
-	HashRef    => sub{defined$_[0]&&ref$_[0]eq'HASH'},
-	CodeRef    => sub{defined$_[0]&&ref$_[0]eq'CODE'},
-	RegexpRef  => sub{defined$_[0]&&ref$_[0]eq'Regexp'},
-	GlobRef    => sub{defined$_[0]&&ref$_[0]eq'GLOB'},
-	FileHandle => sub{defined$_[0]&&ref$_[0]},
-	Object     => sub{defined$_[0]&&blessed$_[0]},
+our%TC = (
+	Any        , \&Z,
+	Item       , \&Z,
+	Bool       , \&Z,
+	Undef      , sub{!defined},
+	Defined    , sub{defined},
+	Value      , \&Y,
+	Str        , \&Y,
+	Num        , \&L,
+	Int        , sub{L && int($_)==$_},
+	Ref        , \&R,
+	FileHandle , \&R,
+	Object     , sub{R && O($_)},
+	(map{$_.'Name',sub{Y && /^\S+$/}}qw/Class Role/),
+	map
+		{ my $J = /R/ ? $_ : uc$_; "${_}Ref", sub{R eq$J} }
+		qw/Scalar Array Hash Code Glob Regexp/,
 	);
 
 sub check
 {
-	my $value = pop;
+	my $v = pop;
 	
-	if (ref $_[0] eq 'CODE')
+	if (ref $_[0] eq'CODE')
 	{
-		return eval { $_[0]->($value); $_[0] };
+		return eval { $_[0]->($v); 1 }
 	}
 	
-	my @cons = split /\|/, shift;
+	@_ = split/\|/, shift;
 	
-	while (@cons)
+	while (@_)
 	{
-		(my $con = shift @cons) =~ s{ (^\s+) | (\s+$) }{}xg;
+		(my $t = shift) =~ s/(^\s+)|(\s+$)//g;
 		
-		if ($con =~ /^Maybe\[(.+)\]$/)
+		if ($t =~ /^Maybe\[(.+)\]$/)
 		{
-			unshift @cons, 'Undef', $1;
-			next;
+			unshift @_, 'Undef', $1;
+			next
 		}
 		
-		$con = $1 if $con =~ /^(.+)\[/;
+		$t = $1 if $t =~ /^(.+)\[/;
 		
-		if (my $check = $Easy{$con})
+		if (my $chk = $TC{$t})
 		{
-			return [$con] if $check->($value);
+			local $_ = $v;
+			return 1 if $chk->()
 		}
-		elsif ($con =~ /::/)
+		elsif ($t =~ /::/)
 		{
-			return [$con] if blessed($value) && $value->isa($con);
+			return 1 if O($v) && $v->isa($t)
 		}
 		else 
 		{
-			# I don't understand the con!
-			return [$con];
+			# I don't understand the constraint!
+			return 1
 		}
 	}
 	
-	return;
+	return
 }
 
-sub assert_value
+sub av
 {
-	my ($con, $value) = @_;
-	
-	if (ref($con) eq 'CODE')
-	{
-		$_[0]->($value);
-		return;
-	}
-	
-	return if check($con, $value);
-	die "value did not pass constraint $con\n";
+	my$t=shift;
+	ref($t)eq'CODE'
+		?$t->(@_)
+		:do{die "not $t\n" if !check($t, @_)}
 }
 
-my %constraints;
+my %cx;
 
 *{$MoPKG.'isa::e'} = sub
 {
 	my ($caller_pkg, $exports, $options) = @_;
 	
 	{
-		no warnings 'redefine';
 		my $old_constructor = *{$caller_pkg."new"}{CODE} || *{$MoPKG.Object::new}{CODE};
 		*{$caller_pkg."new"} = sub
 		{
-			my $self = $old_constructor->(@_);
 			my %args = @_[1..$#_];
 			
 			for my $arg (keys %args)
 			{
-				next if !exists $constraints{$caller_pkg.$arg};
-				assert_value($constraints{$caller_pkg.$arg}, $args{$arg});
+				av($cx{$caller_pkg.$arg}, $args{$arg}) if $cx{$caller_pkg.$arg}
 			}
 			
-			$self;
+			$old_constructor->(@_)
 		};
 	}
 	
 	$options->{isa} = sub
 	{
 		my ($method, $name, %args) = @_;
-		$constraints{$caller_pkg.$name} = $args{isa}
+		my $V=$cx{$caller_pkg.$name} = $args{isa}
 			or return $method;
-		return sub
+		sub
 		{
-			assert_value($args{isa}, $_[1])if$#_;
+			av($V, $_[1])if$#_;
 			$method->(@_);
 		};
 	};
