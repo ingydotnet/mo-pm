@@ -20,28 +20,42 @@ does support:
 
 =item * Moose's built-in non-parameterized type constraints
 
-=item * Any type constraint containing "::" (which is treated as a class name)
+ClassName and RoleName constraints are not verified to the same extent
+that Moose does. Any non-empty string containing no whitespace passes.
 
-=item * The C<< Maybe[`a] >> constraint, provided that the parameter is supported.
+=item * Any type constraint containing "::" (which is treated as a class name).
+
+Note:
+
+  package Person;
+  use Mo qw/isa/;
+  has 'name' => (isa => 'Str');
+  
+  package Child;
+  use Mo qw/isa/;
+  extends 'Person';
+  has 'father' => (isa => 'Person');    # ignored, no double-colon
+  has 'mother' => (isa => '::Person');  # checks that value is a Person
 
 =item * The C<< ScalarRef[`a] >>, C<< ArrayRef[`a] >> and C<< HashRef[`a] >> constraints are supported, but the parameter is ignored.
 
+=item * The C<< Maybe[`a] >> constraint, provided that the parameter is supported.
+
 =item * Unions like "Str|Int" are supported.
 
+For parameterized types (such as ArrayRef, Maybe, etc), unioned
+parameters are likely to confuse Mo::isa's very naive parsing of
+'isa'. Don't expect this to work:
+
+  ArrayRef[Str|::DateTime]
+
 =back
-
-Any unrecognised type is given an automatic "pass".
-
-Mo::isa will get confused if you use a "complicated" parameter for a
-parameterized type. The parameter itself should not be a parameterized
-type constraint, and should not be a union.
-
-ClassName and RoleName constraints are not verified to the same extent
-that Moose does. Any non-empty string containing no whitespace passes.
 
 Additionally, Moo-style type constraints are supported, a la:
 
   has age => (isa => sub { die "must be non-negative" if $_[0] < 0 });
+
+Any unrecognised type is given an automatic "pass".
 
 =head2 C<< Mo::isa::check($type, $value) >>
 
