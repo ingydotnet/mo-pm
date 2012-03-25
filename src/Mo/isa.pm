@@ -2,14 +2,15 @@ package Mo::isa;
 $MoPKG = "Mo::";
 $VERSION = 0.30;
 
+$Z='CODE';
 sub O{UNIVERSAL::can(@_,'isa')}
 sub Z{1}
 sub R(){ref}
 sub Y(){defined&&!ref}
-sub L(){Y&&/^([+-]?\d+|([+-]?)(?=\d|\.\d)\d*(\.\d*)?(e([+-]?\d+))?|(Inf(inity)?|NaN))$/i}
+sub L(){Y&&/^([+-]?\d+|[+-]?(?=\d|\.\d)\d*(\.\d*)?(e([+-]?\d+))?|(Inf(inity)?|NaN))$/i}
 
 our%TC = (
-	Any        , \&Z,
+	Any        , \&Z,  # *Z is more compact, but Mo::Golf can't cope
 	Item       , \&Z,
 	Bool       , sub{my$t=$_; !defined($t) or grep{"$_"eq$t}'',0,1},
 	Undef      , sub{!defined},
@@ -17,21 +18,20 @@ our%TC = (
 	Value      , \&Y,
 	Str        , \&Y,
 	Num        , \&L,
-	Int        , sub{L && int($_)==$_},
+	Int        , sub{L && /^\d+$/},
 	Ref        , \&R,
 	FileHandle , \&R,
 	Object     , sub{R && O($_)},
 	(map{$_.Name,sub{Y && /^\S+$/}}qw/Class Role/),
 	map
 		{ my $J = /R/? $_ : uc$_; "${_}Ref", sub{R eq$J} }
-		qw/Scalar Array Hash Code Glob Regexp/,
-	);
+		qw(Scalar Array Hash Code Glob Regexp));
 
 sub check
 {
 	my $v = pop;
 	
-	if (ref $_[0] eq'CODE')
+	if (ref $_[0] eq$Z)
 	{
 		return eval { $_[0]->($v); 1}
 	}
@@ -40,11 +40,11 @@ sub check
 	
 	while (@_)
 	{
-		(my $t = shift) =~ s/(^\s+)|(\s+$)//g;
+		(my $t = shift) =~ s/^\s+|\s+$//g;
 		
 		if ($t =~ /^Maybe\[(.+)\]$/)
 		{
-			unshift @_, 'Undef', $1;
+			@_=(Undef=>$1,@_);
 			next
 		}
 		
@@ -53,12 +53,12 @@ sub check
 		if (my $k = $TC{$t})
 		{
 			local $_ = $v;
-			return 1 if $k->()
-		}
+			&$k&&return 1}
+			
 		elsif ($t =~ /::/)
 		{
-			return 1 if O($v) && $v->isa($t)
-		}
+			O($v) && $v->isa($t) && return 1}
+
 		else 
 		{
 			# I don't understand the constraint!
@@ -70,9 +70,9 @@ sub check
 sub av
 {
 	my$t=shift;
-	ref($t)eq'CODE'
+	ref($t)eq$Z
 		?$t->(@_)
-		:do{die "not $t\n" if !check($t, @_)}
+		:do{die "not $t\n" if !check$t, @_}
 }
 
 my %cx;
@@ -81,7 +81,7 @@ my %cx;
 {
 	my ($caller_pkg, $exports, $options) = @_;
 	
-	my $old_constructor = *{$caller_pkg.new}{CODE} || *{$MoPKG.Object::new}{CODE};
+	my $old_constructor = *{$caller_pkg.new}{$Z} || *{$MoPKG.Object::new}{$Z};
 	*{$caller_pkg.new} = sub
 	{
 		my %args = @_[1..$#_];
