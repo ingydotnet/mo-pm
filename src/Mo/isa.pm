@@ -11,7 +11,7 @@ sub L(){Y&&/^([+-]?\d+|([+-]?)(?=\d|\.\d)\d*(\.\d*)?(e([+-]?\d+))?|(Inf(inity)?|
 our%TC = (
 	Any        , \&Z,
 	Item       , \&Z,
-	Bool       , \&Z,
+	Bool       , sub{my$t=$_; !defined($t) or grep{"$_"eq$t}'',0,1},
 	Undef      , sub{!defined},
 	Defined    , sub{defined},
 	Value      , \&Y,
@@ -88,7 +88,7 @@ my %cx;
 		
 		for (keys %args)
 		{
-			av($cx{$caller_pkg.$_}, $args{$_}) if $cx{$caller_pkg.$_}
+			av$cx{$caller_pkg.$_}, $args{$_}if$cx{$caller_pkg.$_}
 		}
 		
 		goto$old_constructor
@@ -101,7 +101,7 @@ my %cx;
 			or return $method;
 		sub
 		{
-			av($V, $_[1])if$#_;
+			av$V, $_[1]if$#_;
 			$method->(@_)
 		}
 	}

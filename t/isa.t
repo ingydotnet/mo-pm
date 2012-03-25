@@ -10,6 +10,7 @@ plan tests => 200;
 {
 	package Foo::isa;
 	use Mo qw(isa);
+	has dummy       => ();
 	has any         => (isa => 'Any');
 	has item        => (isa => 'Item');
 	has bool        => (isa => 'Bool');
@@ -79,8 +80,9 @@ foreach my $set (@tests)
 		} "Attribute $attribute accepts value $sv";
 		
 		lives_and {
-			my $f2 = Foo::isa::->new($attribute => $value);
-			is $f->$attribute(), $value;
+			my $f2 = Foo::isa::->new($attribute => $value, dummy => 1);
+			die unless $f2->dummy == 1;
+			is $f2->$attribute(), $value;
 		} "Attribute $attribute accepts value $sv in constructor";
 	}
 
