@@ -2,39 +2,38 @@ package Mo::isa;
 $MoPKG = "Mo::";
 $VERSION = 0.30;
 
-$Z='CODE';
-sub O{UNIVERSAL::can(@_,'isa')}
+$Z=CODE;
+sub O(_){UNIVERSAL::can(@_,isa)}
+sub S(&){pop}
 sub Z{1}
 sub R(){ref}
-sub Y(){defined&&!ref}
-sub L(){Y&&/^([+-]?\d+|[+-]?(?=\d|\.\d)\d*(\.\d*)?(e([+-]?\d+))?|(Inf(inity)?|NaN))$/i}
+sub N(){!defined}
+sub Y(){!N&&!R}
 
 our%TC = (
 	Any        , \&Z,  # *Z is more compact, but Mo::Golf can't cope
 	Item       , \&Z,
-	Bool       , sub{my$t=$_; !defined($t) or grep{"$_"eq$t}'',0,1},
-	Undef      , sub{!defined},
-	Defined    , sub{defined},
+	Bool       , S{N||0 eq$_||1 eq$_||''eq$_},
+	Undef      , \&N,
+	Defined    , S{!N},
 	Value      , \&Y,
 	Str        , \&Y,
-	Num        , \&L,
-	Int        , sub{L && /^\d+$/},
+	Num        , S{Y&&/^([+-]?\d+|[+-]?(?=\d|\.\d)\d*(\.\d*)?(e([+-]?\d+))?|(Inf(inity)?|NaN))$/i},
+	Int        , S{/^\d+$/},
 	Ref        , \&R,
 	FileHandle , \&R,
-	Object     , sub{R && O($_)},
-	(map{$_.Name,sub{Y && /^\S+$/}}qw/Class Role/),
+	Object     , S{R && O},
+	(map{$_.Name,S{Y && /^\S+$/}}qw/Class Role/),
 	map
-		{ my $J = /R/? $_ : uc$_; "${_}Ref", sub{R eq$J} }
+		{ my $J = /R/? $_ : uc$_; $_.Ref, S{R eq$J} }
 		qw(Scalar Array Hash Code Glob Regexp));
 
 sub check
 {
 	my $v = pop;
 	
-	if (ref $_[0] eq$Z)
-	{
-		return eval { $_[0]->($v); 1}
-	}
+	return eval { $_[0]->($v); 1}
+		if ref $_[0] eq$Z;
 	
 	@_ = split/\|/, shift;
 	
@@ -44,7 +43,7 @@ sub check
 		
 		if ($t =~ /^Maybe\[(.+)\]$/)
 		{
-			@_=(Undef=>$1,@_);
+			@_=(Undef,$1,@_);
 			next
 		}
 		
@@ -69,38 +68,34 @@ sub check
 
 sub av
 {
-	my$t=shift;
+	(my$t,$_)=@_;
 	ref($t)eq$Z
-		?$t->(@_)
-		:do{die "not $t\n" if !check$t, @_}
+		?$t->($_)
+		:${die "not $t\n" if !check@_}
 }
 
-my %cx;
+#my %cx;
 
-*{$MoPKG.isa::e} = sub
+*{$MoPKG.isa::e} = S
 {
 	my ($caller_pkg, $exports, $options) = @_;
 	
 	my $old_constructor = *{$caller_pkg.new}{$Z} || *{$MoPKG.Object::new}{$Z};
-	*{$caller_pkg.new} = sub
+	*{$caller_pkg.new} = S
 	{
 		my %args = @_[1..$#_];
 		
-		for (keys %args)
-		{
-			av$cx{$caller_pkg.$_}, $args{$_}if$cx{$caller_pkg.$_}
-		}
+		av(($cx{$caller_pkg.$_}||next), $args{$_})for keys %args;
 		
 		goto$old_constructor
 	};
 	
-	$options->{isa} = sub
+	$options->{isa} = S
 	{
 		my ($method, $name, %args) = @_;
 		my $V=$cx{$caller_pkg.$name} = $args{isa}
 			or return $method;
-		sub
-		{
+		S {
 			av$V, $_[1]if$#_;
 			$method->(@_)
 		}

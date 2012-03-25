@@ -30,7 +30,7 @@ my %short_names = (
     caller_pkg => 'P',
 );
 
-my %hands_off = map {($_,1)} qw'&import *import &Y &Z &R &L';
+my %hands_off = map {($_,1)} qw'&import *import &Y &Z &R &L &N';
 
 sub import {
     return unless @_ == 2 and $_[1] eq 'golf';
