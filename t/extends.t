@@ -1,4 +1,4 @@
-use Test::More tests => 4;
+use Test::More tests => 5;
 
 use lib 't';
 use Bar;
@@ -11,3 +11,6 @@ is "@Bar::ISA", "Foo", 'Extends with multiple classes not supported';
 
 ok 'Foo'->can('stuff'), 'Foo is loaded';
 ok not('Bar'->can('buff')), 'Boo is not loaded';
+
+eval { require Oops };
+ok $@, 'Bad class in extends() dies';
