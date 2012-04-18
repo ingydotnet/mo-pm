@@ -30,10 +30,15 @@ my $MoPKG = __PACKAGE__.::;
             \%options,
             \@_
         ) for @_;
+
+    (my $file = $caller_pkg) =~ s/::$/.pm/;
+    $file =~ s/::/\//g;
+    $INC{$file} ||= (caller)[1];
+
     return if $exports{M}; 
     %exports = (
         extends, sub {
-            eval "no $_[0]()";
+            eval "no $_[0](); 1" || die;
             @{ $caller_pkg . ISA } = $_[0];
         },
         has, sub {
