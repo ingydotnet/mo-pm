@@ -7,7 +7,7 @@ no warnings;
 # We need the package name to be relocatable for inlining. Adding the :: makes
 # everything shorter thereafter. :: is a bareword string. We do that a lot for
 # golfing reasons. Scary.
-my $MoPKG = __PACKAGE__.::;
+my $MoPKG = __PACKAGE__.'::';
 
 # This is our minimal constructor. Can we make it faster? We should have tests
 # for that.
@@ -20,7 +20,7 @@ my $MoPKG = __PACKAGE__.::;
     import warnings;
     # This is a golf for: use strict(); strict->import;
     $^H |= 1538;
-    my ($caller_pkg, %exports, %options) = caller.::;
+    my ($caller_pkg, %exports, %options) = caller.'::';
     shift;
     # Load each feature and call its &e.
     eval "no Mo::$_",
