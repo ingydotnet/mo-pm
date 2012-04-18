@@ -12,4 +12,4 @@ package main;
 my $f = Foo::is->new(stuff => 'foo');
 is $f->stuff, 'foo', 'values passed to constructor are successfully accepted';
 eval { $f->stuff('barbaz') };
-ok $@, 'setting values after initialization throws an exception';
+like $@, qr{^stuff is ro}, 'setting values after initialization throws an exception';
