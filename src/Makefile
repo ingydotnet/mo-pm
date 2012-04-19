@@ -10,6 +10,7 @@ ALL := \
     ../lib/Mo/import.pm \
     ../lib/Mo/importer.pm \
     ../lib/Mo/is.pm \
+    ../lib/Mo/isa.pm \
     ../lib/Mo/option.pm \
     ../lib/Mo/required.pm \
     ../lib/Mo/xs.pm \
