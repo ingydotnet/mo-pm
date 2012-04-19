@@ -8,7 +8,7 @@ $VERSION = 0.30;
         $args{is} or return $method;
         sub {
             $#_ && $args{is} eq 'ro' && caller ne 'Mo::coerce'
-              ? die 
+              ? die $name.' is ro'
                 : $method->(@_)
         };
     };
