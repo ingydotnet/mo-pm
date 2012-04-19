@@ -1,6 +1,6 @@
 package Mo::xs;
 my $MoPKG = "Mo::";
-$VERSION = 0.30;
+$VERSION = 0.31;
 
 require Class::XSAccessor;
 
