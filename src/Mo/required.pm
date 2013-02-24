@@ -13,7 +13,7 @@ $VERSION = 0.31;
             *{$caller_pkg."new"} = sub {
                 my $self = $old_constructor->(@_);
                 my %args = @_[1..$#_];
-                die $name." required" if !$args{$name};
+                die $name." required" if !exists $args{$name};
                 $self;
             };
         }
