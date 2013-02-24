@@ -6,7 +6,8 @@ $VERSION = 0.31;
     my ($caller_pkg, $exports, $options) = @_;
     $options->{default} = sub {
         my ($method, $name, %args) = @_;
-        $args{default} or return $method;
+        exists $args{default} or return $method;
+        die $name.' not a code ref' if ref($args{default}) ne 'CODE';
         sub {
             $#_
               ? $method->(@_)
