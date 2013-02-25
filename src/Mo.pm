@@ -44,6 +44,7 @@ my $MoPKG = __PACKAGE__.'::';
                         ? $_[0]{$name} = $_[1]
                         : $_[0]{$name};
                 };
+            @_ = ( default, @_ ) if !$#_;
             $method = $options{$_}->($method, $name, @_)
                 for sort keys %options;
             *{ $caller_pkg . $name } = $method;
