@@ -118,7 +118,7 @@ Alessandro Ranellucci (aar/alexrj) <aar@cpan.org>
 
 =head1 Copyright and License
 
-Copyright (c) 2011. Ingy döt Net.
+Copyright (c) 2011-2013. Ingy döt Net.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
