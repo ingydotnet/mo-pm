@@ -1,4 +1,9 @@
 ---
+version: 0.32
+date:    Tue Feb 26 01:47:41 MYT 2013
+changes:
+- Required attributes accepts 0/undef
+---
 version: 0.31
 date:    Thu Apr 19 10:59:34 PDT 2012
 changes:
