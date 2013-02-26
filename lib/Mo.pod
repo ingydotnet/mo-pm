@@ -116,6 +116,8 @@ Christian Walde <walde.christian@googlemail.com>
 
 Alessandro Ranellucci (aar/alexrj) <aar@cpan.org>
 
+Carlos Lima (priodev) <carlos@cpan.org>
+
 =head1 Copyright and License
 
 Copyright (c) 2011-2013. Ingy döt Net.
