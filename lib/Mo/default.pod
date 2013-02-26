@@ -7,13 +7,24 @@ Mo::default - Adds the default feature to Mo's has
 =head1 Synopsis
 
     use Mo qw'default';
+    has job => ( default => 'Killer' );
     has name => ( default => sub { 'Joe' } );
+    has age => 42;
+    has colors => ['green', 'blue'];
 
 =head1 Description
 
-Adds the default parameter to has, which expects a code reference, returning
-a value to be used to set the attribute to if it hasn't been set yet.
+Adds the default parameter to has, which expects a value. If the value is a
+code ref, it is called to produce the default. If the value is a hash or array
+ref, then a shallow copy is made for the default. If there is an odd number of
+arguments after the attribute name, then the first value is the default.
 
-Currently this is always called lazily.
+These 3 lines are the same:
+
+    has things => default => sub {+{}};
+    has things => default => {};
+    has things => {};
+
+Currently C<default> is always applied lazily.
 
 =cut
