@@ -94,6 +94,10 @@ sub _finder_subs {
             return 1 if $prev->isa( tok 'Number' ) and $next->isa( tok 'Operator' ) and $next->content =~ /^\W/; # my $P
             return 1 if $prev->isa( tok 'Word' )   and $next->isa( tok 'Operator' ) and $next->content =~ /^\W/; # my $P
 
+            return 1 if $prev->isa( tok 'Operator' ) and $next->isa( tok 'Quote::Single' ) and $next->content =~ /^\W/; # eq ''
+            return 1 if $prev->isa( tok 'Operator' ) and $next->isa( tok 'Quote::Double' ) and $next->content =~ /^\W/; # eq ""
+            return 1 if $prev->isa( tok 'Operator' ) and $next->isa( tok 'Symbol' )        and $next->content =~ /^\W/; # eq $v
+
             return 1 if $prev->isa( tok 'Symbol' )     and $next->isa( tok 'Operator' );         # $VERSION =
             return 1 if $prev->isa( tok 'Word' )       and $next->isa( tok 'Symbol' );           # my $P
             return 1 if $prev->isa( tok 'Word' )       and $next->isa( tok 'Structure' );        # sub {
