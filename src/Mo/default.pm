@@ -8,9 +8,9 @@ $VERSION = 0.32;
         my ($method, $name, %args) = @_;
         exists $args{default} or return $method;
 
-        my($default,$reftype) = $args{default};
+        my ( $default, $reftype ) = $args{default};
         my $generator =
-            ( $reftype = ref $default ) eq 'HASH' ? sub { +{%$default} }
+            'HASH' eq ( $reftype = ref $default ) ? sub { +{%$default} }
           : 'ARRAY' eq $reftype ? sub { [@$default] }
           : 'CODE'  eq $reftype ? $default
           :                       sub { $default };
