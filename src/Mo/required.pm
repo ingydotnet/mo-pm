@@ -1,6 +1,6 @@
 package Mo::required;
 my $MoPKG = "Mo::";
-$VERSION = 0.32;
+$VERSION = 0.33;
 
 *{$MoPKG.'required::e'} = sub {
     my ($caller_pkg, $exports, $options) = @_;
