@@ -8,16 +8,16 @@ $VERSION = 0.32;
         my ($method, $name, %args) = @_;
         exists $args{default} or return $method;
 
-        my $default = $args{default};
-        my $gen =
-            ref($default) eq 'HASH'  ? sub { +{%$default} }
-          : ref($default) eq 'ARRAY' ? sub { [@$default] }
-          : ref($default) eq 'CODE'  ? $default
-          :                            sub { $default };
+        my($default,$reftype) = $args{default};
+        my $generator =
+            ( $reftype = ref $default ) eq 'HASH' ? sub { +{%$default} }
+          : 'ARRAY' eq $reftype ? sub { [@$default] }
+          : 'CODE'  eq $reftype ? $default
+          :                       sub { $default };
         sub {
             $#_                      ? $method->(@_)
               : !exists $_[0]{$name} ? $_[0]{$name} =
-                $gen->(@_)
+                $generator->(@_)
               : $method->(@_);
         };
     };
