@@ -1,7 +1,7 @@
-use Test::More tests => 22;
+use Test::More tests => 29;
 
 package Baz;
-use Mo qw(default);
+use Mo qw(default is);
 has foo => { less => 'Mo' };
 has fu  => {};
 has bar => '';
@@ -17,6 +17,9 @@ has past => ( default => sub { [ 1, 2, 3 ] } );
 has present => ( default => sub { +{ a => 'A', b => 'B', C => 'c' } } );
 has future => ( default => sub { 42 } );
 
+has drink => ( 66, is => 'ro' );
+has drank => ( [99], is => 'rw' );
+has drunk => ( { hang => 'over' }, is => 'rw' );
 
 has fate => ();
 
@@ -41,6 +44,18 @@ is_deeply $foo->mar, [], 'correct default';
 is_deeply $foo->jar, [ 4, 2, 42 ], 'correct default';
 isnt( Baz->new->foo, Baz->new->foo, 'get new instances on every call' );
 is_deeply( Baz->new->foo, Baz->new->foo, '.. but their content are the same' );
+
+# Terse, irregulars
+is $foo->drink, 66, 'recognize odd number of args';
+is eval { $foo->drink(120) }, undef, 'recognize other args correctly';
+like $@, qr/drink is ro/, 'recognize other args correctly';
+
+is_deeply( $foo->drank, [99], 'odd args with array' );
+is_deeply $foo->drank( { 33 => 66 } ), { 33 => 66 },
+  'recognize other args correctly';
+is_deeply $foo->drank, { 33 => 66 }, 'setter acts properly';
+
+is_deeply( $foo->drunk, { hang => 'over' }, 'odd args with array' );
 
 # Constructor arguments
 $foo = new_ok( 'Baz', [ baz => 'changed', fu => 'none' ] );
