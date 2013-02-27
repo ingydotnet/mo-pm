@@ -1,4 +1,11 @@
 ---
+version: 0.33
+date:    Thu Feb 28 03:31:47 MYT 2013
+changes:
+- Adds terser syntax to Mo::default
+- Assumes default when given odd number of arguments to has
+- Improved automated golfing
+---
 version: 0.32
 date:    Tue Feb 26 01:47:41 MYT 2013
 changes:
