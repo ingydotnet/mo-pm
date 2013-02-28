@@ -14,6 +14,10 @@ $VERSION = 0.33;
           : 'ARRAY' eq $reftype ? sub { [@$default] }
           : 'CODE'  eq $reftype ? $default
           :                       sub { $default };
+
+        ${ $caller_pkg . 'E' }{$name} = $generator and return $method
+          if $args{eager};
+
         sub {
             $#_                      ? $method->(@_)
               : !exists $_[0]{$name} ? $_[0]{$name} =

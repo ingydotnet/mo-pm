@@ -1,4 +1,5 @@
-use Test::More tests => 29;
+use Test::More tests => 32;
+my $call_count;
 
 package Baz;
 use Mo qw(default is);
@@ -21,9 +22,16 @@ has drink => ( 66, is => 'ro' );
 has drank => ( [99], is => 'rw' );
 has drunk => ( { hang => 'over' }, is => 'rw' );
 
+has learned => sub { $call_count++; 'nothing' }, eager => 1;
+
 has fate => ();
 
 package main;
+
+my $eager = Baz->new;
+is $call_count, 1, "Eager default called during ->new";
+is $eager->learned, 'nothing', "Eager default sets correct value";
+is $call_count, 1, ".. and not called again on the accessor";
 
 # Regulars
 my $foo = new_ok('Baz');
