@@ -1,4 +1,4 @@
-use Test::More tests => 32;
+use Test::More tests => 35;
 my $call_count;
 
 package Baz;
@@ -32,6 +32,10 @@ my $eager = Baz->new;
 is $call_count, 1, "Eager default called during ->new";
 is $eager->learned, 'nothing', "Eager default sets correct value";
 is $call_count, 1, ".. and not called again on the accessor";
+$eager = Baz->new(learned => "Abre-te sesamo");
+is $call_count, 1, 'Default generator not called if initial value given to constructor';
+is $eager->learned, 'Abre-te sesamo', "Attribute set to passed-in value";
+is $call_count, 1, "default generator not called on the accessor";
 
 # Regulars
 my $foo = new_ok('Baz');

@@ -12,9 +12,11 @@ my $MoPKG = __PACKAGE__.'::';
 # This is our minimal constructor. Can we make it faster? We should have tests
 # for that.
 *{$MoPKG.Object::new} = sub {
-    my %x=%{"$_[0]::E"};
-    my %e = map {$_, $x{$_}->()} keys %x;
-    bless {%e,@_[1..$#_]}, $_[0];
+    my $K = shift;
+    my $Z = bless {@_}, $K;
+    my %x=%{$K.'::E'};
+    map {$Z->{$_} = $x{$_}->() if !exists $Z->{$_}} keys %x;
+    $Z
 };
 
 *{$MoPKG.import} = sub {
