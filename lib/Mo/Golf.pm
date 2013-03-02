@@ -22,8 +22,8 @@ my %short_names = (
         map {($_, substr($_, 0, 1))}
         qw(
             args builder class default exports features
-            generator import method MoPKG name options
-            reftype self
+            generator import method MoPKG name nonlazy_defaults
+            options reftype self
         )
     ),
     build_subs => 'B',

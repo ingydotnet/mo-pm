@@ -12,11 +12,12 @@ my $MoPKG = __PACKAGE__.'::';
 # This is our minimal constructor. Can we make it faster? We should have tests
 # for that.
 *{$MoPKG.Object::new} = sub {
-    my $K = shift;
-    my $Z = bless {@_}, $K;
-    my %x=%{$K.'::E'};
-    map {$Z->{$_} = $x{$_}->() if !exists $Z->{$_}} keys %x;
-    $Z
+    my $class            = shift;
+    my $self             = bless {@_}, $class;
+    my %nonlazy_defaults = %{ $class . '::E' };
+    map { $self->{$_} = $nonlazy_defaults{$_}->() if !exists $self->{$_} }
+      keys %nonlazy_defaults;
+    $self
 };
 
 *{$MoPKG.import} = sub {
