@@ -22,8 +22,6 @@ use Test::More tests => 2;
 package main;
 
 subtest "Standard behavior" => sub {
-    is( $Mo::Standard::O, undef,
-        'not importing nonlazy doesnt set package var' );
     my $standard = Mo::Standard->new;
     is( $standard->{name}, undef,          'attributes are lazy by default' );
     is( $standard->name,   'Ayrton Senna', 'initialized lazily' );
@@ -48,7 +46,6 @@ subtest "Standard behavior" => sub {
 };
 
 subtest "Moose-like behavior (importing nonlazy)" => sub {
-    is( $Moose::Alike::O, 1, 'importing nonlazy sets package var' );
     my $moosey = Moose::Alike->new;
     is( $moosey->{name}, 'Ayrton Senna',
         'importing nonlazy makes attributes default to non lazy' );
