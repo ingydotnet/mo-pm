@@ -5,7 +5,7 @@ $VERSION = '0.33';
 # 'no' is a shorter 'use', but we really don't want warnings.
 no warnings;
 # We need the package name to be relocatable for inlining. Adding the :: makes
-# everything shorter thereafter. :: is a bareword string. We do that a lot for
+# everything shorter thereafter. We do that a lot for
 # golfing reasons. Scary.
 my $MoPKG = __PACKAGE__.'::';
 
@@ -34,7 +34,7 @@ my $MoPKG = __PACKAGE__.'::';
             \%options,
             \@_
         ) for @_;
-    return if $exports{M}; 
+    return if $exports{M};
     %exports = (
         extends, sub {
             eval "no $_[0]()";
