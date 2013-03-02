@@ -15,7 +15,7 @@ $VERSION = 0.33;
           : 'CODE'  eq $reftype ? $default
           :                       sub { $default };
 
-        my $is_lazy = exists $args{lazy} ? $args{lazy} : !${$caller_pkg.O};
+        my $is_lazy = exists $args{lazy} ? $args{lazy} : !${$caller_pkg.NONLAZY};
         $is_lazy or ${ $caller_pkg . E }{$name} = $generator and return $method;
 
         sub {
