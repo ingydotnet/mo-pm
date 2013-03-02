@@ -22,7 +22,7 @@ has drink => ( 66, is => 'ro' );
 has drank => ( [99], is => 'rw' );
 has drunk => ( { hang => 'over' }, is => 'rw' );
 
-has learned => sub { $call_count++; 'nothing' }, eager => 1;
+has learned => sub { $call_count++; 'nothing' }, lazy => 0;
 
 has fate => ();
 

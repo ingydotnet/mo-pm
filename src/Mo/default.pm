@@ -15,8 +15,8 @@ $VERSION = 0.33;
           : 'CODE'  eq $reftype ? $default
           :                       sub { $default };
 
-        ${ $caller_pkg . 'E' }{$name} = $generator and return $method
-          if $args{eager};
+        my $l = exists $args{lazy} ? $args{lazy} : !${$caller_pkg.O};
+        $l or ${ $caller_pkg . 'E' }{$name} = $generator and return $method;
 
         sub {
             $#_                      ? $method->(@_)
