@@ -12,7 +12,7 @@ use Test::More tests => 2;
 }
 {
     package Moose::Alike;
-    use Mo qw(default nonlazy);
+    use Mo qw(default build);
     has name => 'Ayrton Senna';
 
     has sport => { F1 => 'F1' }, lazy => 1;

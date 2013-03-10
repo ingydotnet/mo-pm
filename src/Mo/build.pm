@@ -4,9 +4,15 @@ $VERSION = 0.33;
 
 *{$MoPKG.'build::e'} = sub {
     my ($caller_pkg, $exports) = @_;
+    ${ $caller_pkg . O } = 1;
     $exports->{new} = sub {
         $class = shift;
         my $self = bless {@_}, $class;
+
+        my %nonlazy_defaults = %{ $class . :: . EAGERINIT };
+        map { $self->{$_} = $nonlazy_defaults{$_}->() if !exists $self->{$_} }
+          keys %nonlazy_defaults;
+
         my @build_subs;
 
         do {
