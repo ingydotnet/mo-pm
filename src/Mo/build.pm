@@ -4,7 +4,7 @@ $VERSION = 0.33;
 
 *{$MoPKG.'build::e'} = sub {
     my ($caller_pkg, $exports) = @_;
-    ${ $caller_pkg . O } = 1;
+    ${ $caller_pkg . NONLAZY } = 1;
     $exports->{new} = sub {
         $class = shift;
         my $self = bless {@_}, $class;

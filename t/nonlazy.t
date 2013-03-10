@@ -27,21 +27,18 @@ subtest "Standard behavior" => sub {
     is( $standard->name,   'Ayrton Senna', 'initialized lazily' );
     is( $standard->{sport}, undef, 'attr is lazy when explicitly asked' );
     is_deeply( $standard->sport, { F1 => 'F1' }, 'initialized lazily' );
-    is_deeply(
-        $standard->{teams},
-        [ 'McLaren', 'Lotus', 'Toleman', 'Williams' ],
-        'attr is non lazy when explicitly asked'
-    );
+    is( $standard->{teams}, undef,         'lazy argument ignored when build is not imported' );
     is_deeply(
         $standard->teams,
         [ 'McLaren', 'Lotus', 'Toleman', 'Williams' ],
         'accessor on non lazy'
     );
     is( $standard->no_teams, 4, 'non lazy attribute' );
+    is( $standard->{championships}, undef,         'lazy argument ignored when build is not imported' );
     is_deeply(
-        $standard->{championships},
+        $standard->championships,
         [ 1988, 1990, 1991 ],
-        'not lazy when explicitly asked'
+        'initialized lazily'
     );
 };
 
