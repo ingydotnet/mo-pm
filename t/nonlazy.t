@@ -25,16 +25,20 @@ subtest "Standard behavior" => sub {
     my $standard = Mo::Standard->new;
     is( $standard->{name}, undef,          'attributes are lazy by default' );
     is( $standard->name,   'Ayrton Senna', 'initialized lazily' );
-    is( $standard->{sport}, undef, 'attr is lazy when explicitly asked' );
+    is( $standard->{sport}, undef,
+        'lazy argument ignored when build is not imported' );
     is_deeply( $standard->sport, { F1 => 'F1' }, 'initialized lazily' );
-    is( $standard->{teams}, undef,         'lazy argument ignored when build is not imported' );
+    is( $standard->{teams}, undef,
+        'lazy argument ignored when build is not imported' );
     is_deeply(
         $standard->teams,
         [ 'McLaren', 'Lotus', 'Toleman', 'Williams' ],
         'accessor on non lazy'
     );
-    is( $standard->no_teams, 4, 'non lazy attribute' );
-    is( $standard->{championships}, undef,         'lazy argument ignored when build is not imported' );
+    is( $standard->no_teams, 4,
+        'lazy argument ignored when build is not imported' );
+    is( $standard->{championships},
+        undef, 'lazy argument ignored when build is not imported' );
     is_deeply(
         $standard->championships,
         [ 1988, 1990, 1991 ],
