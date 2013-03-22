@@ -31,7 +31,7 @@ my %short_names = (
     caller_pkg => 'P',
 );
 
-my %short_barewords = map {$_, substr($_, 0, 1)} qw( EAGERINIT NONLAZY );
+my %short_barewords = ( EAGERINIT => q{':E'}, NONLAZY => q{':N'} );
 
 my %hands_off = map {($_,1)} qw'&import *import';
 
