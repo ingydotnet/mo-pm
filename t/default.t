@@ -1,4 +1,4 @@
-use Test::More tests => 35;
+use Test::More tests => 34;
 my $call_count;
 
 package Baz;
@@ -29,9 +29,8 @@ has fate => ();
 package main;
 
 my $eager = Baz->new;
-is $call_count, undef, "lazy=>1/0 ignored when 'build' is not imported";
-is $eager->learned, 'nothing', "initialized lazily";
-is $call_count, 1, ".. on first accessor call";
+is $call_count, 1, 'Eagerly initialized when asked';
+is $eager->{learned}, 'nothing', "initialized correctly";
 $eager = Baz->new(learned => "Abre-te sesamo");
 is $call_count, 1, 'Default generator not called if initial value given to constructor';
 is $eager->learned, 'Abre-te sesamo', "Attribute set to passed-in value";
