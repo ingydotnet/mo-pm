@@ -7,10 +7,10 @@ Mo::default - Adds the default feature to Mo's has
 =head1 Synopsis
 
     use Mo qw'default';
-    has job => ( default => 'Killer' );
+    has job  => ( default => 'Killer' );
     has name => ( default => sub { 'Joe' } );
-    has age => 42;
-    has colors => ['green', 'blue'];
+    has age      => 42;
+    has colors   => [ 'green', 'blue' ];
 
 =head1 Description
 
@@ -25,6 +25,23 @@ These 3 lines are the same:
     has things => default => {};
     has things => {};
 
-Currently C<default> is always applied lazily.
+=head1 Laziness
+
+Default attribute values in Mo are lazy by default.
+This can be changed by explicitly setting the C<lazy> argument to false, in
+order to cause it to be initialized during instantiation.
+
+    use Mo qw'default';
+    has status   => 'active';                 # lazy
+    has location => sub { ... }, lazy => 1;   # lazy
+    has target   => sub { ... }, lazy => 0;   # eager
+
+To change the default behavior and make attributes to be initialized eagerly
+by default, import C<nonlazy>.
+
+    use Mo qw'default nonlazy';
+    has status   => 'active';                 # eager
+    has location => sub { ... }, lazy => 1;   # lazy
+    has target   => sub { ... }, lazy => 0;   # eager
 
 =cut
