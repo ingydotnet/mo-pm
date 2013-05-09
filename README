@@ -25,7 +25,7 @@ Core Features
         Mo provides a "new" object constructor. You pass it a list of
         name/value pairs and it returns a new object.
 
-        Constructor will not call BUILD metthods. This is available using
+        Constructor will not call BUILD methods. This is available using
         the Mo::build feature.
 
     "extends"
