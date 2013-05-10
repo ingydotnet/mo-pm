@@ -7,6 +7,10 @@ $VERSION = 0.33;
     $options->{builder} = sub {
         my ($method, $name, %args) = @_;
         my $builder = $args{builder} or return $method;
+
+        my $is_lazy = exists $args{lazy} ? $args{lazy} : !${$caller_pkg.NONLAZY};
+        $is_lazy or ${ $caller_pkg . EAGERINIT }{$name} = \&{$caller_pkg.$builder} and return $method;
+
         sub {
             $#_
               ? $method->(@_)
