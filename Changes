@@ -1,4 +1,9 @@
 ---
+version: 0.34
+date:    
+changes:
+- CarlosLima++ added nonlazy support to set defaults during construction.
+---
 version: 0.33
 date:    Thu Feb 28 03:31:47 MYT 2013
 changes:

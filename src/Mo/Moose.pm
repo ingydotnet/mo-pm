@@ -1,5 +1,5 @@
 package Mo::Moose;$MoPKG = "Mo::";
-$VERSION = 0.33;
+$VERSION = 0.34;
 
 *{$MoPKG.'Moose::e'} = sub {
     my ($caller_pkg, $exports) = @_;

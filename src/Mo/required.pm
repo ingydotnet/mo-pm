@@ -1,12 +1,12 @@
 package Mo::required;
 my $MoPKG = "Mo::";
-$VERSION = 0.33;
+$VERSION = 0.34;
 
 *{$MoPKG.'required::e'} = sub {
     my ($caller_pkg, $exports, $options) = @_;
     $options->{required} = sub {
         my ($method, $name, %args) = @_;
-        
+
         if ($args{required}) {
             my $old_constructor = *{$caller_pkg."new"}{CODE} || *{$MoPKG.Object::new}{CODE};
             no warnings 'redefine';
@@ -17,7 +17,7 @@ $VERSION = 0.33;
                 $self;
             };
         }
-        
+
         $method;
     };
 };
