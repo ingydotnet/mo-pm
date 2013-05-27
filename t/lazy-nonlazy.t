@@ -1,4 +1,4 @@
-use Test::More tests => 3;
+use Test::More tests => 4;
 
 {
     package Mo::Standard;
@@ -26,6 +26,21 @@ use Test::More tests => 3;
     has sport => { F1 => 'F1' }, lazy => 1;
     has teams => [ 'McLaren', 'Lotus', 'Toleman', 'Williams' ], lazy => 0;
 
+    sub BUILD {
+        my $self = shift;
+        $self->{name_at_build}  = $self->{name};
+        $self->{sport_at_build} = $self->{sport};
+    }
+}
+{
+    package Moose::Alike::Builder;
+    use Mo qw(build builder nonlazy);
+
+    has name  => (builder => '_name');
+    has sport => (builder => '_sport', lazy => 1);
+
+    sub _name  { 'Ayrton Senna' }
+    sub _sport { { F1 => 'F1' } }
     sub BUILD {
         my $self = shift;
         $self->{name_at_build}  = $self->{name};
@@ -99,4 +114,16 @@ subtest "Moose-like behavior (importing nonlazy and build)" => sub {
         [ 'McLaren', 'Lotus', 'Toleman', 'Williams' ],
         'attribute accessor'
     );
+};
+
+subtest "Moose-like behavior (importing builder, nonlazy and build)" => sub {
+    my $moosey_builder = Moose::Alike::Builder->new;
+    is( $moosey_builder->{name},
+        'Ayrton Senna', 'importing nonlazy makes builder default to non lazy' );
+    is $moosey_builder->{name_at_build}, 'Ayrton Senna',
+      'builder runs before BUILD is called';
+    is( $moosey_builder->name, 'Ayrton Senna', 'attribute accessor' );
+    is( $moosey_builder->{sport}, undef, 'lazy when explicitly asked' );
+    is( $moosey_builder->{sport_at_build},
+        undef, 'lazy builder not affected during build' );
 };
