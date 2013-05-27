@@ -1,4 +1,9 @@
 ---
+version: 0.35
+date:    Mon May 27 14:23:42 PDT 2013
+changes:
+- Forgot to merge doc changes from CarlosLima++
+---
 version: 0.34
 date:    Sun May 26 14:55:06 PDT 2013
 changes:
@@ -19,7 +24,7 @@ changes:
 version: 0.31
 date:    Thu Apr 19 10:59:34 PDT 2012
 changes:
-- dams++ and melo++ fix https://rt.cpan.org/Public/Bug/Display.html?id=76664 and https://rt.cpan.org/Public/Bug/Display.html?id=74487 
+- dams++ and melo++ fix https://rt.cpan.org/Public/Bug/Display.html?id=76664 and https://rt.cpan.org/Public/Bug/Display.html?id=74487
 ---
 version: 0.30
 date:    Tue Oct 11 19:36:07 EDT 2011

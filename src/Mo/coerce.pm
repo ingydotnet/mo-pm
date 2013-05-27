@@ -1,6 +1,6 @@
 package Mo::coerce;
 my $MoPKG = "Mo::";
-$VERSION = 0.34;
+$VERSION = 0.35;
 
 *{$MoPKG.'coerce::e'} = sub {
     my ($caller_pkg, $exports, $options) = @_;
@@ -13,7 +13,7 @@ $VERSION = 0.34;
                 : $method->(@_)
         };
     };
-    
+
     my $old_constructor = $exports->{new} || *{$MoPKG.Object::new}{CODE};
     $exports->{new} = sub {
         my $self = $old_constructor->(@_);
