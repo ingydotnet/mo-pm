@@ -231,6 +231,6 @@ sub _finder_subs {
 
 =head1 DESCRIPTION
 
-This is the module that is respeonsible for taking Mo code (which is
+This is the module that is responsible for taking Mo code (which is
 documented and fairly readable) and reducing it to a single undecipherable
 line.
