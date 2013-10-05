@@ -1,4 +1,4 @@
-use Test::More tests => 5;
+use Test::More tests => 8;
 use IO::All;
 # use XXX;use YAML;use YAML::Dumper;
 
@@ -50,5 +50,33 @@ is $t->this, 'Yep!', 'Inline builder works';
 is $t->thunk, 'DEfault', 'Inline default works';
 ok $t->isa('FooMo::Object'), 'object isa FooMo::Object';
 is $t->built, 'like a rock', 'BUILD works';
+
+
+package TestInlineSelectiveImport;
+use FooMo qw(default);
+
+has this => builder => 'that';
+has thunk => default => sub { 'DEfault' };
+has built => ();
+
+sub BUILD {
+    $_[0]->{built} = 'like a rock';
+}
+
+sub that {
+    $_[0]->thought;
+}
+
+sub thought {
+    'Yep!';
+}
+
+package main;
+
+my $t2 = TestInlineSelectiveImport->new;
+
+is $t2->this, undef, 'no builder imported';
+is $t2->thunk, 'DEfault', 'Inline default imported';
+is $t2->built, undef, 'no build imported';
 
 unlink $module_path;
