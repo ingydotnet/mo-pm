@@ -1,4 +1,4 @@
-use Test::More tests => 4;
+use Test::More tests => 5;
 use IO::All;
 # use XXX;use YAML;use YAML::Dumper;
 
@@ -11,7 +11,7 @@ BEGIN {
     io($module_path)->print(<<"...");
 package FooMo;
 \@INC = (); # Make sure external mods are not loaded.
-# use Mo qw'build default builder';
+# use Mo qw'build default builder importer import';
 1;
 ...
     push @INC, 'xt';
@@ -19,7 +19,11 @@ package FooMo;
 }
 
 package TestInline;
-use FooMo qw'build default builder';
+sub importer {
+    Test::More::is "@_", 'TestInline build default builder importer', 'Mo::importer works';
+}
+
+use FooMo;
 # use XXX;
 
 has this => builder => 'that';
