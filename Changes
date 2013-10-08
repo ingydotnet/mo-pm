@@ -1,3 +1,6 @@
+{{$NEXT}}
+changes:
+- Move the distribution to Dist::Zilla
 ---
 version: 0.35
 date:    Mon May 27 14:23:42 PDT 2013

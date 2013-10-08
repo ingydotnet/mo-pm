@@ -1,6 +1,6 @@
 package Mo::coerce;
 my $MoPKG = "Mo::";
-$VERSION = 0.35;
+$VERSION = 0.36;
 
 *{$MoPKG.'coerce::e'} = sub {
     my ($caller_pkg, $exports, $options) = @_;
