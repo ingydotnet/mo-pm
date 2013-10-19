@@ -4,7 +4,7 @@ $VERSION = 0.36;
 
 *{$MoPKG.'exporter::e'} = sub {
     my ($caller_pkg) = @_;
-    if (defined @{$MoPKG.EXPORT}) {
+    if (@{$MoPKG.EXPORT}) {
         *{$caller_pkg.$_} = \&{$MoPKG.$_}
             for @{$MoPKG.EXPORT};
     };
