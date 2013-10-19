@@ -64,7 +64,7 @@ Requires L<Class::XSAccessor>.
 =back
 
 There are also feature modules that ship outside of the Mo distribution. You
-can search CPAN, but heres a starter list:
+can search CPAN, but here's a starter list:
 
 =over
 
