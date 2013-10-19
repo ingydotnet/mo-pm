@@ -1,4 +1,8 @@
 {{$NEXT}}
+
+---
+version: 0.36
+date:    Sun Oct 20 04:44:42 MYT 2013
 changes:
 - Move the distribution to Dist::Zilla
 ---
