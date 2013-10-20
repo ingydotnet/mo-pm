@@ -23,3 +23,8 @@ $(ALL) : Makefile
 
 ../lib/%.pm : %.pm
 	perl -I../lib -MMo::Golf=golf < $< > $@
+
+.PHONY: version
+
+version:
+	perl update_version.pl
