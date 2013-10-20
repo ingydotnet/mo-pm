@@ -12,7 +12,7 @@ my ($version) = read_file("$basedir/Mo.pm") =~ /\$VERSION[\s=']+([\d.]+)/;
 die 'Could not read version from Mo.pm' unless $version;
 say "Setting version to: $version";
 
-my @files;
+my @files = ( "$basedir/../lib/Mo/Inline.pm", "$basedir/../lib/Mo/Golf.pm" );
 find(
   sub {
     push @files, $File::Find::name if $File::Find::name =~ /\.pm\z/;
