@@ -1,0 +1,15 @@
+language: perl
+perl:
+  - 5.18
+  - 5.16
+  - 5.14
+  - 5.12
+  - 5.10
+  - 5.8
+install: true
+script:
+   - touch src/Makefile && make -C src all
+   - prove -lrs t
+   - dzil authordeps --missing | cpanm -nq || { cat ~/.cpanm/build.log ; false ; }
+   - dzil listdeps --author --missing | grep -v Baz | cpanm -nq || { cat ~/.cpanm/build.log ; false ; }
+   - dzil test --automated --author

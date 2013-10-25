@@ -1,6 +1,6 @@
 package Mo::import;
 my $MoPKG = "Mo::";
-$VERSION=0.36;
+$VERSION=0.37;
 
 my $import = \&import;
 *{$MoPKG.import} = sub {

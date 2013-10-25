@@ -1,5 +1,7 @@
 {{$NEXT}}
-
+- Bugfix: Run Test::Compile tests as xt as they require optional dependencies to be present (GH issue #22)
+- Testing: Added Travis-CI integration
+- Makefile: Added target to update version on all packages
 ---
 version: 0.36
 date:    Sun Oct 20 04:44:42 MYT 2013
