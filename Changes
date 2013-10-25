@@ -1,162 +1,111 @@
 {{$NEXT}}
 
----
-version: 0.37
-date:    Fri Oct 25 21:46:59 MYT 2013
-changes:
-- Bugfix: Run Test::Compile tests as xt as they require optional dependencies to be present (GH issue #22)
-- Testing: Added Travis-CI integration
-- Makefile: Added target to update version on all packages
----
-version: 0.36
-date:    Sun Oct 20 04:44:42 MYT 2013
-changes:
-- Move the distribution to Dist::Zilla
----
-version: 0.35
-date:    Mon May 27 14:23:42 PDT 2013
-changes:
-- Forgot to merge doc changes from CarlosLima++
----
-version: 0.34
-date:    Sun May 26 14:55:06 PDT 2013
-changes:
-- CarlosLima++ added nonlazy support to set defaults during construction.
----
-version: 0.33
-date:    Thu Feb 28 03:31:47 MYT 2013
-changes:
-- Adds terser syntax to Mo::default
-- Assumes default when given odd number of arguments to has
-- Improved automated golfing
----
-version: 0.32
-date:    Tue Feb 26 01:47:41 MYT 2013
-changes:
-- Required attributes accepts 0/undef
----
-version: 0.31
-date:    Thu Apr 19 10:59:34 PDT 2012
-changes:
-- dams++ and melo++ fix https://rt.cpan.org/Public/Bug/Display.html?id=76664 and https://rt.cpan.org/Public/Bug/Display.html?id=74487
----
-version: 0.30
-date:    Tue Oct 11 19:36:07 EDT 2011
-changes:
-- Don't run moose/mouse tests unless deps exist
-- Add Mo::importer
----
-version: 0.29
-date:    Mon Oct 10 22:46:50 EDT 2011
-changes:
-- Mo::Mouse with help by gfx++
----
-version: 0.28
-date:    Sun Oct  9 16:29:07 EDT 2011
-changes:
-- First module ever released during a Lightning Talk (PPW 2011)
-- Mo::Moose with help by doy++
-- Mo::option
----
-version: 0.27
-date:    Thu Oct  6 10:33:29 EDT 2011
-changes:
-- forwardever++ added Mo::chain
----
-version: 0.26
-date:    Mon Oct  3 18:03:21 BST 2011
-changes:
-- Added Mo::import and Mo::exporter.
-- Add Mo::xs
-- Make Mo::Inline better
-- More docs
----
-version: 0.25
-date:    Sat Oct  1 15:46:19 BST 2011
-changes:
-- Add a Feature extension system.
-- This is a non-backward compat release as it no longer includes builder and
-  default automatically.
-- Add new feaures: coerce, is.
----
-version: 0.24
-date:    Sun Sep 25 12:44:29 CEST 2011
-changes:
-- Ensure that Mo.pm ends with semicolon. Needed for inlining.
-- Released from Laurent++ and Emmanuelle++ Parisian porch over a delightful
-  breakfast with they and BooK.
----
-version: 0.23
-date:    Wed Sep 21 23:53:13 CEST 2011
-changes:
-- Refactoring and more docs.
-- Released from Liz++ and Wendy++'s upstairs toilet room. (From the throne!)
----
-version: 0.22
-date:    Mon Sep 12 17:18:29 CEST 2011
-changes:
-- mst++ changed default base class to Mo::O to avoid inheriting import() method
----
-version: 0.21
-date:    Mon Sep 12 11:16:31 CEST 2011
-changes:
-- Add Mo::Design pod
-- Remove multiple inheritance
-- Released from Liz++ and Wendy++ kitchen
----
-version: 0.20
-date:    Sun Sep 11 11:58:51 CEST 2011
-changes:
-- mv bin/compress to script/compress.pl
----
-version: 0.19
-date:    Sun Sep 11 11:27:14 CEST 2011
-changes:
-- Squish!
----
-version: 0.18
-date:    Sun Sep 11 09:52:30 CEST 2011
-changes:
-- Don't pollute namspace with _ (or anything)
----
-version: 0.17
-date:    Sun Sep 11 03:24:17 CEST 2011
-changes:
-- Call BUILD sequence properly
----
-version: 0.16
-date:    Sun Sep 11 01:31:30 CEST 2011
-changes:
-- extends can handle multiple parents
----
-version: 0.15
-date:    Sat Sep 10 23:40:23 CEST 2011
-changes:
-- extends did load parent module. fixed.
----
-version: 0.14
-date:    Sat Sep 10 22:25:40 CEST 2011
-changes:
-- Make default called on exists rather than undef
-- Add builder. Very cheap to do so.
----
-version: 0.13
-date:    Fri Sep  9 19:15:05 CEST 2011
-changes:
-- dams++ adds 'default' for 'has'
----
-version: 0.12
-date:    Fri Sep  9 07:52:13 CEST 2011
-changes:
-- dams++ golfing
-- Upgrade docs
----
-version: 0.11
-date:    Thu Sep  8 15:36:35 CEST 2011
-changes:
-- Move doc from pm to pod
----
-version: 0.10
-date:    Thu Sep  8 15:24:03 CEST 2011
-changes:
-- First Release
+0.37 2013-10-25 21:46:59 MYT
+    - Bugfix: Run Test::Compile tests as xt as they require
+      optional dependencies to be present (GH issue #22)
+    - Testing: Added Travis-CI integration
+    - Makefile: Added target to update version on all packages
+
+0.36 2013-10-20 04:44:42 MYT
+    - Move the distribution to Dist::Zilla
+
+0.35 2013-05-27 14:23:42 PDT
+    - Forgot to merge doc changes from CarlosLima++
+
+0.34 2013-05-26 14:55:06 PDT
+    - CarlosLima++ added nonlazy support to set defaults during construction.
+
+0.33 2013-02-28 03:31:47 MYT
+    - Adds terser syntax to Mo::default
+    - Assumes default when given odd number of arguments to has
+    - Improved automated golfing
+
+0.32 2013-02-26 01:47:41 MYT
+    - Required attributes accepts 0/undef
+
+0.31 2012-04-19 10:59:34 PDT
+    - dams++ and melo++
+      fix https://rt.cpan.org/Public/Bug/Display.html?id=76664
+      and https://rt.cpan.org/Public/Bug/Display.html?id=74487
+
+0.30 2011-10-11 19:36:07 EDT
+    - Don't run moose/mouse tests unless deps exist
+    - Add Mo::importer
+
+0.29 2011-10-10 22:46:50 EDT
+    - Mo::Mouse with help by gfx++
+
+0.28 2011-10-09 16:29:07 EDT
+    - First module ever released during a Lightning Talk (PPW 2011)
+    - Mo::Moose with help by doy++
+    - Mo::option
+
+0.27 2011-10-06 10:33:29 EDT
+    - forwardever++ added Mo::chain
+
+0.26 2011-10-03 18:03:21 BST
+    - Added Mo::import and Mo::exporter.
+    - Add Mo::xs
+    - Make Mo::Inline better
+    - More docs
+
+0.25 2011-10-01 15:46:19 BST
+    - Add a Feature extension system.
+    - This is a non-backward compat release as it no longer includes builder
+      and default automatically.
+    - Add new feaures: coerce, is.
+
+0.24 2011-09-25 12:44:29 CEST
+    - Ensure that Mo.pm ends with semicolon. Needed for inlining.
+    - Released from Laurent++ and Emmanuelle++ Parisian porch over a delightful
+      breakfast with they and BooK.
+
+0.23 2011-09-21 23:53:13 CEST
+    - Refactoring and more docs.
+    - Released from Liz++ and Wendy++'s upstairs toilet room.
+      (From the throne!)
+
+0.22 2011-09-12 17:18:29 CEST
+    - mst++ changed default base class to Mo::O
+      to avoid inheriting import() method
+
+0.21 2011-09-12 11:16:31 CEST
+    - Add Mo::Design pod
+    - Remove multiple inheritance
+    - Released from Liz++ and Wendy++ kitchen
+
+0.20 2011-09-11 11:58:51 CEST
+    - mv bin/compress to script/compress.pl
+
+0.19 2011-09-11 11:27:14 CEST
+    - Squish!
+
+0.18 2011-09-11 09:52:30 CEST
+    - Don't pollute namspace with _ (or anything)
+
+0.17 2011-09-11 03:24:17 CEST
+    - Call BUILD sequence properly
+
+0.16 2011-09-11 01:31:30 CEST
+    - extends can handle multiple parents
+
+0.15 2011-09-10 23:40:23 CEST
+    - extends did load parent module. fixed.
+
+0.14 2011-09-10 22:25:40 CEST
+    - Make default called on exists rather than undef
+    - Add builder. Very cheap to do so.
+
+0.13 2011-09-09 19:15:05 CEST
+    - dams++ adds 'default' for 'has'
+
+0.12 2011-09-09 07:52:13 CEST
+    - dams++ golfing
+    - Upgrade docs
+
+0.11 2011-09-08 15:36:35 CEST
+    - Move doc from pm to pod
+
+0.10 2011-09-08 15:24:03 CEST
+    - First Release
+
