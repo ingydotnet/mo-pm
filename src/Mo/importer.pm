@@ -1,6 +1,6 @@
 package Mo::importer;
 my $MoPKG = "Mo::";
-$VERSION=0.37;
+$VERSION=0.38;
 
 *{$MoPKG.'importer::e'} = sub {
     my ($caller_pkg, $exports, $options, $features) = @_;
