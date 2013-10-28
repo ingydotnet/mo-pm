@@ -1,4 +1,4 @@
-# {{$NEXT}}
+{{$NEXT}}
 - Fixed Changes file to comply to CPAN::Changes::Spec
 ---
 version: 0.37
