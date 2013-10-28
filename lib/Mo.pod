@@ -107,7 +107,9 @@ L<Mo::Design>
 =head1 Status
 
 =begin html
+
 <p><a href="https://travis-ci.org/ingydotnet/mo-pm"><img src="https://travis-ci.org/ingydotnet/mo-pm.png?branch=master" alt="Build Status" style="max-width:100%;"></a></p>
+
 =end html
 
 =head1 Authors
