@@ -1,4 +1,9 @@
 {{$NEXT}}
+
+---
+version: 0.38
+date:    Mon Oct 28 15:37:28 MYT 2013
+changes:
 - Fixed Changes file to comply to CPAN::Changes::Spec
 ---
 version: 0.37
