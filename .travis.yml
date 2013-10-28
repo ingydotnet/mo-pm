@@ -10,6 +10,6 @@ install: true
 script:
    - touch src/Makefile && make -C src all
    - prove -lrs t
-   - dzil authordeps --missing | cpanm -nq || { cat ~/.cpanm/build.log ; false ; }
-   - dzil listdeps --author --missing | grep -v Baz | cpanm -nq || { cat ~/.cpanm/build.log ; false ; }
-   - dzil test --automated --author
+   - if perl -M5.012 -e1; then (dzil authordeps --missing | cpanm -nq || { cat ~/.cpanm/build.log ; false ; }) fi
+   - if perl -M5.012 -e1; then (dzil listdeps --author --missing | grep -v Baz | cpanm -nq || { cat ~/.cpanm/build.log ; false ; }) fi
+   - if perl -M5.012 -e1; then (dzil test --automated --author) fi
