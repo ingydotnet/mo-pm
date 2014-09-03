@@ -3,5 +3,5 @@ my $MoPKG = "Mo::";
 $VERSION=0.38;
 
 *{ $MoPKG . 'nonlazy::e' } = sub {
-    ${ shift . NONLAZY } = 1;
+    ${ shift() . NONLAZY } = 1;
 };
