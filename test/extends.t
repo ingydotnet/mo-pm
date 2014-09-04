@@ -1,6 +1,8 @@
+use File::Basename;
+use lib dirname(__FILE__), 'inc';
+
 use Test::More tests => 4;
 
-use lib 't';
 use Bar;
 
 my $b = Bar->new;

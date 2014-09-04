@@ -1,0 +1,42 @@
+Mo::option
+==========
+
+Allow an attribute to be a chainable, boolean option.
+
+= Synopsis
+
+  package Foo;
+
+  use Mo qw'option';
+  has this => ( option => 1 );
+  has that => ( option => 1 );
+
+  my $f = Foo->new;
+  $f->this->that(0)->do_something;
+
+  my $this = $f->read_this;   # 1
+  my $that = $f->read_that;   # 0
+
+  $f->do_something if $f->read_this;
+
+= Description
+
+This feature lets an accessor act as an option, that is intended to have a
+value of 1 or 0. Simply calling the accessor sets the value to 1, and returns
+the instance so you can chain to the next method.
+
+To get the value of the attribute, call the "read_<name>" accessor. Here's a
+trick to do that when you are not assigning the value to anything:
+
+= Author
+
+Ingy döt Net <ingy@cpan.org>
+
+= Copyright and License
+
+Copyright (c) 2011-2014. Ingy döt Net.
+
+This program is free software; you can redistribute it and/or modify it under
+the same terms as Perl itself.
+
+See http://www.perl.com/perl/misc/Artistic.html

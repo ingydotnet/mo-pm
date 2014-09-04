@@ -1,0 +1,61 @@
+Mo::build
+=========
+
+Adds the build feature to Mo
+
+= Synopsis
+
+  use Mo qw'build';
+  has name => ( is => 'rw' );
+
+  sub BUILD {
+      my $self = shift;
+      ...
+  }
+
+= Description
+
+Adds the `BUILD` feature to Mo when imported.
+
+If a sub called `BUILD` exists on the package, it will be executed on `$self`
+during instantiation.
+
+Any non-lazy `default` and `builder` attributes, as well as any value passed
+to `new` will already be set when `BUILD` is called.
+
+  package ABCD;
+  use Mo qw'build builder default';
+  use feature 'say';
+
+  has a => (default => 1234, lazy => 0);
+  has b => (builder => '_b', lazy => 0);
+  has c => (is => 'rw');
+  has d => (is => 'rw');
+
+  sub _b { 'blue' }
+
+  sub BUILD {
+      my ($self) = @_;
+      say $self->{a};
+      say $self->{b};
+      say $self->{c};
+      say 'undef' unless defined $self->{d};
+  }
+
+  ABCD->new(c => 'days') # => 1234
+                         #    blue
+                         #    days
+                         #    undef
+
+= Author
+
+Ingy döt Net <ingy@cpan.org>
+
+= Copyright and License
+
+Copyright (c) 2011-2014. Ingy döt Net.
+
+This program is free software; you can redistribute it and/or modify it under
+the same terms as Perl itself.
+
+See http://www.perl.com/perl/misc/Artistic.html

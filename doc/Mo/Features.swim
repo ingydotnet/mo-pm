@@ -1,0 +1,77 @@
+= Mo Features
+
+Mo is absolutely minimal, but it let's you easily add many features like this:
+
+  use Mo qw[default builder other features];
+
+This will load the modules [Mo::default], etc, and have them modify your Mo
+reality.
+
+Here's a list of the current feature modules that ship with [Mo]:
+
+- [Mo::builder]
+
+  Add `builder` feature to `has`.
+
+- [Mo::chain]
+
+  Add `chain` feature to `has`.
+
+- [Mo::coerce]
+
+  Add `coerce` feature to `has`.
+
+- [Mo::default]
+
+  Add `default` feature to `has`.
+
+- [Mo::exporter]
+
+  Exporter for [Mo::Inline] usage. Only works with inlined Mo.
+
+- [Mo::import]
+
+  Finalizer for [Mo::Inline] usage. Only works with inlined Mo.
+
+- [Mo::is]
+
+  Add `is` feature to `has`.
+
+- [Mo::Moose]
+
+  Use Moose in place of Mo for everything.
+
+- [Mo::Mouse]
+
+  Use Mouse in place of Mo for everything.
+
+- [Mo::option]
+
+  Add `option` feature to `has`.
+
+- [Mo::required]
+
+  Add `required` feature to `has`.
+
+- [Mo::xs]
+
+  Use XS modules to make things faster.
+
+  Requires [Class::XSAccessor].
+
+There are also feature modules that ship outside of the Mo distribution. You
+can search CPAN, but here's a starter list:
+
+- [Mo::xxx]
+
+  Exports the [XXX] functions for debugging. Handy!
+
+= Note
+
+Don't assume that all feature modules will work together. Sometimes the order
+you specify them in may affect how they work together. Read the feature docs
+and test your assumptions.
+
+We continue to make more and more things work together, and when they don't we
+try to document it. Let us know if you feel like something critical is broken.
+See [Mo::Hacking].

@@ -1,0 +1,27 @@
+Mo::required
+============
+
+Adds the required feature to Mo's has
+
+= Synopsis
+
+  use Mo qw'required';
+  has name => ( required => 1 );
+
+= Description
+
+Adds the required parameter to has. When required is set to a positive value,
+the constructor will die if the attribute is not set.
+
+= Author
+
+Ingy döt Net <ingy@cpan.org>
+
+= Copyright and License
+
+Copyright (c) 2011-2014. Ingy döt Net.
+
+This program is free software; you can redistribute it and/or modify it under
+the same terms as Perl itself.
+
+See http://www.perl.com/perl/misc/Artistic.html

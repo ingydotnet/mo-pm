@@ -1,0 +1,31 @@
+=meta: 0.0.2
+
+name: Mo
+version: 0.39
+abstract: Micro Objects. Mo is less.
+homepage: https://metacpan.org/release/Mo
+language: perl
+license: perl
+copyright: 2014
+
+author:
+  name: Ingy döt Net
+  email: ingy@cpan.org
+  homepage: http://ingy.net
+  github: ingydotnet
+  twitter: ingydotnet
+  freenode: ingy
+
+devel:
+  git: https://github.com/ingydotnet/mo-pm
+  irc: irc.freenode.net#pkg
+  bug: https://github.com/ingydotnet/mo-pm/issues
+
+requires:
+  perl: 5.8.1
+
+recommends:
+  Class::XSAccessor: 0
+  IO::All: 0
+  Moose: 0
+  Mouse: 0

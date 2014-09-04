@@ -1,0 +1,27 @@
+Mo::coerce
+==========
+
+Adds the coerce feature to Mo's has
+
+= Synopsis
+
+  use Mo qw'coerce';
+  has name => ( coerce => sub { uc $_[0] } );
+
+= Description
+
+Adds the coerce parameter to has, which expects a code reference, which is
+used to transform the value to be set.
+
+= Author
+
+Ingy döt Net <ingy@cpan.org>
+
+= Copyright and License
+
+Copyright (c) 2011-2014. Ingy döt Net.
+
+This program is free software; you can redistribute it and/or modify it under
+the same terms as Perl itself.
+
+See http://www.perl.com/perl/misc/Artistic.html

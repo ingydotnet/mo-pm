@@ -1,7 +1,9 @@
-use strict;
-use warnings;
+use strict; use warnings;
+
+use File::Basename;
+use lib dirname(__FILE__), 'inc';
+
 use Test::More tests => 2;
-use lib 't';
 
 { package Clean; use Foo; }
 

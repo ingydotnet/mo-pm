@@ -1,0 +1,57 @@
+Mo::default
+===========
+
+Adds the default feature to Mo's has
+
+= Synopsis
+
+  use Mo qw'default';
+  has job  => ( default => 'Killer' );
+  has name => ( default => sub { 'Joe' } );
+  has age      => 42;
+  has colors   => [ 'green', 'blue' ];
+
+= Description
+
+Adds the default parameter to has, which expects a value. If the value is a
+code ref, it is called to produce the default. If the value is a hash or array
+ref, then a shallow copy is made for the default. If there is an odd number of
+arguments after the attribute name, then the first value is the default.
+
+These 3 lines are the same:
+
+  has things => default => sub {+{}};
+  has things => default => {};
+  has things => {};
+
+= Laziness
+
+Default attribute values in Mo are lazy by default.  This can be changed by
+explicitly setting the `lazy` argument to false, in order to cause it to be
+initialized during instantiation.
+
+  use Mo qw'default';
+  has status   => 'active';                 # lazy
+  has location => sub { ... }, lazy => 1;   # lazy
+  has target   => sub { ... }, lazy => 0;   # eager
+
+To change the default behavior and make attributes to be initialized eagerly
+by default, import `nonlazy`.
+
+  use Mo qw'default nonlazy';
+  has status   => 'active';                 # eager
+  has location => sub { ... }, lazy => 1;   # lazy
+  has target   => sub { ... }, lazy => 0;   # eager
+
+= Author
+
+Ingy döt Net <ingy@cpan.org>
+
+= Copyright and License
+
+Copyright (c) 2011-2014. Ingy döt Net.
+
+This program is free software; you can redistribute it and/or modify it under
+the same terms as Perl itself.
+
+See http://www.perl.com/perl/misc/Artistic.html

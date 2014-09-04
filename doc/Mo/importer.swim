@@ -1,0 +1,39 @@
+Mo::importer
+============
+
+Write your own import() extension
+
+= Synopsis
+
+  package MyMo;
+
+  sub importer {
+      my ($caller, @args) = @_;
+      ...
+  }
+
+  use Mo qw[importer other features];
+
+= Description
+
+Sometimes you need to add your own logic during Mo::import time. This feature
+lets you do that by defining your own `importer` subroutine. It will pass you
+the original caller pkg and the args passed in.
+
+= Note
+
+You need to define the `importer` sub before you `use Mo ...`, for (hopefully)
+obvious reasons. :\
+
+= Author
+
+Ingy döt Net <ingy@cpan.org>
+
+= Copyright and License
+
+Copyright (c) 2011-2014. Ingy döt Net.
+
+This program is free software; you can redistribute it and/or modify it under
+the same terms as Perl itself.
+
+See http://www.perl.com/perl/misc/Artistic.html
