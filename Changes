@@ -1,6 +1,11 @@
 {{$NEXT}}
 
 ---
+version: 0.39
+date:    Wed Sep  3 23:31:55 MDT 2014
+changes:
+- Apply PR/25. @daoswald++
+---
 version: 0.38
 date:    Mon Oct 28 15:37:28 MYT 2013
 changes:
