@@ -14,7 +14,7 @@ my $MoPKG = __PACKAGE__.'::';
 *{$MoPKG.Object::new} = sub {
     my $class            = shift;
     my $self             = bless {@_}, $class;
-    my %nonlazy_defaults = %{ $class . :: . EAGERINIT };
+    my %nonlazy_defaults = %{ $class . '::' . EAGERINIT };
     map { $self->{$_} = $nonlazy_defaults{$_}->() if !exists $self->{$_} }
       keys %nonlazy_defaults;
     $self
