@@ -1,5 +1,5 @@
 package Mo::Mouse;$MoPKG = "Mo::";
-$VERSION=0.39;
+$VERSION=0.40;
 
 *{$MoPKG.'Mouse::e'} = sub {
     my ($caller_pkg, $exports) = @_;

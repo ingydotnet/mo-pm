@@ -1,4 +1,9 @@
 ---
+version: 0.40
+date:    Tue Jul  5 12:44:19 PDT 2016
+changes:
+- Apply PR/30 and PR/31. @nfg++. @veryrusty++.
+---
 version: 0.39
 date:    Wed Sep  3 23:31:55 MDT 2014
 changes:
