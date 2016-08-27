@@ -12,7 +12,7 @@ Mo::is - Adds the is feature to Mo's has
 =head1 Description
 
 Adds the is parameter to has. If you set it to I<ro>, the accessor
-will only work as a getter. You will still able to set the value 
+will only work as a getter. You will still able to set the value
 at construction time via C<new>.
 
 =cut
