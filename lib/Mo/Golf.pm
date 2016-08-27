@@ -3,7 +3,7 @@
 # abstract:  Module for Compacting Mo Modules
 # author:    Ingy döt Net <ingy@ingy.net>
 # license:   perl
-# copyright: 2011
+# copyright: 2016
 # see:
 # - Mo
 
