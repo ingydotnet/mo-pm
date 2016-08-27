@@ -13,7 +13,7 @@ Mo::importer - Write your own import() extension
         ...
     }
 
-    use Mo qw[importer other features]; 
+    use Mo qw[importer other features];
 
 =head1 Description
 

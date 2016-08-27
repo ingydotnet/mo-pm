@@ -7,7 +7,7 @@ Mo::import - Special import feature for Mo::Inline
 =head1 Synopsis
 
     package MyMo;
-    # use Mo qw[default builder import]; 
+    # use Mo qw[default builder import];
 
     package SomeClass;
     use MyMo;
