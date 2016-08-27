@@ -3,7 +3,7 @@
 # abstract:  Inline Mo and Features into your package
 # author:    Ingy döt Net <ingy@ingy.net>
 # license:   perl
-# copyright: 2011
+# copyright: 2016
 # see:
 # - Mo
 
