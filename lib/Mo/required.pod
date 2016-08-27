@@ -11,7 +11,7 @@ Mo::required - Adds the required feature to Mo's has
 
 =head1 Description
 
-Adds the required parameter to has. When required is set to a positive 
+Adds the required parameter to has. When required is set to a positive
 value, the constructor will die if the attribute is not set.
 
 =cut

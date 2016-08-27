@@ -7,7 +7,7 @@ Mo::exporter - Export the @EXPORT list
 =head1 Synopsis
 
     package MyMo;
-    # use Mo qw[exporter import]; 
+    # use Mo qw[exporter import];
 
     package SomeClass;
     use MyMo;

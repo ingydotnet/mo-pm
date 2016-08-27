@@ -67,7 +67,7 @@ documentation. See C<Mo::Inline>.
 
 L<Moose> has become the accepted style of OO in perl. Mo will attempt to not
 do the things it does in an incompatible style to the C<Moose> family.
-    
+
 This is not to say that all Mo code can be switched to Moo, or vice versa.
 This I<is> to say that you should be able to find a style of coding using the
 full capabilities of Mo, that you can switch to L<Moo> (or L<Mouse> or L<Moose>),
