@@ -98,7 +98,7 @@ the Feature API..
 
 L<Mo::Features>
 
-L<Mo::Inlining>
+L<Mo::Inline>
 
 L<Mo::Hacking>
 
