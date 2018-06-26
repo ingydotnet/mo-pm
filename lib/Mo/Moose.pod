@@ -15,7 +15,7 @@ If you use L<Mo> and want to try L<Moose> without adding C<is> and C<lazy>
 options to all your attributes you can just do this:
 
     use Mo 'Moose';
-    use foo => ();
+    has foo => ();
 
 and everything should work, but now uses Moose instead of Mo for everything.
 
