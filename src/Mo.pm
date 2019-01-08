@@ -1,4 +1,4 @@
-# The first two lines are left alone in the compressed source.
+# The following two lines are left alone in the compressed source.
 package Mo;
 $VERSION='0.40';
 
