@@ -225,6 +225,10 @@ sub _finder_subs {
     );
 }
 
+=head1 NAME
+
+Mo::Golf - Module for Compacting Mo Modules
+
 =head1 SYNOPSIS
 
     perl -MMo::Golf=golf < src/Mo/foo.pm > lib/Mo/foo.pm
