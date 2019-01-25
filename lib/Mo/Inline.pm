@@ -92,6 +92,10 @@ Usage: mo-linline <perl module files or directories>
 
 1;
 
+=head1 NAME
+
+Mo::Inline - Inline Mo and Features into your package
+
 =head1 SYNOPSIS
 
 In your Mo module:
